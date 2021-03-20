@@ -2,19 +2,15 @@
 // Hacking.js
 //=============================================================================
 /*:
- * @plugindesc Description of your plugin
+ * @plugindesc Code for the hacking minigame
  *
  * @fabian
  *
  * @help
  *
- * Anything users might need to know about using your plugin.
+ * This file has the functions to connect two consecutives nodes and to complete te minigame if 3 are connected
  *
- * TERMS OF USE
- * What people who use your plugin are allowed to do with it.
  *
- * COMPATIBILITY
- * Any compatibility issues you know of or that have been brought to your attention, such as not being able to use this plugin with one of Galv's for example. This will be most common when you have a plugin that does the same or a similar thing to someone else's.
  */
 
 function connectNode(n1, n2) {

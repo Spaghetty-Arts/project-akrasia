@@ -2,5 +2,5 @@
 null,
 {"id":1,"expanded":false,"name":"MAP001","order":1,"parentId":0,"scrollX":1092,"scrollY":614.6666666666666},
 {"id":2,"expanded":true,"name":"minigame","order":2,"parentId":0,"scrollX":1089.3333333333333,"scrollY":614.6666666666666},
-{"id":3,"expanded":false,"name":"hacking","order":3,"parentId":2,"scrollX":1213.5,"scrollY":721.5}
+{"id":3,"expanded":false,"name":"hacking","order":3,"parentId":2,"scrollX":1192,"scrollY":753.3333333333334}
 ]
