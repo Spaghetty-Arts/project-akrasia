@@ -1,5 +1,5 @@
 {
-    "name": "",
+    "name": "KADOKAWA/RPGMV",
     "main": "index.html",
     "js-flags": "--expose-gc",
     "window": {
