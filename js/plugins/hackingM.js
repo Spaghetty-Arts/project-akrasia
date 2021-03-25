@@ -4,7 +4,7 @@
 /*:
  * @plugindesc Code for the hacking minigame
  *
- * @fabian
+ * @author fabian
  *
  * @help
  *
