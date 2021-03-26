@@ -11,6 +11,8 @@ var $plugins =
 {"name":"hackingM","status":true,"description":"Code for the hacking minigame","parameters":{}},
 {"name":"conversation","status":true,"description":"Code for conversation","parameters":{}},
 {"name":"Prologue_Metro","status":true,"description":"Code for the events in metro","parameters":{}},
+{"name":"SaveSystem","status":true,"description":"Code for the saving system","parameters":{}},
+{"name":"Chapters","status":true,"description":"Code for getting the chapter information","parameters":{}},
 {"name":"----------------------------------","status":false,"description":"","parameters":{}},
 {"name":"SRD_TranslationEngine","status":true,"description":"Provides game developers with an in-game tool for building and managing translations/localizations for their game's text.","parameters":{"Source Language Name":"English","Languages":"[\"English\",\"Portuguese\"]","Default Language":"","Provide Option?":"true","Option Name":"Language","Allow Message Update?":"true"}}
 ];
