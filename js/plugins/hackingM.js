@@ -78,4 +78,13 @@
 		$gameMessage.add("Failed");
 	}
 
+	hackOff = function (x) {
+		AudioManager.playSe({name: "block", pan: 0, pitch: 100, volume: 100});
+		Game_Interpreter.prototype.set_self_variable("off", 1, x, $gameMap._mapId);
+	}
+
+	hackSucc = function (x) {
+		AudioManager.playSe({name: "confirm", pan: 0, pitch: 100, volume: 100});
+		$gameSelfSwitches.setValue([$gameMap._mapId, x, "D"], true);
+	}
 })();
