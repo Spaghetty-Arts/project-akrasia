@@ -4,9 +4,9 @@ null,
 {"id":2,"expanded":true,"name":"minigame","order":2,"parentId":0,"scrollX":540.6666666666666,"scrollY":318.3333333333333},
 {"id":3,"expanded":false,"name":"hacking","order":3,"parentId":2,"scrollX":1390,"scrollY":786.3333333333334},
 {"id":4,"expanded":true,"name":"Prologue","order":4,"parentId":0,"scrollX":893.4545454545455,"scrollY":500.1818181818182},
-{"id":5,"expanded":false,"name":"Metro","order":5,"parentId":4,"scrollX":1228.5,"scrollY":687.75},
-{"id":6,"expanded":true,"name":"Station","order":6,"parentId":4,"scrollX":1280,"scrollY":1436},
+{"id":5,"expanded":false,"name":"Metro","order":5,"parentId":4,"scrollX":982.8,"scrollY":550.1999999999999},
+{"id":6,"expanded":true,"name":"Station","order":6,"parentId":4,"scrollX":1081.3333333333333,"scrollY":1083.3333333333333},
 {"id":7,"expanded":false,"name":"City","order":8,"parentId":4,"scrollX":1092,"scrollY":614.6666666666666},
 {"id":8,"expanded":false,"name":"WhiteSafe","order":9,"parentId":4,"scrollX":2184,"scrollY":1229.3333333333333},
-{"id":9,"expanded":false,"name":"Station f0","order":7,"parentId":6,"scrollX":2218,"scrollY":1085}
+{"id":9,"expanded":false,"name":"Station f0","order":7,"parentId":6,"scrollX":2162.6666666666665,"scrollY":1222.6666666666667}
 ]
