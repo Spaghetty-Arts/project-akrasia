@@ -15,8 +15,10 @@
 
 (function( ){
 
-    controllSwitch1 = function (eId, choice, onOff) {
-        $gameSelfSwitches.setValue([$gameMap._mapId, eId, choice], onOff);
+    controllSwitch = function (eId, choice, onOff) {
+        for (i = 0; i < eId.length; i++) {
+            $gameSelfSwitches.setValue([$gameMap._mapId, eId[i], choice], onOff);
+        }
     }
 
 })();
