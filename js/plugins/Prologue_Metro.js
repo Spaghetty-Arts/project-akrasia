@@ -40,4 +40,15 @@
             return 2;
         }
     }
+
+    hoboCitizen = function () {
+        $gameSelfSwitches.setValue([$gameMap._mapId, 14, "A"], true);
+        $gameSelfSwitches.setValue([$gameMap._mapId, 16, "A"], true);
+        $gameSelfSwitches.setValue([$gameMap._mapId, 17, "A"], true);
+    }
+
+    hoboPolice = function () {
+        $gameSelfSwitches.setValue([$gameMap._mapId, 9, "A"], true);
+        $gameSelfSwitches.setValue([$gameMap._mapId, 15, "A"], true);
+    }
 })();
