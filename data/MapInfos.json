@@ -9,10 +9,11 @@ null,
 {"id":7,"expanded":false,"name":"City","order":8,"parentId":4,"scrollX":1414.6666666666667,"scrollY":604},
 {"id":8,"expanded":true,"name":"WhiteSafe","order":9,"parentId":4,"scrollX":1092,"scrollY":614.6666666666666},
 {"id":9,"expanded":false,"name":"Station f0","order":7,"parentId":6,"scrollX":1406.6666666666667,"scrollY":646.6666666666666},
-{"id":10,"expanded":false,"name":"Office Entrance","order":10,"parentId":8,"scrollX":1081.3333333333333,"scrollY":614.6666666666666},
+{"id":10,"expanded":false,"name":"Office Entrance","order":10,"parentId":8,"scrollX":1081.3333333333333,"scrollY":964},
 null,
-{"id":12,"expanded":false,"name":"Office Viktor","order":14,"parentId":8,"scrollX":1092,"scrollY":614.6666666666666},
+{"id":12,"expanded":false,"name":"Office Viktor","order":14,"parentId":8,"scrollX":1228.5,"scrollY":691.5},
 {"id":13,"expanded":true,"name":"minigame","order":12,"parentId":15,"scrollX":1092,"scrollY":614.6666666666666},
 {"id":14,"expanded":false,"name":"hacking","order":13,"parentId":13,"scrollX":1318.6666666666667,"scrollY":786.6666666666666},
-{"id":15,"expanded":false,"name":"Office WorkPlace","order":11,"parentId":8,"scrollX":1216.5,"scrollY":718.5}
+{"id":15,"expanded":false,"name":"Office WorkPlace","order":11,"parentId":8,"scrollX":1216.5,"scrollY":691.5},
+{"id":16,"expanded":true,"name":"Server Room","order":15,"parentId":8,"scrollX":1081.3333333333333,"scrollY":873.3333333333334}
 ]
