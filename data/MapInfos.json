@@ -15,5 +15,5 @@ null,
 {"id":13,"expanded":true,"name":"minigame","order":12,"parentId":15,"scrollX":1092,"scrollY":614.6666666666666},
 {"id":14,"expanded":false,"name":"hacking","order":13,"parentId":13,"scrollX":1318.6666666666667,"scrollY":786.6666666666666},
 {"id":15,"expanded":false,"name":"Office WorkPlace","order":11,"parentId":8,"scrollX":1216.5,"scrollY":691.5},
-{"id":16,"expanded":true,"name":"Server Room","order":15,"parentId":8,"scrollX":1216.5,"scrollY":800.25}
+{"id":16,"expanded":true,"name":"Server Room","order":15,"parentId":8,"scrollX":1216.5,"scrollY":790.5}
 ]
