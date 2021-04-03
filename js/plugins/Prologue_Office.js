@@ -1,0 +1,44 @@
+//=============================================================================
+// Prologue_Office.js
+//=============================================================================
+/*:
+ * @plugindesc Code for the events in office
+ *
+ * @author fabian
+ *
+ * @help
+ *
+ * This file has the functions for the events in the prologue part
+ *
+ *
+ */
+
+(function () {
+
+    getFloor = function () {
+        let floor = $gameVariables.value(21);
+        switch (floor) {
+            case 0:
+                return 0;
+            case 1:
+                return 1;
+        }
+    }
+
+    setFloor = function (floor) {
+        $gameVariables.setValue(21, floor);
+    }
+
+    transferPlayerEle = function () {
+        let floor = $gameVariables.value(21);
+        switch (floor) {
+            case 0:
+                $gamePlayer.reserveTransfer(10, 14, 5, 2, 0);
+                break;
+            case 1:
+                $gamePlayer.reserveTransfer(15, 15, 5, 2, 0);
+                break;
+        }
+    }
+
+})();

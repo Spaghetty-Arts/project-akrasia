@@ -32,6 +32,7 @@ var $plugins =
 {"name":"GereSwitches","status":true,"description":"Code for taking care of switches","parameters":{}},
 {"name":"ChangePlayerHue","status":true,"description":"Code for altering the palyer color","parameters":{}},
 {"name":"ChangeValues","status":true,"description":"Code for altering the palyer color","parameters":{}},
+{"name":"Prologue_Office","status":true,"description":"Code for the events in office","parameters":{}},
 {"name":"----------------------------------","status":false,"description":"","parameters":{}},
 {"name":"OcRam_Audio_EX","status":true,"description":"v2.07 This plugin provides dynamic sound positioning and adds 2 'generic' BGS channels which will also play in battle. PLUGIN NAME MUST BE OcRam_Audio_EX.js","parameters":{"Default Distance (BGS/SE)":"20","Default Radius (BGS/SE)":"0","Default create new (BGS)":"false","Default fade (BGS)":"2","Default forced play (BGS)":"true","Default autopan (BGS/SE)":"true","Default fade (BGM)":"6","BGS2/3 volume control":"true","BGS2 option caption":"BGS2 Volume","BGS3 option caption":"BGS3 Volume","Use linear curve":"true","Debug mode":"false"}},
 {"name":"SRD_TranslationEngine","status":true,"description":"Provides game developers with an in-game tool for building and managing translations/localizations for their game's text.","parameters":{"Source Language Name":"English","Languages":"[\"English\",\"Portuguese\"]","Default Language":"","Provide Option?":"true","Option Name":"Language","Allow Message Update?":"true"}},
