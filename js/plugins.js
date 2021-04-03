@@ -19,7 +19,7 @@ var $plugins =
 {"name":"----------------------------------","status":false,"description":"","parameters":{}},
 {"name":"KhasCore","status":true,"description":"[2.0] Required by Khas plugins.","parameters":{}},
 {"name":"KhasGraphics","status":true,"description":"[1.1] Required by Khas graphics plugins.","parameters":{}},
-{"name":"KhasUltraLighting","status":true,"description":"[4.2] Adds lighting and real-time shadows to your game.","parameters":{"Custom Blending":"ON","Transfer Reset":"OFF","Auto Battle Lighting":"ON"}},
+{"name":"KhasAdvancedLighting","status":true,"description":"[3.2] Adds lighting to your game.","parameters":{"Custom Blending":"ON","Transfer Reset":"OFF","Auto Battle Lighting":"ON"}},
 {"name":"----------------------------------","status":true,"description":"","parameters":{}},
 {"name":"hackingM","status":true,"description":"Code for the hacking minigame","parameters":{}},
 {"name":"conversation","status":true,"description":"Code for conversation","parameters":{}},
