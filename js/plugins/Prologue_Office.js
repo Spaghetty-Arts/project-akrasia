@@ -16,7 +16,7 @@
 (function () {
 
     getFloor = function () {
-        let floor = $gameVariables.value(21);
+        let floor = $gameVariables.value(22);
         switch (floor) {
             case 0:
                 return 0;
@@ -26,11 +26,11 @@
     }
 
     setFloor = function (floor) {
-        $gameVariables.setValue(21, floor);
+        $gameVariables.setValue(22, floor);
     }
 
     transferPlayerEle = function () {
-        let floor = $gameVariables.value(21);
+        let floor = $gameVariables.value(22);
         switch (floor) {
             case 0:
                 $gamePlayer.reserveTransfer(10, 14, 5, 2, 0);
