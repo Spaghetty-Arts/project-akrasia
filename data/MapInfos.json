@@ -13,7 +13,7 @@ null,
 {"id":11,"expanded":false,"name":"Elevator","order":16,"parentId":8,"scrollX":1092,"scrollY":614.6666666666666},
 {"id":12,"expanded":false,"name":"Office Viktor","order":12,"parentId":8,"scrollX":1092,"scrollY":614.6666666666666},
 {"id":13,"expanded":true,"name":"minigame","order":14,"parentId":16,"scrollX":1092,"scrollY":614.6666666666666},
-{"id":14,"expanded":false,"name":"hacking","order":15,"parentId":13,"scrollX":1081.3333333333333,"scrollY":749.3333333333334},
+{"id":14,"expanded":false,"name":"hacking","order":15,"parentId":13,"scrollX":1081.3333333333333,"scrollY":605.3333333333334},
 {"id":15,"expanded":true,"name":"Office WorkPlace","order":11,"parentId":8,"scrollX":1081.3333333333333,"scrollY":825.3333333333334},
 {"id":16,"expanded":true,"name":"Server Room","order":13,"parentId":8,"scrollX":1081.3333333333333,"scrollY":873.3333333333334},
 {"id":17,"expanded":false,"name":"Zeke House","order":17,"parentId":4,"scrollX":1092,"scrollY":614.6666666666666}
