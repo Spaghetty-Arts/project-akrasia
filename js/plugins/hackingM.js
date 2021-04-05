@@ -87,4 +87,15 @@
 		AudioManager.playSe({name: "confirm", pan: 0, pitch: 100, volume: 100});
 		$gameSelfSwitches.setValue([$gameMap._mapId, x, "D"], true);
 	}
+
+	resetW = function () {
+
+		$gameVariables.setValue(2, 0);
+		$gameVariables.setValue(3, 0);
+		$gameVariables.setValue(4, 0);
+		$gameSwitches.setValue(17, true);
+
+		$gameSwitches.setValue(2, false);
+
+	}
 })();
