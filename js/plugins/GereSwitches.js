@@ -21,4 +21,7 @@
         }
     }
 
+    controllSingleSwitch = function (eID, choice, onOff) {
+        $gameSelfSwitches.setValue([$gameMap._mapId, eID, choice], onOff);
+    }
 })();
