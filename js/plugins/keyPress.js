@@ -28,9 +28,10 @@
         120: 'debug'    // F9
     };
 
-    keyP = function () {
-        if (Input.isTriggered('pistol')) {
-            console.log("hello");
+    keyPD = function () {
+        if (Input.isTriggered('escape')) {
+            let menuOn = $gameSwitches.value(25);
+            $gameSwitches.setValue(25, !menuOn);
         }
     }
 
