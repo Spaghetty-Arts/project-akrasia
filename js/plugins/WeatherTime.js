@@ -22,7 +22,7 @@
                 $gameScreen.startTint([0,0,0,0], 60);
                 break;
             case 1:
-                $gameScreen.startTint([0, -34, -68, 34], 60);
+                $gameScreen.startTint([0, -34, -68, 34], 120);
                 break;
             case 2:
                 $gameScreen.startTint([-102, -85, -34, 85], 60);
