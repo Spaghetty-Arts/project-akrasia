@@ -17,7 +17,9 @@
 
     changeMoneyChips = function () {
         let input = $gameVariables.value(27);
-        if ($gameParty._gold >= input) {
+        if (input == 0) {
+            return -1;
+        } else if ($gameParty._gold >= input) {
             let chips = $gameVariables.value(26);
             chips += input;
             $gameVariables.setValue(26, chips);
@@ -33,7 +35,9 @@
     changeChipsMoney = function () {
         let input = $gameVariables.value(27);
         let chips = $gameVariables.value(26);
-        if (chips >= input) {
+        if (input == 0) {
+            return -1;
+        } else if (chips >= input) {
             let chips = $gameVariables.value(26);
             chips -= input;
             $gameVariables.setValue(26, chips);
