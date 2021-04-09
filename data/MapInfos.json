@@ -6,7 +6,7 @@ null,
 {"id":4,"expanded":true,"name":"Prologue","order":5,"parentId":0,"scrollX":1092,"scrollY":614.6666666666666},
 {"id":5,"expanded":true,"name":"Metro","order":6,"parentId":4,"scrollX":1092,"scrollY":614.6666666666666},
 {"id":6,"expanded":true,"name":"Station","order":7,"parentId":4,"scrollX":1414.6666666666667,"scrollY":1297.3333333333333},
-{"id":7,"expanded":true,"name":"City","order":9,"parentId":4,"scrollX":1414.6666666666667,"scrollY":702.6666666666666},
+{"id":7,"expanded":true,"name":"City","order":9,"parentId":4,"scrollX":1414.6666666666667,"scrollY":604},
 {"id":8,"expanded":true,"name":"WhiteSafe","order":11,"parentId":4,"scrollX":1092,"scrollY":614.6666666666666},
 {"id":9,"expanded":true,"name":"Station f0","order":8,"parentId":6,"scrollX":2248,"scrollY":1430.6666666666667},
 {"id":10,"expanded":false,"name":"Office Entrance","order":12,"parentId":8,"scrollX":1081.3333333333333,"scrollY":640},
@@ -19,5 +19,5 @@ null,
 {"id":17,"expanded":false,"name":"Zeke House","order":20,"parentId":4,"scrollX":1092,"scrollY":614.6666666666666},
 {"id":18,"expanded":false,"name":"tileCreate","order":2,"parentId":1,"scrollX":1092,"scrollY":614.6666666666666},
 {"id":19,"expanded":true,"name":"Office WorkPlace Night","order":14,"parentId":15,"scrollX":1081.3333333333333,"scrollY":614.6666666666666},
-{"id":20,"expanded":false,"name":"Casino","order":10,"parentId":7,"scrollX":1092,"scrollY":614.6666666666666}
+{"id":20,"expanded":false,"name":"Casino","order":10,"parentId":7,"scrollX":1088,"scrollY":624}
 ]
