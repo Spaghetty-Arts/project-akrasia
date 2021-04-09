@@ -20,7 +20,7 @@ null,
 {"id":18,"expanded":false,"name":"tileCreate","order":2,"parentId":1,"scrollX":1092,"scrollY":614.6666666666666},
 {"id":19,"expanded":true,"name":"Office WorkPlace Night","order":14,"parentId":15,"scrollX":1081.3333333333333,"scrollY":614.6666666666666},
 {"id":20,"expanded":false,"name":"Casino","order":10,"parentId":7,"scrollX":1092,"scrollY":614.6666666666666},
-{"id":21,"expanded":false,"name":"metro_paralax","order":3,"parentId":1,"scrollX":1404,"scrollY":790.2857142857142}
+{"id":21,"expanded":false,"name":"metro_paralax","order":3,"parentId":1,"scrollX":1404,"scrollY":790.2857142857142},
 {"id":22,"expanded":false,"name":"metro_paralax","order":5,"parentId":1,"scrollX":1404,"scrollY":790.2857142857142},
 {"id":23,"expanded":false,"name":"metro_paralax","order":3,"parentId":18,"scrollX":1404,"scrollY":790.2857142857142}
 ]
