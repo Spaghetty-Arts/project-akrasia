@@ -24,6 +24,7 @@ To make this game we will use various softwares like:
 - [Aseprite] - A tool to create pixel art assets
 - [Photoshop] - A tool for editing pictures
 - [Audacity] - A tool for altering and creating sounds
+- [DaVinci Resolve] - A tool for creating and editing video clips
 
 ## Instalation
 
@@ -55,4 +56,5 @@ See the license file for more information.
    [Aseprite]: <https://www.aseprite.org/>
    [Photoshop]: <https://www.adobe.com/pt/products/photoshop.html?mv=search&sdid=LZ32SYVR&ef_id=Cj0KCQjwmcWDBhCOARIsALgJ2QcV-9lgIUOwmAMZY79sfmb69KDec0uODy243jyd_DwbrIXtAPoGHn4aAqUZEALw_wcB:G:s&s_kwcid=AL!3085!3!441853227273!e!!g!!photoshop!1447265685!53212492301&gclid=Cj0KCQjwmcWDBhCOARIsALgJ2QcV-9lgIUOwmAMZY79sfmb69KDec0uODy243jyd_DwbrIXtAPoGHn4aAqUZEALw_wcB>
    [Audacity]: <https://www.audacityteam.org/>
+   [DaVinci Resolve]: <https://www.blackmagicdesign.com/pt/products/davinciresolve>
 
