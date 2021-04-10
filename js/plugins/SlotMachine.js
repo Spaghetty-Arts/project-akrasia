@@ -699,7 +699,9 @@ Scene_SlotMachine.prototype.betCommand = function () {
     this._slotCommandWindow.activate();
 };
 
+//function after pressing sping
 Scene_SlotMachine.prototype.spinCommand = function () {
+    AudioManager.playSe({"name": "spinS", "volume": 90, "pitch": 100, "pan": 0});
     this._coin -= this._bet * scale;
     this._slotCommandWindow.deactivate();
     this._slotCommandWindow.close();
@@ -763,13 +765,14 @@ Scene_SlotMachine.prototype.result = function () {
         this._winMessage = this._winMessage.replace(reg, String(tmp));
         this._helpWindow.setText(this._winMessage);
         this._helpWindow.open();
-        AudioManager.playMe({"name": "Victory1", "volume": 90, "pitch": 100, "pan": 0});
+        AudioManager.playSe({"name": "WinA", "volume": 90, "pitch": 100, "pan": 0});
     }
     else {
         this._helpWindow.setText(lostMessage + '\n' + replayMessage);
         this._helpWindow.open();
         this._replayCommandWindow.open();
         this._replayCommandWindow.activate();
+        AudioManager.playSe({"name": "loseA", "volume": 90, "pitch": 100, "pan": 0});
     }
 };
 
