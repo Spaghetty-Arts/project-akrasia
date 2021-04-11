@@ -1,0 +1,17 @@
+@font-face {
+    font-family: GameFont;
+    src: url("retro.ttf");
+}
+
+@font-face {
+    font-family: TitleFont;
+    src: url("nokia.ttf");
+}
+
+
+.IIV::-webkit-media-controls-play-button,
+video::-webkit-media-controls-start-playback-button {
+    opacity: 0;
+    pointer-events: none;
+    width: 5px;
+}
