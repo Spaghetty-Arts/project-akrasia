@@ -19,7 +19,7 @@
         let chapter;
         switch ($gameVariables.value(7)) {
             case 1:
-                chapter = "Chapter 1 - Prologue";
+                chapter = "Capitulo 1 - Prologo";
                 break;
             case 2:
                 break;
