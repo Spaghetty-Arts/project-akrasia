@@ -43,6 +43,7 @@ Version | What's new | Scrum
 - Prologue Story
 - Various Maps to explore
 - Paralax Mapping
+- Eating and Drinking System
 - Casino Minigames
 - Hacking Minigame (Simillar to System Schock 2)
 - Various use of ambince sounds
