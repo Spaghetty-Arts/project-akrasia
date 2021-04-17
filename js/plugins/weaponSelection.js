@@ -2,6 +2,7 @@
 
     addCrowbar = function () {
         Input.keyMapper[49] = 'crowbar';
+        Input.keyMapper[83] = 'attack';
     }
 
     addPistol = function () {
@@ -26,9 +27,11 @@
     }
 
     shootProjectile = function () {
-        if (Input.isTriggered('ok')) {
+        if (Input.isTriggered('attack')) {
             if ($gameSwitches.value(34)) {
                 pistolProjectile();
+            } else if ($gameSwitches.value(35)) {
+                attackCrowbar();
             }
         }
     }
@@ -47,6 +50,10 @@
         } else {
             AudioManager.playSe({name: "emptyMag", pan: 0, pitch: 100, volume: 100});
         }
+    }
+
+    attackCrowbar = function () {
+        Galv.PROJ.dir(-1,0,8,0.1,'bullet0',1,'c(7)|s(B:on)',[5],[],3,1);
     }
 
     decreaceAmmo = function (type) {
