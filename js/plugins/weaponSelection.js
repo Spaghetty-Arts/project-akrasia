@@ -27,7 +27,7 @@
     }
 
     shootProjectile = function () {
-        if (Input.isTriggered('attack')) {
+        if (Input.isTriggered('attack') && !$gameMap.isEventRunning()) {
             if ($gameSwitches.value(34)) {
                 pistolProjectile();
             } else if ($gameSwitches.value(35)) {
@@ -44,7 +44,7 @@
 
     pistolProjectile = function () {
         if ($gameVariables.value(33) > 0) {
-            Galv.PROJ.dir(-1,0,8,6,'bullet0',1,'c(7)|e',[5],[],3,1);
+            Galv.PROJ.dir(-1,0,8,6,'bullet0',125,'c(7)|e',[5],[],3,1);
             AudioManager.playSe({name: "pistolShot", pan: 0, pitch: 100, volume: 100});
             decreaceAmmo(33);
         } else {
@@ -53,7 +53,8 @@
     }
 
     attackCrowbar = function () {
-        Galv.PROJ.dir(-1,0,8,0.1,'bullet0',1,'c(7)|s(B:on)',[5],[],3,1);
+        AudioManager.playSe({name: "crowHit", pan: 0, pitch: 100, volume: 100});
+        Galv.PROJ.dir(-1,0,8,0.1,'bullet0',125,'c(7)|s(B:on)',[5],[],3,1);
     }
 
     decreaceAmmo = function (type) {

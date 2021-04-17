@@ -14,6 +14,11 @@
         if ($gameSwitches.value(35)) {
             currentH -= 25;
         }
+        if (currentH > 0) {
+            AudioManager.playSe({name: "pain", pan: 0, pitch: 100, volume: 100});
+        } else {
+            AudioManager.playSe({name: "soliderD", pan: 0, pitch: 100, volume: 100});
+        }
         setEHealth(currentH, id);
     }
 })();
