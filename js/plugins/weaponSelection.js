@@ -35,7 +35,7 @@
             } else if ($gameSwitches.value(35)) {
                 attackCrowbar();
             }
-        } else if (Input.isTriggered('Reload') ) {
+        } else if (Input.isTriggered('Reload') && $gameSwitches.value(35) == false ) {
             if ($gameSwitches.value(34)) {
                reloadAmmo(0);
             }
