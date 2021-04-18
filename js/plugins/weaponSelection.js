@@ -8,19 +8,21 @@
     addPistol = function () {
         Input.keyMapper[50] = 'pistol';
         Input.keyMapper[72] = 'Holster';
+        Input.keyMapper[82] = 'Reload';
     }
 
     weaponsSelection = function () {
         if (Input.isTriggered('pistol')) {
             $gameSwitches.setValue(34, true);
+            $gameSwitches.setValue(39, true);
             setSwitchesIventory([35, 36, 37, 38], false);
             AudioManager.playSe({name: "gunCock", pan: 0, pitch: 100, volume: 100});
         } else if (Input.isTriggered('crowbar')) {
             $gameSwitches.setValue(35, true);
-            setSwitchesIventory([34, 36, 37, 38], false);
+            setSwitchesIventory([34, 36, 37, 38, 39], false);
             AudioManager.playSe({name: "crowbar", pan: 0, pitch: 100, volume: 100});
         } else if (Input.isTriggered('Holster')) {
-            setSwitchesIventory([34, 36, 37, 35], false);
+            setSwitchesIventory([34, 36, 37, 35, 39], false);
             $gameSwitches.setValue(38, true);
             AudioManager.playSe({name: "holster", pan: 0, pitch: 100, volume: 100});
         }
@@ -32,6 +34,10 @@
                 pistolProjectile();
             } else if ($gameSwitches.value(35)) {
                 attackCrowbar();
+            }
+        } else if (Input.isTriggered('Reload') ) {
+            if ($gameSwitches.value(34)) {
+               reloadAmmo(0);
             }
         }
     }
@@ -54,12 +60,42 @@
 
     attackCrowbar = function () {
         AudioManager.playSe({name: "crowHit", pan: 0, pitch: 100, volume: 100});
-        Galv.PROJ.dir(-1,0,8,0.1,'bullet0',125,'c(7)|s(B:on)',[5],[],3,1);
+        Galv.PROJ.dir(-1,0,8,0.1,'bullet0',126,'c(7)|s(B:on)',[5],[],3,1);
     }
 
     decreaceAmmo = function (type) {
         let ammo = $gameVariables.value(type);
         ammo--;
         $gameVariables.setValue(type, ammo);
+    }
+
+    reloadAmmo = function (type) {
+        switch (type) {
+            case 0:
+                if ($gameVariables.value(34) >= 7) {
+                    AudioManager.playSe({name: "reloadGun", pan: 0, pitch: 100, volume: 100});
+                    let ammo = $gameVariables.value(33);
+                    let maxAmmo = $gameVariables.value(34);
+
+                    ammo = 7;
+                    maxAmmo -= 7;
+
+                    $gameVariables.setValue(33, ammo);
+                    $gameVariables.setValue(34, maxAmmo);
+                } else if ($gameVariables.value(34) > 0 && $gameVariables.value(34) < 7) {
+                    AudioManager.playSe({name: "reloadGun", pan: 0, pitch: 100, volume: 100});
+                    let ammo = $gameVariables.value(33);
+                    let maxAmmo = $gameVariables.value(34);
+
+                    ammo = maxAmmo;
+                    maxAmmo = 0;
+
+                    $gameVariables.setValue(33, ammo);
+                    $gameVariables.setValue(34, maxAmmo);
+                } else {
+                    AudioManager.playSe({name: "emptyMag", pan: 0, pitch: 100, volume: 100});
+                }
+                break;
+        }
     }
 })();
