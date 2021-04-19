@@ -9,6 +9,9 @@ Project Akrasia is a game made by the Game Development team of the 3rd Year of C
 
 ![SP](https://i.ibb.co/SmV4JZ2/4a2a0db8-85d7-4b30-b4d0-473272c3c38d-200x200.png)
 
+![PT](https://img.shields.io/badge/Language-Portuguese-brightgreen)
+![EN](https://img.shields.io/badge/Language-English-blue)
+
 ## What we will offer
 
 - Linear 2D Pixel Action Rpg Game
