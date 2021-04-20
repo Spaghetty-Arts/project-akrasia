@@ -22,6 +22,7 @@
                 chapter = "Capitulo 1 - Prologo";
                 break;
             case 2:
+                chapter = "Capitulo 2 - Aprisionamento"
                 break;
             case 3:
                 break;
