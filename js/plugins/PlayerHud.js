@@ -2,8 +2,14 @@
 
     let sId = 4;
     let secondHud = 5;
-    let hudPistol = 7;
-    let hudCrowbar = 6;
+    let hudPistol = 34;
+    let hudCrowbar = 35;
+    let hudShotgun = 40;
+    let hudAr = 82;
+    let holster = 38;
+
+    let thirdHud = 6;
+    let hudTags = 84;
 
     Window_Base.prototype.drawGauge = function(x, y, width, height,rate, color1, color2) {
         var fillW = Math.floor(width * rate);
@@ -74,11 +80,26 @@
 
             if ($gameSwitches.value(secondHud)) {
                 if ($gameSwitches.value(hudCrowbar)) {
-                    this.drawPicture("crowbar", 300, 0, false, 100, 200);
+                    this.drawPicture("crowbar", 300, 0, false);
                 } else if ($gameSwitches.value(hudPistol)) {
-
+                    this.drawPicture("bulletPistol", 300, 0, false);
+                    this.drawTextEx("\\c[17]"+$gameVariables.value(39) + "/" + $gameVariables.value(40), 340, 5);
+                } else if($gameSwitches.value(hudShotgun)) {
+                    this.drawPicture("shotgunShell", 300, 0, false);
+                    this.drawTextEx("\\c[10]"+$gameVariables.value(39) + "/" + $gameVariables.value(40), 340, 5);
+                } else if ($gameSwitches.value(hudAr)) {
+                    this.drawPicture("arB", 300, 0, false);
+                    this.drawTextEx("\\c[14]"+$gameVariables.value(39) + "/" + $gameVariables.value(40), 340, 5);
+                } else if ($gameSwitches.value(holster)) {
+                    this.drawPicture("hand", 300, -5, false);
                 }
+            }
 
+            if ($gameSwitches.value(thirdHud)) {
+                if ($gameSwitches.value(hudTags)) {
+                    this.drawPicture("dogtag", 640, 0, false);
+                    this.drawTextEx("\\c[22]"+$gameVariables.value(82), 680, 5);
+                }
             }
             //this.opacity = 0;
         }else{this.close();}

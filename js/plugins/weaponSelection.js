@@ -127,8 +127,6 @@
                     Galv.PROJ.dir(-1, 0, 8, 6, 'bullet0', 125, 'c(7)|e', [5], [], 3, 1);
                     AudioManager.playSe({name: "arShot", pan: 0, pitch: 100, volume: 100});
                     decreaceAmmo(37);
-                } else {
-
                 }
     }
 
@@ -172,7 +170,7 @@
                 break;
             case 1:
                 if ($gameVariables.value(36) >= 5) {
-                    AudioManager.playSe({name: "reloadGun", pan: 0, pitch: 100, volume: 100});
+                    AudioManager.playSe({name: "shotgunReload", pan: 0, pitch: 100, volume: 100});
                     let ammo = $gameVariables.value(35);
                     let maxAmmo = $gameVariables.value(36);
 
@@ -184,7 +182,7 @@
                     $gameVariables.setValue(39, ammo);
                     $gameVariables.setValue(40, maxAmmo);
                 } else if ($gameVariables.value(36) > 0 && $gameVariables.value(36) < 5) {
-                    AudioManager.playSe({name: "reloadGun", pan: 0, pitch: 100, volume: 100});
+                    AudioManager.playSe({name: "shotgunReload", pan: 0, pitch: 100, volume: 100});
                     let ammo = $gameVariables.value(33);
                     let maxAmmo = $gameVariables.value(34);
 
@@ -201,7 +199,7 @@
                 break;
             case 2:
                 if ($gameVariables.value(38) >= 30) {
-                    AudioManager.playSe({name: "reloadGun", pan: 0, pitch: 100, volume: 100});
+                    AudioManager.playSe({name: "arReload", pan: 0, pitch: 100, volume: 100});
                     let ammo = $gameVariables.value(37);
                     let maxAmmo = $gameVariables.value(38);
 
@@ -213,7 +211,7 @@
                     $gameVariables.setValue(39, ammo);
                     $gameVariables.setValue(40, maxAmmo);
                 } else if ($gameVariables.value(38) > 0 && $gameVariables.value(38) < 30) {
-                    AudioManager.playSe({name: "reloadGun", pan: 0, pitch: 100, volume: 100});
+                    AudioManager.playSe({name: "arReload", pan: 0, pitch: 100, volume: 100});
                     let ammo = $gameVariables.value(37);
                     let maxAmmo = $gameVariables.value(38);
 
