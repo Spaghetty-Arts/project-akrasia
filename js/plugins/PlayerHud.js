@@ -11,19 +11,23 @@
     let thirdHud = 6;
     let hudTags = 84;
 
-    Window_Base.prototype.drawGauge = function(x, y, width, height,rate, color1, color2) {
-        var fillW = Math.floor(width * rate);
-        var gaugeY = y + this.lineHeight() - 8;
-        this.contents.fillRect(x, gaugeY, width, height, this.gaugeBackColor());
-        this.contents.gradientFillRect(x, gaugeY, fillW, height, color1, color2);
+
+    Window_Base.prototype.drawGauge = function(x, y, width, height,rate, color1, color2, menuFix = false) {
+
+        if (menuFix) {
+            var fillW = Math.floor(width * rate);
+            var gaugeY = y + this.lineHeight() - 8;
+            this.contents.fillRect(x, gaugeY, width, height, this.gaugeBackColor());
+            this.contents.gradientFillRect(x, gaugeY, fillW, height, color1, color2);
+        }
+
     };
 
     Window_Base.prototype.drawActorHp = function(actor, x, y, width = 186, height = 6) {
 
         var color1 = "#c40000";
         var color2 = "#f82d2d";
-        this.drawGauge(x, y, width, height, actor.hpRate(), color1, color2);
-
+        this.drawGauge(x, y, width, height, actor.hpRate(), color1, color2, true);
     };
 
     Window_Base.prototype.drawPicture = function(filename, x, y, custom, width = 0, height = 0) {
