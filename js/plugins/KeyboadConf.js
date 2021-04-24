@@ -151,6 +151,13 @@
         }
     }
 
+    Scene_Test.prototype.createBackground = function(){
+        this._backgroundSprite = new Sprite();
+        this._backgroundSprite.bitmap = ImageManager.loadPicture("cpMenu");
+        this.addChild(this._backgroundSprite);
+        return;
+    };
+
  /*
     Window Command
   */
