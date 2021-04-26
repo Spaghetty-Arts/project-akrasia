@@ -1,45 +1,44 @@
+function Setup() {
 
-    function Setup() {
-        'use strict';
-        function VideoFix() {
-            this.initialize.apply(this, arguments);
-        }
+    function VideoFix() {
+        this.initialize.apply(this, arguments);
+    }
 
-        VideoFix.initialize = function() {
-            this.setup();
-        };
+    VideoFix.initialize = function() {
+        this.setup();
+    };
 
-        VideoFix.setup = function() {
-            this.update();
-        };
+    VideoFix.setup = function() {
+        this.update();
+    };
 
-        VideoFix.update = function() {
-            this.requestUpdate();
-        };
+    VideoFix.update = function() {
+        this.requestUpdate();
+    };
 
-        VideoFix.requestUpdate = function() {
-            requestAnimationFrame(this.update.bind(this));
-        };
+    VideoFix.requestUpdate = function() {
+        requestAnimationFrame(this.update.bind(this));
+    };
 
-        VideoFix.initialize();
+    VideoFix.initialize();
 
-    } Setup();
-
+} Setup();
 
 
-(function($) {
-    "use strict";
+function loadVideo()  {
+    var SPFabian = SPFabian || {};
 
     /**
      * Basic helper function to extend objects. Mainly used for inheritance and other prototype-related operations.
      */
-    $._extend || ($._extend = function(b, e) { for(var k in e) { b[k] = e[k]; } return b; });
+    SPFabian._extend || (SPFabian._extend = function (b, e) {
+        for (var k in e) {
+            b[k] = e[k];
+        }
+        return b;
+    });
 
-    /**
-     * Load plugin parameters.
-     */
 
-    var _param_video = "intro2";
 
     /**
      * Holds the HTML video element used to start/pause/rewind the loaded video.
@@ -51,72 +50,53 @@
      */
     var _videoSprite;
 
-    /**
-     * Gets set to true, once the video has been loaded and causes Scene_Title to wait, beforehand.
-     */
-    var _ready;
 
     /**
      * Create the video element, set it to auto-loop and creates the Sprite holding it. We also register a
      * callback to be executed, once the video has finished loading, so we can resize and center the sprite.
      */
-    var _loadVideo = function() {
-        if(!!_videoSprite) { return; }
+    var _loadVideo = function () {
+        if (_videoSprite != null) {
+            return;
+        }
+
         _video = document.createElement('video');
         _video.setAttribute('preload', 'auto');
-        _video.src = _getFilePath();
+        _video.src = 'movies/' + "intro2" + Game_Interpreter.prototype.videoFileExt();
         _video.loop = 'loop';
         _videoSprite = new PIXI.Sprite(PIXI.Texture.fromVideo(_video));
-        _video.onloadeddata = _onLoad;
     };
 
-    /**
-     * Gets called, once the video has finished loading and scales the sprite. It also gets centered.
-     */
-    var _onLoad = function() {
-        _ready = true;
-
-    };
-
-
-    var _getFilePath = function() {
-        return 'movies/' + _param_video + Game_Interpreter.prototype.videoFileExt();
-    };
 
     //=============================================================================
     // Scene_Title
     //=============================================================================
 
+    //variables needed to dont crash the stack call for some reason....
     var _sceneTitle_create = Scene_Title.prototype.create;
     var _sceneTitle_isReady = Scene_Title.prototype.isReady;
     var _sceneTitle_start = Scene_Title.prototype.start;
     var _sceneTitle_stop = Scene_Title.prototype.stop;
     var _sceneTitle_createBackground = Scene_Title.prototype.createBackground;
 
-    $._extend(Scene_Title.prototype, {
+    SPFabian._extend(Scene_Title.prototype, {
 
         /**
-         * On create, also create our video element. We must do this here, because otherwise we wouldn't
-         * be able to determine our current environment, which defines the file extension we have to load.
+         * On create, also create our video element to determine our current environment.
          */
-        create: function() {
+        create: function () {
             _loadVideo();
             _sceneTitle_create.call(this);
         },
 
-        /**
-         * We wait, until the video has finished loading. This must only be done once, since the video is
-         * cached in memory (better don't use big videos ^^).
-         */
-        isReady: function() {
-            return _ready && _sceneTitle_isReady.call(this);
+        isReady: function () {
+            return _sceneTitle_isReady.call(this);
         },
 
         /**
-         * On start, rewind the video to position 0 and start playing. It will automatically loop, once it
-         * has finished.
+         * On start, rewind the video to position 0 and start playing.
          */
-        start: function() {
+        start: function () {
             _sceneTitle_start.call(this);
             _video.currentTime = 0;
             _video.play();
@@ -125,7 +105,7 @@
         /**
          * On stop, pause the video, because otherwise it would continue playing, even through other scenes.
          */
-        stop: function() {
+        stop: function () {
             _video.pause();
             _sceneTitle_stop.call(this);
         },
@@ -134,15 +114,56 @@
          * Position the video sprite behind the background, so it's possible to put (semi)transparent images
          * above it.
          */
-        createBackground: function() {
+        createBackground: function () {
             this.addChild(_videoSprite);
             _sceneTitle_createBackground.call(this);
         }
 
     });
-
-})(this.IAVRA || (this.IAVRA = {}));
-
-Window_TitleCommand.prototype.create = function () {
-
 }
+
+loadVideo();
+
+function setTitle() {
+
+    function Scene_Title_H() {
+        this.initialize.apply.call(this, arguments);
+    }
+
+    Scene_Title_H.prototype = Object.create(Scene_Title.prototype);
+    Scene_Title_H.prototype = Scene_Title_H;
+
+    Scene_Title_H.prototype.initialize = function () {
+        Scene_Title.prototype.initialize.call(this);
+    }
+
+    Scene_Title_H.prototype.create = function () {
+        Scene_Title.prototype.create.call(this);
+        this._customCommandWindow = new WindowTitleMenu(0, 555);
+        this.addWindow(this_customCommandWindow);
+    }
+
+
+
+    function WindowTitleMenu() {
+        this.initialize.apply.call(this, arguments);
+    }
+
+    WindowTitleMenu.prototype = Object.create(Window_HorzCommand.prototype);
+    WindowTitleMenu.prototype = WindowTitleMenu;
+
+    WindowTitleMenu.prototype.initialize = function () {
+        Window_HorzCommand.prototype.initialize.call(this);
+    }
+
+    WindowTitleMenu.prototype.create = function () {
+        Window_HorzCommand.prototype.create.call(this);
+        this.drawAllItems();
+    }
+
+    WindowTitleMenu.prototype.drawAllItems = function () {
+        this.drawPicture("kb", 0, 0, false);
+    }
+}
+
+setTitle();
