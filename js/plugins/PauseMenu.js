@@ -14,6 +14,19 @@
         this._commandWindow.y = eval("Graphics.boxHeight/2 - this._commandWindow.height/2");
     };
 
+    Scene_Boot.loadSystemImages = function() {
+        ImageManager.reserveSystem('IconSet');
+        ImageManager.reserveSystem('Balloon');
+        ImageManager.reserveSystem('Shadow1');
+        ImageManager.reserveSystem('Shadow2');
+        ImageManager.reserveSystem('Damage');
+        ImageManager.reserveSystem('States');
+        ImageManager.reserveSystem('Weapons1');
+        ImageManager.reserveSystem('Weapons2');
+        ImageManager.reserveSystem('Weapons3');
+        ImageManager.reserveSystem('ButtonSet');
+        ImageManager.reserveSystem('WindowMenu');
+    };
     Window_Command.prototype.loadWindowskin = function () {
         this.windowskin = ImageManager.loadSystem('WindowMenu');
     }
@@ -38,7 +51,6 @@
             this._backgroundSprite.bitmap = ImageManager.loadPicture("cpMenu");
             this.addChild(this._backgroundSprite);
             return;
-        // if background file is invalid, it does original process.
     };
 
 

@@ -68,9 +68,6 @@ function loadVideo()  {
     };
 
 
-    //=============================================================================
-    // Scene_Title
-    //=============================================================================
 
     //variables needed to dont crash the stack call for some reason....
     var _sceneTitle_create = Scene_Title.prototype.create;
@@ -123,47 +120,3 @@ function loadVideo()  {
 }
 
 loadVideo();
-
-function setTitle() {
-
-    function Scene_Title_H() {
-        this.initialize.apply.call(this, arguments);
-    }
-
-    Scene_Title_H.prototype = Object.create(Scene_Title.prototype);
-    Scene_Title_H.prototype = Scene_Title_H;
-
-    Scene_Title_H.prototype.initialize = function () {
-        Scene_Title.prototype.initialize.call(this);
-    }
-
-    Scene_Title_H.prototype.create = function () {
-        Scene_Title.prototype.create.call(this);
-        this._customCommandWindow = new WindowTitleMenu(0, 555);
-        this.addWindow(this_customCommandWindow);
-    }
-
-
-
-    function WindowTitleMenu() {
-        this.initialize.apply.call(this, arguments);
-    }
-
-    WindowTitleMenu.prototype = Object.create(Window_HorzCommand.prototype);
-    WindowTitleMenu.prototype = WindowTitleMenu;
-
-    WindowTitleMenu.prototype.initialize = function () {
-        Window_HorzCommand.prototype.initialize.call(this);
-    }
-
-    WindowTitleMenu.prototype.create = function () {
-        Window_HorzCommand.prototype.create.call(this);
-        this.drawAllItems();
-    }
-
-    WindowTitleMenu.prototype.drawAllItems = function () {
-        this.drawPicture("kb", 0, 0, false);
-    }
-}
-
-setTitle();
