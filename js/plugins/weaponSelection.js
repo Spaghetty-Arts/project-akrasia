@@ -1,26 +1,24 @@
 (function( ){
 
     addCrowbar = function () {
-        Input.keyMapper[49] = 'crowbar';
-        Input.keyMapper[83] = 'attack';
+       $gameSwitches.setValue(85, true);
+        $gameSwitches.setValue(89, true);
     }
 
     addPistol = function () {
-        Input.keyMapper[50] = 'pistol';
-        Input.keyMapper[72] = 'Holster';
-        Input.keyMapper[82] = 'Reload';
+        $gameSwitches.setValue(86, true);
     }
 
     addShotgun = function () {
-        Input.keyMapper[51] = 'Shotgun';
+        $gameSwitches.setValue(87, true);
     }
 
     addAr = function () {
-        Input.keyMapper[52] = 'Ar';
+        $gameSwitches.setValue(88, true);
     }
 
     weaponsSelection = function () {
-        if (Input.isTriggered('pistol')) {
+        if (Input.isTriggered('arm2') && $gameSwitches.value(86) && !$gameSwitches.value(34)) {
             let current = $gameVariables.value(33);
             let magazine = $gameVariables.value(34);
             getAmmo(current, magazine);
@@ -29,15 +27,15 @@
             $gameSwitches.setValue(39, true);
             setSwitchesIventory([35, 36, 37, 38, 40, 82], false);
             AudioManager.playSe({name: "gunCock", pan: 0, pitch: 100, volume: 100});
-        } else if (Input.isTriggered('crowbar')) {
+        } else if (Input.isTriggered('arm1')  && $gameSwitches.value(85) && !$gameSwitches.value(35)) {
             $gameSwitches.setValue(35, true);
             setSwitchesIventory([34, 36, 37, 38, 39, 40, 82], false);
             AudioManager.playSe({name: "crowbar", pan: 0, pitch: 100, volume: 100});
-        } else if (Input.isTriggered('Holster')) {
+        } else if (Input.isTriggered('holster') && $gameSwitches.value(89) && !$gameSwitches.value(38)) {
             setSwitchesIventory([34, 36, 37, 35, 39, 40, 82], false);
             $gameSwitches.setValue(38, true);
             AudioManager.playSe({name: "holster", pan: 0, pitch: 100, volume: 100});
-        } else if (Input.isTriggered('Shotgun')) {
+        } else if (Input.isTriggered('arm3')  && $gameSwitches.value(87) && !$gameSwitches.value(40)) {
             let current = $gameVariables.value(35);
             let magazine = $gameVariables.value(36);
             getAmmo(current, magazine);
@@ -46,7 +44,7 @@
             $gameSwitches.setValue(39, true);
             setSwitchesIventory([35, 36, 37, 38, 34, 82], false);
             AudioManager.playSe({name: "shotGunCock", pan: 0, pitch: 100, volume: 100});
-        } else if (Input.isTriggered('Ar')) {
+        } else if (Input.isTriggered('arm4')  && $gameSwitches.value(88) && !$gameSwitches.value(82)) {
             let current = $gameVariables.value(37);
             let magazine = $gameVariables.value(38);
             getAmmo(current, magazine);
@@ -59,7 +57,7 @@
     }
 
     shootProjectile = function () {
-        if (Input.isTriggered('attack') && !$gameMap.isEventRunning() && $gameSwitches.value(82) == false) {
+        if (Input.isTriggered('shoot') && !$gameMap.isEventRunning() && $gameSwitches.value(82) == false) {
                 if ($gameSwitches.value(34)) {
                     pistolProjectile();
                 } else if ($gameSwitches.value(35)) {
@@ -67,7 +65,7 @@
                 } else if ($gameSwitches.value(40)) {
                     shotgunProjectile();
                 }
-            } else if (Input.isTriggered('Reload') && $gameSwitches.value(35) == false) {
+            } else if (Input.isTriggered('reload') && $gameSwitches.value(35) == false) {
                 if ($gameSwitches.value(34)) {
                     reloadAmmo(0);
                 } else if ($gameSwitches.value(40)) {
@@ -79,12 +77,12 @@
     }
 
     shootAr = function (event, weaponevent) {
-        if (!$gameMap.isEventRunning() && $gameSwitches.value(82) == true && Input.isPressed('attack')&& $gameVariables.value(37) > 0) {
+        if (!$gameMap.isEventRunning() && $gameSwitches.value(82) == true && Input.isPressed('shoot')&& $gameVariables.value(37) > 0) {
             $gameSelfSwitches.setValue([$gameMap._mapId, event, 'A'], true);
             $gameSelfSwitches.setValue([$gameMap._mapId, weaponevent, 'A'], true);
             arProjectile();
 
-        } else if (!$gameMap.isEventRunning() && $gameSwitches.value(82) == true && Input.isTriggered('attack') && $gameVariables.value(37) <= 0) {
+        } else if (!$gameMap.isEventRunning() && $gameSwitches.value(82) == true && Input.isTriggered('shoot') && $gameVariables.value(37) <= 0) {
             AudioManager.playSe({name: "emptyMag", pan: 0, pitch: 100, volume: 100});
         } else {
             $gameSelfSwitches.setValue([$gameMap._mapId, weaponevent, 'A'], false);
