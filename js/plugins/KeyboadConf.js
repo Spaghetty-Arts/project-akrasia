@@ -227,9 +227,9 @@
 
     Window_Keys.prototype.drawAllItems = function () {
         if (typeKb == 0) {
-            this.drawPicture("kb", 0, 0, false);
+            this.drawPicture("kb", 0, 300, false);
         } else {
-            this.drawPicture("kb2", 0, 0, false);
+            this.drawPicture("kb2", 0, 300, false);
         }
 
         //this.drawText ("Andar para Cima", 0, 0, this.width - this.padding * 2, "center");
