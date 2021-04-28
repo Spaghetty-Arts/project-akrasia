@@ -14,7 +14,7 @@ Imported.TSR_Title = true;
 
    ///Exit command parameters
 
- TSR.Title.exit_command  = String(TSR.Parameters['Exit Command name']);
+
  TSR.Title.exit_title    = String(TSR.Parameters['Show in Title screen']);
  TSR.Title.exit_title    = eval(TSR.Title.exit_title);
  TSR.Title.exit_menu     = String(TSR.Parameters['Show in Main menu']);
@@ -57,13 +57,7 @@ Imported.TSR_Title = true;
  TSR.Title.window_fontStyle  = String(TSR.Parameters['Window Text Font']);
  TSR.Title.window_fontSize   = Number(TSR.Parameters['Window Font Size']);
  TSR.Title.window_align      = String(TSR.Parameters['Window Text Align']);
- 
 
-   ///True continue parameters
-
- TSR.Title.trueContinue       = String(TSR.Parameters['Enable True Continue']);
- TSR.Title.trueContinue       = eval(TSR.Title.trueContinue);
- TSR.Title.trueContinue_name  = String(TSR.Parameters['True Continue Name']);
 
 
    ///Default cursor parameters
@@ -75,15 +69,6 @@ Imported.TSR_Title = true;
  TSR.Title.defCursor_blinkColor  = Number(TSR.Parameters['Opacity Blink Color']);
  TSR.Title.defCursor_textEffect  = String(TSR.Parameters['Selected Text Effect']);
 
-
-
-
-   ///Alternate transition parameters
-
- TSR.Title.transition             = String(TSR.Parameters['Transition Enable']);
- TSR.Title.transition             = eval(TSR.Title.transition);
- TSR.Title.transition_BGMfadeOut  = String(TSR.Parameters['Music FadeOut']);
- TSR.Title.transition_BGMfadeOut  = eval(TSR.Title.transition_BGMfadeOut);
 
 
 //press any key
@@ -105,12 +90,12 @@ Imported.TSR_Title = true;
     if (!TSR.Title._titleStarted && TSR.Title.preTitle_text) {
       this.createPreTitleWindow();
     } else {
-      TSR.Title._titleStarted = true;
+      let titleStarted = true;
       this.createCommandWindow();
     }
   };
 
-  //done
+  //done good
   Scene_Title.prototype.start = function() {
     Scene_Base.prototype.start.call(this);
     SceneManager.clearStack();
@@ -119,9 +104,9 @@ Imported.TSR_Title = true;
     this.startFadeIn(this.fadeSpeed(), false);
   };
 
-  //done
+  //done good
   Scene_Title.prototype.update = function() {
-    if (!Graphics.isVideoPlaying()) {
+
       if (!this._sceneStarted) {
          this._sceneStarted = true;
          Graphics.setVideoVolume(0);
@@ -138,19 +123,10 @@ Imported.TSR_Title = true;
         this._commandWindow.open();
         this._StartedAndOpen = true;
       }
-
-    } else {
-      if (Input.isAnyKeyPressed()) {
-         this._sceneStarted = true;
-         Graphics._updateVisibility(false)
-         Graphics.setVideoVolume(0);
-         this.start()
-      }
-    }
     Scene_Base.prototype.update.call(this);
   };
 
-  //done
+  //done good
   Scene_Title.prototype.createPreTitleWindow = function() {
     this._preTitleWindow = new Window_preTitle();
     this._preTitleWindow.setHandler('Start',  this.preTitleStart.bind(this));
@@ -167,12 +143,6 @@ Imported.TSR_Title = true;
       this._preTitlePause = true;
       this._startCounter = this._frameCounter;
       this.createCommandWindow();
-    } else if (bind === 'Continue') {
-        if (DataManager.isAnySavefileExists()) {
-            this.commandTrueContinue();
-        } else {
-            this.commandNewGame();
-        }
     } else if (bind === 'Load Screen') {
         this.commandLoadGame();
     } else if (bind === 'Load or New') {
@@ -184,7 +154,7 @@ Imported.TSR_Title = true;
     }
   };
 
-  //Done
+  //Done good
   Scene_Title.prototype.isBusy = function() {
     if (this._commandWindow) {
       return this._commandWindow.isClosing() || Scene_Base.prototype.isBusy.call(this);
@@ -194,63 +164,67 @@ Imported.TSR_Title = true;
   };
 
 
-  //commands
-  Scene_Title.prototype.createCommandWindow = function() {
+  //commands good
+Scene_Title.prototype.createCommandWindow = function () {
     this._commandWindow = new Window_TitleCommand();
-    let list = TSR.Title.window_CmdList;
-    if (list) {
-      list = list.split(';');
-    } else {
-      list = ['New Game', 'Continue', 'Load', 'Options', 'Credits', 'Exit'];
-    }
+    let list = ['New Game','multiplayer', 'Load', 'Options', 'Exit'];
     for (let i = 0; i < list.length; i++) {
-      let cmd = list[i].toLowerCase();
-      if (cmd.includes('new game')) {
-        this._commandWindow.setHandler('newGame',  this.commandNewGame.bind(this));
-      } else if (cmd.includes('continue')) {
-        this._commandWindow.setHandler('TSRcontinue',  this.commandTrueContinue.bind(this));
-      } else if (cmd.includes('load')) {
-        this._commandWindow.setHandler('continue', this.commandLoadGame.bind(this));
-      } else if (cmd.includes('options')) {
-        this._commandWindow.setHandler('options',  this.commandOptions.bind(this));
-      } else if (cmd.includes('credits')){
-        this._commandWindow.setHandler('credits',  this.commandCredits.bind(this));
-      } else if (cmd.includes('exit')){
-        this._commandWindow.setHandler('Exit',  this.commandToQuit.bind(this));
-      }
+        let cmd = list[i].toLowerCase();
+        if (cmd.includes('new game')) {
+            this._commandWindow.setHandler('newGame', this.commandNewGame.bind(this));
+        } else if (cmd.includes('load')) {
+            this._commandWindow.setHandler('continue', this.commandLoadGame.bind(this));
+            this._commandWindow.setHandler('multiplayer', this.commandMulti.bind(this));
+        } else if (cmd.includes('options')) {
+            this._commandWindow.setHandler('options', this.commandOptions.bind(this));
+        } else if (cmd.includes('exit')) {
+            this._commandWindow.setHandler('Exit', this.commandToQuit.bind(this));
+        }
     }
     this.addWindow(this._commandWindow);
     this._activeWindow = this._commandWindow;
-  };
+};
 
+//Done good
   Scene_Title.prototype.commandNewGame = function() {
     DataManager.setupNewGame();
     if (this._commandWindow) this._commandWindow.close();
     if (this.TitleTransitionEnable()) {
-      if (this.TitleTransitionMusicFadeOut()) AudioManager.fadeOutBgm(1)
-      if (this._gameTitleSprite) this._gameTitleSprite.opacity = 0;
-      if (this._titleLabelSprite) this._titleLabelSprite.opacity = 0;
-      if (this._backSprite3) this._backSprite3.opacity = 0;
+      if (this.TitleTransitionMusicFadeOut()) AudioManager.fadeOutBgm(1);
     } else { 
       this.fadeOutAll();
     }
     SceneManager.goto(Scene_Map);
   };
 
+  //Done good
   Scene_Title.prototype.commandLoadGame = function() {
     if (this._commandWindow) this._commandWindow.close();
     SceneManager.push(Scene_Load);
   };
 
-  Scene_Title.prototype.commandTrueContinue = function() {
-    let LastSave = DataManager.latestSavefileId();
-    if (DataManager.loadGame(LastSave)) {
-        this.LoadSuccess();
+
+  //done
+DataManager.setupMultiGame = function() {
+    this.createGameObjects();
+    this.selectSavefileForNewGame();
+    $gameParty.setupStartingMembers();
+    $gamePlayer.reserveTransfer(28, 9,  11);
+    Graphics.frameCount = 0;
+};
+
+//Done
+Scene_Title.prototype.commandMulti = function () {
+    DataManager.setupMultiGame();
+    if (this._commandWindow) this._commandWindow.close();
+    if (this.TitleTransitionEnable()) {
+        if (this.TitleTransitionMusicFadeOut()) AudioManager.fadeOutBgm(1);
     } else {
-        this.LoadFailure();
+        this.fadeOutAll();
     }
-  };
-  
+    SceneManager.goto(Scene_Map);
+};
+
   Scene_Title.prototype.LoadSuccess = function() {
     if (this._commandWindow) this._commandWindow.close();
     SoundManager.playLoad();
@@ -277,12 +251,6 @@ Imported.TSR_Title = true;
   
   Scene_Title.prototype.TitleTransitionMusicFadeOut = function() {
     return TSR.Title.transition_BGMfadeOut;
-  };
-
-  Scene_Title.prototype.commandCredits = function() {
-    this._commandWindow.close();
-    this.fadeOutAll();
-    SceneManager.push(Scene_Credit);
   };
 
   Scene_Title.prototype.commandToQuit = function() {
@@ -318,7 +286,6 @@ Imported.TSR_Title = true;
     if ($gameParty.isAllDead()) {
       this._commandWindow = new Window_GameEnd();
       this._commandWindow.setHandler('newGame',  this.commandNewGame.bind(this));
-      this._commandWindow.setHandler('TSRcontinue',  this.commandTrueContinue.bind(this));
       this._commandWindow.setHandler('to Title',  this.commandToTitle.bind(this));
       this._commandWindow.setHandler('Exit',  this.commandToQuit.bind(this));
       this.addWindow(this._commandWindow);
@@ -510,6 +477,7 @@ Imported.TSR_Title = true;
 };
 
 
+  //done
 Window_TitleCommand.initCommandPosition = function() {
     this._lastCommandSymbol = null;
  };
@@ -615,46 +583,28 @@ Window_TitleCommand.initCommandPosition = function() {
   };
 
   //done
-  Window_TitleCommand.prototype.makeCommandList = function() {
-    TSR.Title.IconArray = [];
-    let list = TSR.Title.window_CmdList;
-    if (list) {
-      list = list.split(';');
-    } else {
-      list = ['Continue', 'New Game', 'Load', 'Options', 'Credits', 'Exit'];
-    }
+Window_TitleCommand.prototype.makeCommandList = function () {
+    let list = ['Continue', 'New Game', 'Load', 'multiplayer', 'Options', 'Exit'];
     for (let i = 0; i < list.length; i++) {
-      let cmd = list[i].toLowerCase();
-      if (cmd.includes('new game')) {
-        this.addCommand(TextManager.newGame,   'newGame');
-        TSR.Title.IconArray.push(TSR.Title.icons_newGame);
-      } else if (cmd.includes('continue')) {
-        if (this.EnableTrueContinue() && this.isContinueEnabled()) {
-          this.addCommand(TSR.Title.trueContinue_name,   'TSRcontinue');
-          TSR.Title.IconArray.push(TSR.Title.icons_trueContinue);
+        let cmd = list[i].toLowerCase();
+        if (cmd.includes('new game')) {
+            this.addCommand("Novo jogo", 'newGame');
+        } else if (cmd.includes('load')) {
+            this.addCommand("Carregar", 'continue', this.isContinueEnabled());
+            this.addCommand('Multiplayer', 'multiplayer');
+        } else if (cmd.includes('options')) {
+            this.addCommand("Options", 'options');
+        } else if (cmd.includes('credits')) {
+            this.addCommand("Credits", 'credits');
+        } else if (cmd.includes('exit')) {
+            if (this.EnableExitCommand()) {
+                this.addCommand("Exit", 'Exit');
+            }
         }
-      } else if (cmd.includes('load')) {
-        this.addCommand(TextManager.continue_, 'continue', this.isContinueEnabled());
-        TSR.Title.IconArray.push(TSR.Title.icons_continue);
-      } else if (cmd.includes('options')) {
-        this.addCommand(TextManager.options,   'options');
-        TSR.Title.IconArray.push(TSR.Title.icons_options);
-      } else if (cmd.includes('credits')) {
-        this.addCommand(TSR.Title.credit_command,   'credits');
-        TSR.Title.IconArray.push(TSR.Title.icons_credits);
-      } else if (cmd.includes('exit')) {
-        if (this.EnableExitCommand()) {
-          this.addCommand(TSR.Title.exit_command,   'Exit');
-          TSR.Title.IconArray.push(TSR.Title.icons_exit);
-        }
-      }
-    } 
-  };
+    }
+};
 
-  Window_TitleCommand.prototype.EnableTrueContinue = function() {
-    return TSR.Title.trueContinue
-  };
-  
+
   Window_TitleCommand.prototype.EnableExitCommand = function() {
     return TSR.Title.exit_title
   };
@@ -662,8 +612,6 @@ Window_TitleCommand.initCommandPosition = function() {
   Window_TitleCommand.prototype.selectLast = function() {
     if (Window_TitleCommand._lastCommandSymbol) {
         this.selectSymbol(Window_TitleCommand._lastCommandSymbol);
-    } else if (this.EnableTrueContinue() && this.isContinueEnabled()) {
-        this.selectSymbol('TSRcontinue');
     } else if (this.isContinueEnabled()) {
         this.selectSymbol('continue');
     }
@@ -805,16 +753,15 @@ Window_TitleCommand.initCommandPosition = function() {
   Window_GameEnd.prototype.makeCommandList = function() {
     if ($gameParty.isAllDead()) {
       if (this.isContinueEnabled()) {
-        this.addCommand(TSR.Title.trueContinue_name,   'TSRcontinue');
-      } else {
-        this.addCommand(TextManager.newGame,   'newGame');
+        this.addCommand("Carregar jogo",   'continuer');
       }
-      this.addCommand(TextManager.toTitle, 'to Title');
-      this.addCommand(TSR.Title.exit_command, 'Exit');
+      this.addCommand("Novo Jogo",   'newGame');
+      this.addCommand("Sair pro menu", 'to Title');
+      this.addCommand("Sair do jogo", 'Exit');
     } else {
-      this.addCommand(TextManager.toTitle, 'to Title');
-      if (this.EnableCommand()) this.addCommand(TSR.Title.exit_command, 'Exit');
-      this.addCommand(TextManager.cancel,  'cancel');
+      this.addCommand("Sair pro menu", 'to Title');
+      if (this.EnableCommand()) this.addCommand("Sair do jogo", 'Exit');
+      this.addCommand("Cancelar",  'cancel');
     }
   };
 
