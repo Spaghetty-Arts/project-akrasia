@@ -2,7 +2,7 @@
 var h =/=== TSR_Title == A Plugin by The Northern Frog ============= file id: 283406199 ===/
 //==========================================================================================
 
-var TSR = TSR || {};
+var TSR = SAF || {};
 TSR.Title = TSR.Title || {};
 TSR.Title.version = 2.36;
 TSR.Title.fileId = 283406199;

@@ -27,5 +27,5 @@ null,
 {"id":25,"expanded":true,"name":"Chapter2","order":25,"parentId":0,"scrollX":819,"scrollY":461},
 {"id":26,"expanded":false,"name":"Trial","order":26,"parentId":25,"scrollX":869,"scrollY":628.5},
 {"id":27,"expanded":true,"name":"Multiplayer","order":27,"parentId":0,"scrollX":819,"scrollY":461},
-{"id":28,"expanded":false,"name":"Loby","order":28,"parentId":27,"scrollX":819,"scrollY":461}
+{"id":28,"expanded":false,"name":"Loby","order":28,"parentId":27,"scrollX":819,"scrollY":467.5}
 ]

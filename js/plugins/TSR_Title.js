@@ -1,6 +1,6 @@
 
-var TSR = TSR || {};
-TSR.Title = TSR.Title || {};
+var SAF = SAF || {};
+SAF.Title = SAF.Title || {};
 
 var Imported = Imported || {};
 Imported.TSR_Title = true;
@@ -8,66 +8,38 @@ Imported.TSR_Title = true;
 
 //== PARAMETERS ============================================================================
 
- TSR.Parameters = PluginManager.parameters('TSR_Title');
+ SAF.Parameters = PluginManager.parameters('TSR_Title');
 
 
-
-   ///Exit command parameters
-
-
- TSR.Title.exit_title    = String(TSR.Parameters['Show in Title screen']);
- TSR.Title.exit_title    = eval(TSR.Title.exit_title);
- TSR.Title.exit_menu     = String(TSR.Parameters['Show in Main menu']);
- TSR.Title.exit_menu     = eval(TSR.Title.exit_menu);
-
-
-    ///Pre title window parameters
-
- TSR.Title.preTitle_text        = String(TSR.Parameters['Pre Title Text']) || null;
- TSR.Title.preTitle_x           = String(TSR.Parameters['Pre Title X']);
- TSR.Title.preTitle_x           = eval(TSR.Title.preTitle_x);
- TSR.Title.preTitle_y           = String(TSR.Parameters['Pre Title Y']);
- TSR.Title.preTitle_y           = eval(TSR.Title.preTitle_y);
- TSR.Title.preTitle_width       = String(TSR.Parameters['Pre Title Width']);
- TSR.Title.preTitle_width       = eval(TSR.Title.preTitle_width);
- TSR.Title.preTitle_color       = Number(TSR.Parameters['Pre Title Text Color']);
- TSR.Title.preTitle_fontSize    = Number(TSR.Parameters['Pre Title Font Size']);
- TSR.Title.preTitle_defCursor   = String(TSR.Parameters['Pre Title Default Cursor']);
- TSR.Title.preTitle_defCursor   = eval(TSR.Title.preTitle_defCursor);
- TSR.Title.preTitle_blink       = String(TSR.Parameters['Pre Title Blink']);
- TSR.Title.preTitle_blink       = eval(TSR.Title.preTitle_blink);
- TSR.Title.preTitle_blinkColor  = Number(TSR.Parameters['Pre Title Blink Color']);
- TSR.Title.preTitle_textEffect  = String(TSR.Parameters['Pre Title Text Effect']);
- TSR.Title.preTitle_bind        = String(TSR.Parameters['Pre Title Command']);
 
    ///Title window parameters
 
- TSR.Title.window_CmdList    = String(TSR.Parameters['Window Command List']) || null ;
- TSR.Title.window_type       = String(TSR.Parameters['Window Menu Type']);
- TSR.Title.window_BGtype     = String(TSR.Parameters['Window Background']);
- TSR.Title.window_x          = String(TSR.Parameters['Window X']);
- TSR.Title.window_x          = eval(TSR.Title.window_x);
- TSR.Title.window_y          = String(TSR.Parameters['Window Y']);
- TSR.Title.window_y          = eval(TSR.Title.window_y);
- TSR.Title.window_width      = String(TSR.Parameters['Window Width']);
- TSR.Title.window_width      = eval(TSR.Title.window_width);
- TSR.Title.window_rows       = Number(TSR.Parameters['Window Visible Rows']);
- TSR.Title.window_cols       = Number(TSR.Parameters['Window Visible Cols']);
- TSR.Title.window_color      = Number(TSR.Parameters['Window Text Color']);
- TSR.Title.window_fontStyle  = String(TSR.Parameters['Window Text Font']);
- TSR.Title.window_fontSize   = Number(TSR.Parameters['Window Font Size']);
- TSR.Title.window_align      = String(TSR.Parameters['Window Text Align']);
+ SAF.Title.window_CmdList    = String(SAF.Parameters['Window Command List']) || null ;
+ SAF.Title.window_type       = String(SAF.Parameters['Window Menu Type']);
+ SAF.Title.window_BGtype     = String(SAF.Parameters['Window Background']);
+ SAF.Title.window_x          = String(SAF.Parameters['Window X']);
+ SAF.Title.window_x          = eval(SAF.Title.window_x);
+ SAF.Title.window_y          = String(SAF.Parameters['Window Y']);
+ SAF.Title.window_y          = eval(SAF.Title.window_y);
+ SAF.Title.window_width      = String(SAF.Parameters['Window Width']);
+ SAF.Title.window_width      = eval(SAF.Title.window_width);
+ SAF.Title.window_rows       = Number(SAF.Parameters['Window Visible Rows']);
+ SAF.Title.window_cols       = Number(SAF.Parameters['Window Visible Cols']);
+ SAF.Title.window_color      = Number(SAF.Parameters['Window Text Color']);
+ SAF.Title.window_fontStyle  = String(SAF.Parameters['Window Text Font']);
+ SAF.Title.window_fontSize   = Number(SAF.Parameters['Window Font Size']);
+ SAF.Title.window_align      = String(SAF.Parameters['Window Text Align']);
 
 
 
    ///Default cursor parameters
 
- TSR.Title.defCursor_enable      = String(TSR.Parameters['Enable Default Cursor']);
- TSR.Title.defCursor_enable      = eval(TSR.Title.defCursor_enable);
- TSR.Title.defCursor_blink       = String(TSR.Parameters['Outline Opacity Blink']);
- TSR.Title.defCursor_blink       = eval(TSR.Title.defCursor_blink);
- TSR.Title.defCursor_blinkColor  = Number(TSR.Parameters['Opacity Blink Color']);
- TSR.Title.defCursor_textEffect  = String(TSR.Parameters['Selected Text Effect']);
+ SAF.Title.defCursor_enable      = String(SAF.Parameters['Enable Default Cursor']);
+ SAF.Title.defCursor_enable      = eval(SAF.Title.defCursor_enable);
+ SAF.Title.defCursor_blink       = String(SAF.Parameters['Outline Opacity Blink']);
+ SAF.Title.defCursor_blink       = eval(SAF.Title.defCursor_blink);
+ SAF.Title.defCursor_blinkColor  = Number(SAF.Parameters['Opacity Blink Color']);
+ SAF.Title.defCursor_textEffect  = String(SAF.Parameters['Selected Text Effect']);
 
 
 
@@ -81,16 +53,16 @@ Imported.TSR_Title = true;
 
 //== Scene_Title =====================================
 
-//done
+//done good
   Scene_Title.prototype.create = function() {
     Scene_Base.prototype.create.call(this);
     this.createBackground();
     this.createForeground();
     this.createWindowLayer();
-    if (!TSR.Title._titleStarted && TSR.Title.preTitle_text) {
+    if (!SAF.Title._titleStarted && SAF.Title.preTitle_text) {
       this.createPreTitleWindow();
     } else {
-      let titleStarted = true;
+        SAF.Title._titleStarted = true;
       this.createCommandWindow();
     }
   };
@@ -119,39 +91,11 @@ Imported.TSR_Title = true;
         this._startCounter  = false;
         this._preTitlePause = false;
       }
-      if (TSR.Title._titleStarted && !this._StartedAndOpen && !this._startCounter) {
+      if (SAF.Title._titleStarted && !this._StartedAndOpen && !this._startCounter) {
         this._commandWindow.open();
         this._StartedAndOpen = true;
       }
     Scene_Base.prototype.update.call(this);
-  };
-
-  //done good
-  Scene_Title.prototype.createPreTitleWindow = function() {
-    this._preTitleWindow = new Window_preTitle();
-    this._preTitleWindow.setHandler('Start',  this.preTitleStart.bind(this));
-    this.addWindow(this._preTitleWindow);
-    this._activeWindow = this._preTitleWindow;
-  };
-
-  //Done
-  Scene_Title.prototype.preTitleStart = function() {
-    this._preTitleWindow.close();
-    let bind = TSR.Title.preTitle_bind;
-    if (bind === 'Command Window') {
-      TSR.Title._titleStarted = true;
-      this._preTitlePause = true;
-      this._startCounter = this._frameCounter;
-      this.createCommandWindow();
-    } else if (bind === 'Load Screen') {
-        this.commandLoadGame();
-    } else if (bind === 'Load or New') {
-        if (DataManager.isAnySavefileExists()) {
-            this.commandLoadGame();
-        } else {
-            this.commandNewGame();
-        }
-    }
   };
 
   //Done good
@@ -167,17 +111,17 @@ Imported.TSR_Title = true;
   //commands good
 Scene_Title.prototype.createCommandWindow = function () {
     this._commandWindow = new Window_TitleCommand();
-    let list = ['New Game','multiplayer', 'Load', 'Options', 'Exit'];
+    let list = ['new game','multiplayer', 'load', 'options', 'exit'];
     for (let i = 0; i < list.length; i++) {
-        let cmd = list[i].toLowerCase();
-        if (cmd.includes('new game')) {
+        let command = list[i];
+        if (command.includes('new game')) {
             this._commandWindow.setHandler('newGame', this.commandNewGame.bind(this));
-        } else if (cmd.includes('load')) {
+        } else if (command.includes('load')) {
             this._commandWindow.setHandler('continue', this.commandLoadGame.bind(this));
             this._commandWindow.setHandler('multiplayer', this.commandMulti.bind(this));
-        } else if (cmd.includes('options')) {
+        } else if (command.includes('options')) {
             this._commandWindow.setHandler('options', this.commandOptions.bind(this));
-        } else if (cmd.includes('exit')) {
+        } else if (command.includes('exit')) {
             this._commandWindow.setHandler('Exit', this.commandToQuit.bind(this));
         }
     }
@@ -189,11 +133,9 @@ Scene_Title.prototype.createCommandWindow = function () {
   Scene_Title.prototype.commandNewGame = function() {
     DataManager.setupNewGame();
     if (this._commandWindow) this._commandWindow.close();
-    if (this.TitleTransitionEnable()) {
-      if (this.TitleTransitionMusicFadeOut()) AudioManager.fadeOutBgm(1);
-    } else { 
+
       this.fadeOutAll();
-    }
+
     SceneManager.goto(Scene_Map);
   };
 
@@ -204,7 +146,7 @@ Scene_Title.prototype.createCommandWindow = function () {
   };
 
 
-  //done
+  //done but need to see again
 DataManager.setupMultiGame = function() {
     this.createGameObjects();
     this.selectSavefileForNewGame();
@@ -213,18 +155,16 @@ DataManager.setupMultiGame = function() {
     Graphics.frameCount = 0;
 };
 
-//Done
+//Done good
 Scene_Title.prototype.commandMulti = function () {
     DataManager.setupMultiGame();
     if (this._commandWindow) this._commandWindow.close();
-    if (this.TitleTransitionEnable()) {
-        if (this.TitleTransitionMusicFadeOut()) AudioManager.fadeOutBgm(1);
-    } else {
-        this.fadeOutAll();
-    }
+    this.fadeOutAll();
+
     SceneManager.goto(Scene_Map);
 };
 
+    //Done good
   Scene_Title.prototype.LoadSuccess = function() {
     if (this._commandWindow) this._commandWindow.close();
     SoundManager.playLoad();
@@ -234,10 +174,12 @@ Scene_Title.prototype.commandMulti = function () {
     SceneManager.goto(Scene_Map);
   };
 
+  //done good
   Scene_Title.prototype.LoadFailure = function() {
     SoundManager.playBuzzer();
   };
-  
+
+  //Done good
   Scene_Title.prototype.reloadMapIfUpdated = function() {
     if ($gameSystem.versionId() !== $dataSystem.versionId) {
         $gamePlayer.reserveTransfer($gameMap.mapId(), $gamePlayer.x, $gamePlayer.y);
@@ -245,13 +187,6 @@ Scene_Title.prototype.commandMulti = function () {
     }
   };
 
-  Scene_Title.prototype.TitleTransitionEnable = function() {
-    return TSR.Title.transition;
-  };
-  
-  Scene_Title.prototype.TitleTransitionMusicFadeOut = function() {
-    return TSR.Title.transition_BGMfadeOut;
-  };
 
   Scene_Title.prototype.commandToQuit = function() {
     this._commandWindow.close();
@@ -352,25 +287,26 @@ Scene_Title.prototype.commandMulti = function () {
   };
 
 
+  //Done good
   Window_Selectable.prototype.accordeon = function(index, name, x, y, width, align) {
     let preWidth = this.textWidth(name);
     width = this.changeWidth(name, preWidth);
     x += (preWidth - width) / 2;
-
     this.drawText(name, x, y, width, align);
   }
 
 
+  //done good i guess
   Window_Selectable.prototype.changeWidth = function(name, width) {
     if (this._textIncrease) {
       if (this._text_ratio < 1) {
-        this._text_ratio += 0.01
+        this._text_ratio += 0.01;
         width *= this._text_ratio * this.textWidth(name) / width;
         if (this._text_ratio >= 0.99) this._textIncrease = false;
       }
     } else {
       if (this._text_ratio > 0.5) {
-        this._text_ratio -= 0.01
+        this._text_ratio -= 0.01;
         width *= this._text_ratio * this.textWidth(name) / width;
         if (this._text_ratio <= 0.7) this._textIncrease = true;
       }
@@ -395,7 +331,6 @@ Scene_Title.prototype.commandMulti = function () {
   Window_TitleCommand.prototype.initialize = function(x, y) {
     Window_Command.prototype.initialize.call(this, x, y);
     this.updatePlacement();
-    this.openness = 0;
     this.selectLast();
   };
 
@@ -417,13 +352,11 @@ Scene_Title.prototype.commandMulti = function () {
 
   //Done
   Window_TitleCommand.prototype.windowWidth = function() {
-    return TSR.Title.window_width * this.maxCols();
+    return SAF.Title.window_width * this.maxCols();
   };
 
   //Done
-  if (Window_TitleCommand.prototype.numVisibleRows() === 1) {
-
-
+  function checkCursor() {
     Window_TitleCommand.prototype.cursorUp = function(wrap) {
     };
 
@@ -433,7 +366,7 @@ Scene_Title.prototype.commandMulti = function () {
     Window_TitleCommand.prototype.cursorRight = function(wrap) {
       var index = this.index();
       var maxItems = this.maxItems();
-      var maxCols = this.maxCols();
+      var maxCols = 3;
       if (index < maxItems - 1 - maxCols || (wrap && this.isHorizontal())) {
           this.select((index + 1) % maxItems);
       }
@@ -448,6 +381,7 @@ Scene_Title.prototype.commandMulti = function () {
       }
     };
   }
+  checkCursor();
 
   //done
   Window_TitleCommand.prototype.playCursorSound = function(row) {
@@ -540,19 +474,18 @@ Window_TitleCommand.initCommandPosition = function() {
     let name = this.commandName(index);
     let x = rect.x;
     let width = rect.width;
-    this.contents.fontFace = TSR.Title.window_fontStyle;
-    this.contents.fontSize = TSR.Title.window_fontSize;
+    this.contents.fontFace = SAF.Title.window_fontStyle;
+    this.contents.fontSize = SAF.Title.window_fontSize;
     this.contents.outlineWidth = 4;
     this.contents.outlineColor = 'rgba(0, 0, 0, 0.5)'
-    let pad = this.contents.fontSize / 4.66;
-    if (TSR.Title.window_type === 'horizontal' && this.numVisibleRows() === 1) x += 12
-    let color = TSR.Title.window_color;
+    x += 12
+    let color = SAF.Title.window_color;
     this.changeTextColor(this.textColor(color));
     this.changePaintOpacity(this.isCommandEnabled(index));
-    let align = this.TitleTextAlign();
+    let align = "center";
     if ((cursor && cursor.index === index && !this._cursorIsMoving) || (!cursor && this._cursorRect.index === index)) {
 
-      let effect = TSR.Title.defCursor_textEffect
+      let effect = SAF.Title.defCursor_textEffect
       if (effect !== 'none') x = this.setAlign(name, x, width, align);
       if (effect === 'accordeon') {
         this.accordeon(index, name, x, rect.y, width, align);
@@ -564,23 +497,15 @@ Window_TitleCommand.initCommandPosition = function() {
     }
   };
 
-  //Done
-  Window_TitleCommand.prototype.TitleTextAlign = function() {
-    return TSR.Title.window_align;
-  };
+
   
   //done
   Window_TitleCommand.prototype.updatePlacement = function() {
-    this.x = TSR.Title.window_x - this.contents.width / 2;
-    this.y = TSR.Title.window_y;
-    let type = this.TitleWindowBackground()
-    this.setBackgroundType(type);
+    this.x = SAF.Title.window_x - this.contents.width / 2;
+    this.y = SAF.Title.window_y;
+    this.setBackgroundType(2);
   };
 
-  //done
-  Window_TitleCommand.prototype.TitleWindowBackground = function() {
-   return 2
-  };
 
   //done
 Window_TitleCommand.prototype.makeCommandList = function () {
@@ -594,20 +519,12 @@ Window_TitleCommand.prototype.makeCommandList = function () {
             this.addCommand('Multiplayer', 'multiplayer');
         } else if (cmd.includes('options')) {
             this.addCommand("Options", 'options');
-        } else if (cmd.includes('credits')) {
-            this.addCommand("Credits", 'credits');
         } else if (cmd.includes('exit')) {
-            if (this.EnableExitCommand()) {
-                this.addCommand("Exit", 'Exit');
-            }
+            this.addCommand("Exit", 'Exit');
         }
     }
 };
 
-
-  Window_TitleCommand.prototype.EnableExitCommand = function() {
-    return TSR.Title.exit_title
-  };
   
   Window_TitleCommand.prototype.selectLast = function() {
     if (Window_TitleCommand._lastCommandSymbol) {
@@ -622,138 +539,12 @@ Window_TitleCommand.prototype.makeCommandList = function () {
   };
 
 
-//== Window_preTitle ==================================
-
-//done
-  function Window_preTitle() {
-    this.initialize.apply(this, arguments);
-  }
-
-  //done
-  Window_preTitle.prototype = Object.create(Window_Command.prototype);
-  Window_preTitle.prototype.constructor = Window_preTitle;
-
-  //done
-  Window_preTitle.prototype.initialize = function() {
-    Window_Command.prototype.initialize.call(this, 0, 0);
-    this.setBackgroundType(2)
-    this.updatePlacement();
-    this.openness = 0;
-    this._text_ratio = 1;
-    this._textIncrease = false;
-    this._digitIndex = 0;
-    this._digitGoesLeft = false;
-    this._textIndex = 0;
-    this._outlineOpacity = 0.2
-    this._fontSize = TSR.Title.preTitle_fontSize;
-  };
-
-  //done
-  Window_preTitle.prototype.windowWidth = function() {
-    return TSR.Title.preTitle_width; 
-  };
-
-  //done
-  Window_preTitle.prototype.lineHeight = function() {
-    let fontSize = TSR.Title.preTitle_fontSize,
-             pad = fontSize / 4.66
-    return fontSize + pad * 2;
-  };
-
-  //Done
-  Window_preTitle.prototype.updatePlacement = function() {
-    this.x = TSR.Title.preTitle_x;
-    this.y = TSR.Title.preTitle_y;
-  };
-
-  //done
-  Window_preTitle.prototype._updateCursor = function() {
-    Window.prototype._updateCursor.call(this);
-    this._windowCursorSprite.visible = false;
-  };
-
-  //done
-  Window_preTitle.prototype.makeCommandList = function() {
-    this.addCommand(TSR.Title.preTitle_text, 'Start');
-  };
-
-  //done
- Window_preTitle.prototype.update = function() {
-    Window_Selectable.prototype.update.call(this);
-    this.redrawItem(this.index());
-    if (this._animationCount >= 60 && !this._windowIsOpen) {
-       this.open()
-       this._windowIsOpen = true;
-    }
- };
-
- //done
- Window_preTitle.prototype.drawItem = function(index) {
-    let rect  = this.itemRectForText(index),
-       width  = rect.width,
-       align  = this.itemTextAlign(),
-        name  = this.commandName(index),
-           x  = rect.x,
-       color  = TSR.Title.preTitle_color;
-    this.changeTextColor(this.textColor(color));
-    this.contents.fontFace = TSR.Title.window_fontStyle;
-    this.contents.fontSize = this._fontSize;
-
-    this.contents.outlineWidth = 5;
-    this.contents.outlineColor = 'rgba(0, 0, 0, 0.5)'
-    if (TSR.Title.preTitle_blink) {  
-      let outlinecolor = this.textColor(TSR.Title.preTitle_blinkColor);
-      this.setOutlineOpacity(outlinecolor); 
-    }
-    let effect = TSR.Title.preTitle_textEffect;
-    if (effect !== 'none') x = this.setAlign(name, x, rect.width, align);
-    if (effect === 'accordeon') {     
-      this.accordeon(index, name, x, rect.y, rect.width, align);    
-    } else {
-      this.drawText(name, x, rect.y, width, align);
-    }
- };
-
- //done
- Window_preTitle.prototype.itemTextAlign = function() {
-    return 'center';
- };
-
- //done
-  Window_preTitle.prototype.processHandling = function() {
-    if (this.isOpenAndActive()) {
-        if (this.isOkEnabled() && Input.isAnyKeyPressed()) {
-            this.processOk();
-        } else if (this.isCancelEnabled() && this.isCancelTriggered()) {
-            this.processCancel();
-        } else if (this.isHandled('pagedown') && Input.isTriggered('pagedown')) {
-            this.processPagedown();
-        } else if (this.isHandled('pageup') && Input.isTriggered('pageup')) {
-            this.processPageup();
-        }
-    }
-  };
-
-  //done
-  Window_preTitle.prototype.processOk = function() {
-    if (this.isCurrentItemEnabled()) {
-        AudioManager.playSe({ name: "coin1", pan: 0, pitch: 100, volume: 100 });
-        this.updateInputData();
-        this.deactivate();
-        this.callOkHandler();
-    } else {
-        this.playBuzzerSound();
-    }
-  };
-
-
-
 //== Window_GameEnd ==================================
 
   Window_GameEnd.prototype.makeCommandList = function() {
     if ($gameParty.isAllDead()) {
       if (this.isContinueEnabled()) {
-        this.addCommand("Carregar jogo",   'continuer');
+        this.addCommand("Carregar jogo",   'load');
       }
       this.addCommand("Novo Jogo",   'newGame');
       this.addCommand("Sair pro menu", 'to Title');
@@ -770,7 +561,7 @@ Window_TitleCommand.prototype.makeCommandList = function () {
   };
 
   Window_GameEnd.prototype.EnableCommand = function() {
-    return TSR.Title.exit_menu
+    return SAF.Title.exit_menu
   };
 
 
