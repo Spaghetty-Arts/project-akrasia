@@ -2,47 +2,6 @@
 var SAF = SAF || {};
 SAF.Title = SAF.Title || {};
 
-var Imported = Imported || {};
-Imported.TSR_Title = true;
-
-
-//== PARAMETERS ============================================================================
-
- SAF.Parameters = PluginManager.parameters('TSR_Title');
-
-
-
-   ///Title window parameters
-
- SAF.Title.window_CmdList    = String(SAF.Parameters['Window Command List']) || null ;
- SAF.Title.window_type       = String(SAF.Parameters['Window Menu Type']);
- SAF.Title.window_BGtype     = String(SAF.Parameters['Window Background']);
- SAF.Title.window_x          = String(SAF.Parameters['Window X']);
- SAF.Title.window_x          = eval(SAF.Title.window_x);
- SAF.Title.window_y          = String(SAF.Parameters['Window Y']);
- SAF.Title.window_y          = eval(SAF.Title.window_y);
- SAF.Title.window_width      = String(SAF.Parameters['Window Width']);
- SAF.Title.window_width      = eval(SAF.Title.window_width);
- SAF.Title.window_rows       = Number(SAF.Parameters['Window Visible Rows']);
- SAF.Title.window_cols       = Number(SAF.Parameters['Window Visible Cols']);
- SAF.Title.window_color      = Number(SAF.Parameters['Window Text Color']);
- SAF.Title.window_fontStyle  = String(SAF.Parameters['Window Text Font']);
- SAF.Title.window_fontSize   = Number(SAF.Parameters['Window Font Size']);
- SAF.Title.window_align      = String(SAF.Parameters['Window Text Align']);
-
-
-
-   ///Default cursor parameters
-
- SAF.Title.defCursor_enable      = String(SAF.Parameters['Enable Default Cursor']);
- SAF.Title.defCursor_enable      = eval(SAF.Title.defCursor_enable);
- SAF.Title.defCursor_blink       = String(SAF.Parameters['Outline Opacity Blink']);
- SAF.Title.defCursor_blink       = eval(SAF.Title.defCursor_blink);
- SAF.Title.defCursor_blinkColor  = Number(SAF.Parameters['Opacity Blink Color']);
- SAF.Title.defCursor_textEffect  = String(SAF.Parameters['Selected Text Effect']);
-
-
-
 //press any key
   Input.isAnyKeyPressed = function() {
     for (let i in Input.keyMapper) {
@@ -59,12 +18,7 @@ Imported.TSR_Title = true;
     this.createBackground();
     this.createForeground();
     this.createWindowLayer();
-    if (!SAF.Title._titleStarted && SAF.Title.preTitle_text) {
-      this.createPreTitleWindow();
-    } else {
-        SAF.Title._titleStarted = true;
-      this.createCommandWindow();
-    }
+    this.createCommandWindow();
   };
 
   //done good
@@ -86,12 +40,7 @@ Imported.TSR_Title = true;
       }
       this._frameCounter++;
 
-      if (this._preTitlePause === true && this._frameCounter >= this._startCounter + 40) {
-        this._commandWindow.open();
-        this._startCounter  = false;
-        this._preTitlePause = false;
-      }
-      if (SAF.Title._titleStarted && !this._StartedAndOpen && !this._startCounter) {
+      if (!this._StartedAndOpen && !this._startCounter) {
         this._commandWindow.open();
         this._StartedAndOpen = true;
       }
@@ -102,9 +51,7 @@ Imported.TSR_Title = true;
   Scene_Title.prototype.isBusy = function() {
     if (this._commandWindow) {
       return this._commandWindow.isClosing() || Scene_Base.prototype.isBusy.call(this);
-    } else {
-      return this._preTitleWindow.isClosing() || Scene_Base.prototype.isBusy.call(this);
-    } 
+    }
   };
 
 
@@ -196,99 +143,19 @@ Scene_Title.prototype.commandMulti = function () {
 
 
 
-//== Scene_GameOver ==================================
-
-  Scene_Gameover.prototype.update = function() {
-    if (this.isActive() && !this.isBusy() && this.isTriggered()) {
-        SceneManager.push(Scene_GameEnd);
-    }
-    Scene_Base.prototype.update.call(this);
-  };
-
-
-//== Scene_GameEnd ==================================
- 
-  Scene_GameEnd.prototype.createBackground = function() {
-    Scene_MenuBase.prototype.createBackground.call(this);
-    if ($gameParty.isAllDead()) {     
-      this.setBackgroundOpacity(0);
-    } else {
-      this.setBackgroundOpacity(128);
-    }
-  };
-
-  Scene_GameEnd.prototype.createCommandWindow = function() {
-    if ($gameParty.isAllDead()) {
-      this._commandWindow = new Window_GameEnd();
-      this._commandWindow.setHandler('newGame',  this.commandNewGame.bind(this));
-      this._commandWindow.setHandler('to Title',  this.commandToTitle.bind(this));
-      this._commandWindow.setHandler('Exit',  this.commandToQuit.bind(this));
-      this.addWindow(this._commandWindow);
-    } else {
-      this._commandWindow = new Window_GameEnd();
-      this._commandWindow.setHandler('to Title',  this.commandToTitle.bind(this));
-      this._commandWindow.setHandler('Exit',  this.commandToQuit.bind(this));
-      this._commandWindow.setHandler('cancel',   this.popScene.bind(this));
-      this.addWindow(this._commandWindow);
-    }
-  };
-  
-  Scene_GameEnd.prototype.commandTrueContinue = function() {
-    let LastSave = DataManager.latestSavefileId();
-    if (DataManager.loadGame(LastSave)) {
-        this.LoadSuccess();
-    } else {
-        this.LoadFailure();
-    }
-  };
-  
-  Scene_GameEnd.prototype.LoadSuccess = function() {
-    this._commandWindow.close();
-    SoundManager.playLoad();
-    this.fadeOutAll();
-    $gameSystem.onAfterLoad();
-    this.reloadMapIfUpdated();
-    SceneManager.goto(Scene_Map);
-  };
-
-  Scene_GameEnd.prototype.LoadFailure = function() {
-    SoundManager.playBuzzer();
-  };
-  
-  Scene_GameEnd.prototype.reloadMapIfUpdated = function() {
-    if ($gameSystem.versionId() !== $dataSystem.versionId) {
-        $gamePlayer.reserveTransfer($gameMap.mapId(), $gamePlayer.x, $gamePlayer.y);
-        $gamePlayer.requestMapReload();
-    }
-  };
-
-  Scene_GameEnd.prototype.commandNewGame = function() {
-    DataManager.setupNewGame();
-    this._commandWindow.close();
-    this.fadeOutAll();
-    SceneManager.goto(Scene_Map);
-  };
-
-  Scene_GameEnd.prototype.commandToQuit = function() {
-    this.fadeOutAll();
-    SceneManager.exit();
-  };
-
-
 //== Window_Selectable =====================================
 
+//done good
   Window_Selectable.prototype.setAlign = function(name, x, width, align) {
     if (align === 'center') {
       x += width / 2 - this.textWidth(name) / 2;
-    } else if (align === 'right') {
-      x += width - this.textWidth(name);
     }
     return x;
   };
 
 
   //Done good
-  Window_Selectable.prototype.accordeon = function(index, name, x, y, width, align) {
+  Window_Selectable.prototype.inOut = function(index, name, x, y, width, align) {
     let preWidth = this.textWidth(name);
     width = this.changeWidth(name, preWidth);
     x += (preWidth - width) / 2;
@@ -327,20 +194,20 @@ Scene_Title.prototype.commandMulti = function () {
   Window_TitleCommand.prototype = Object.create(Window_HorzCommand.prototype);
   Window_TitleCommand.prototype.constructor = Window_TitleCommand;
 
-  //Done
+  //Done good
   Window_TitleCommand.prototype.initialize = function(x, y) {
     Window_Command.prototype.initialize.call(this, x, y);
     this.updatePlacement();
     this.selectLast();
   };
 
-  //done
+  //done good
   Window_TitleCommand.prototype.numVisibleRows = function() {
     return 1;
   };
 
 
-  //done
+  //done good
   Window_TitleCommand.prototype.maxCols = function() {
     return 3;
   };
@@ -352,10 +219,10 @@ Scene_Title.prototype.commandMulti = function () {
 
   //Done
   Window_TitleCommand.prototype.windowWidth = function() {
-    return SAF.Title.window_width * this.maxCols();
+    return 240 * this.maxCols();
   };
 
-  //Done
+  //Done good
   function checkCursor() {
     Window_TitleCommand.prototype.cursorUp = function(wrap) {
     };
@@ -383,7 +250,7 @@ Scene_Title.prototype.commandMulti = function () {
   }
   checkCursor();
 
-  //done
+  //done good
   Window_TitleCommand.prototype.playCursorSound = function(row) {
     if (row === this.row()) {
         SoundManager.playCursor();
@@ -397,7 +264,7 @@ Scene_Title.prototype.commandMulti = function () {
       }
   };
 
-  //done
+  //done good
   Window_TitleCommand.prototype.processOk = function() {
     if (this.isCurrentItemEnabled() && !this._cursorIsMoving) {
         this.playOkSound();
@@ -411,7 +278,7 @@ Scene_Title.prototype.commandMulti = function () {
 };
 
 
-  //done
+  //done good
 Window_TitleCommand.initCommandPosition = function() {
     this._lastCommandSymbol = null;
  };
@@ -467,30 +334,28 @@ Window_TitleCommand.initCommandPosition = function() {
     }
   };
 
-  //Done
+  //Done good
   Window_TitleCommand.prototype.drawItem = function(index) {
     let cursor = this._bitmapCursor;
     let rect = this.itemRectForText(index);
     let name = this.commandName(index);
     let x = rect.x;
     let width = rect.width;
-    this.contents.fontFace = SAF.Title.window_fontStyle;
-    this.contents.fontSize = SAF.Title.window_fontSize;
+    this.contents.fontFace = "TitleFont";
+    this.contents.fontSize = 25;
     this.contents.outlineWidth = 4;
     this.contents.outlineColor = 'rgba(0, 0, 0, 0.5)'
     x += 12
-    let color = SAF.Title.window_color;
+    let color = 31;
     this.changeTextColor(this.textColor(color));
     this.changePaintOpacity(this.isCommandEnabled(index));
     let align = "center";
     if ((cursor && cursor.index === index && !this._cursorIsMoving) || (!cursor && this._cursorRect.index === index)) {
 
-      let effect = SAF.Title.defCursor_textEffect
-      if (effect !== 'none') x = this.setAlign(name, x, width, align);
-      if (effect === 'accordeon') {
-        this.accordeon(index, name, x, rect.y, width, align);
-      } else {
-        this.drawText(name, x, rect.y, width, align);
+      let effect = "inOut";
+      x = this.setAlign(name, x, width, align);
+      if (effect === 'inOut') {
+        this.inOut(index, name, x, rect.y, width, align);
       }
     } else {
       this.drawText(name, x, rect.y, width, align);
@@ -498,11 +363,10 @@ Window_TitleCommand.initCommandPosition = function() {
   };
 
 
-  
-  //done
+  //done good
   Window_TitleCommand.prototype.updatePlacement = function() {
-    this.x = SAF.Title.window_x - this.contents.width / 2;
-    this.y = SAF.Title.window_y;
+    this.x = (SceneManager._boxWidth / 2) - this.contents.width / 2;
+    this.y = (SceneManager._boxHeight / 2) + 100;
     this.setBackgroundType(2);
   };
 
@@ -525,7 +389,8 @@ Window_TitleCommand.prototype.makeCommandList = function () {
     }
 };
 
-  
+
+//Done
   Window_TitleCommand.prototype.selectLast = function() {
     if (Window_TitleCommand._lastCommandSymbol) {
         this.selectSymbol(Window_TitleCommand._lastCommandSymbol);
@@ -538,31 +403,6 @@ Window_TitleCommand.prototype.makeCommandList = function () {
     return DataManager.isAnySavefileExists();
   };
 
-
-//== Window_GameEnd ==================================
-
-  Window_GameEnd.prototype.makeCommandList = function() {
-    if ($gameParty.isAllDead()) {
-      if (this.isContinueEnabled()) {
-        this.addCommand("Carregar jogo",   'load');
-      }
-      this.addCommand("Novo Jogo",   'newGame');
-      this.addCommand("Sair pro menu", 'to Title');
-      this.addCommand("Sair do jogo", 'Exit');
-    } else {
-      this.addCommand("Sair pro menu", 'to Title');
-      if (this.EnableCommand()) this.addCommand("Sair do jogo", 'Exit');
-      this.addCommand("Cancelar",  'cancel');
-    }
-  };
-
-  Window_GameEnd.prototype.isContinueEnabled = function() {
-    return DataManager.isAnySavefileExists();
-  };
-
-  Window_GameEnd.prototype.EnableCommand = function() {
-    return SAF.Title.exit_menu
-  };
 
 
 

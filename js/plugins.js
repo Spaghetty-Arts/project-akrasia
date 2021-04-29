@@ -57,6 +57,7 @@ var $plugins =
 {"name":"TitleScreenVideo","status":true,"description":"","parameters":{}},
 {"name":"TSR_Title_Ext","status":false,"description":"","parameters":{}},
 {"name":"Fonts","status":true,"description":"","parameters":{}},
+{"name":"GameEnd","status":true,"description":"","parameters":{}},
 {"name":"----------------------------------","status":false,"description":"","parameters":{}},
 {"name":"OcRam_Audio_EX","status":true,"description":"v2.07 This plugin provides dynamic sound positioning and adds 2 'generic' BGS channels which will also play in battle. PLUGIN NAME MUST BE OcRam_Audio_EX.js","parameters":{"Default Distance (BGS/SE)":"20","Default Radius (BGS/SE)":"0","Default create new (BGS)":"false","Default fade (BGS)":"2","Default forced play (BGS)":"true","Default autopan (BGS/SE)":"true","Default fade (BGM)":"6","BGS2/3 volume control":"true","BGS2 option caption":"BGS2 Volume","BGS3 option caption":"BGS3 Volume","Use linear curve":"true","Debug mode":"false"}},
 {"name":"TestDialog","status":true,"description":"","parameters":{}},
