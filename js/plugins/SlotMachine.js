@@ -349,6 +349,7 @@ SLTReelSprite.prototype.spin = function () {
 // LotLineSprite
 //
 // This Sprite is draw lot line for the slot machines.
+// Done
 
 function LotLineSprite() {
     this.initialize.apply(this, arguments);
@@ -357,42 +358,28 @@ function LotLineSprite() {
 LotLineSprite.prototype = Object.create(Sprite.prototype);
 LotLineSprite.prototype.constructor = LotLineSprite;
 
+//drawing the bet loine
 LotLineSprite.prototype.initialize = function (bitmap) {
     Sprite.prototype.initialize.call(this, bitmap);
 
     var b1 = ImageManager.loadBitmap("img/slotmachine/", "bet_line_1");
-    var b2 = ImageManager.loadBitmap("img/slotmachine/", "bet_line_2");
-    var b3 = ImageManager.loadBitmap("img/slotmachine/", "bet_line_3");
+
     this._line1Sprite = new Sprite(b1);
-    this._line2Sprite = new Sprite(b2);
-    this._line3Sprite = new Sprite(b3);
+
     this._line1Sprite.x = 0;
-    this._line1Sprite.y = 54;
-    this._line2Sprite.x = 0;
-    this._line2Sprite.y = 0;
-    this._line3Sprite.x = 0;
-    this._line3Sprite.y = 111;
+    this._line1Sprite.y = 23;
+
     this.addChild(this._line1Sprite);
-    this.addChild(this._line2Sprite);
-    this.addChild(this._line3Sprite);
+
 };
 
 LotLineSprite.prototype.enableLine = function (line) {
-    if (line === 0) {
-        this._line1Sprite.visible = true;
-    }
-    else if (line === 1) {
-        this._line2Sprite.visible = true;
-    }
-    else if (line === 2) {
-        this._line3Sprite.visible = true;
-    }
+    this._line1Sprite.visible = true;
 };
 
 LotLineSprite.prototype.clear = function () {
     this._line1Sprite.visible = false;
-    this._line2Sprite.visible = false;
-    this._line3Sprite.visible = false;
+
 };
 
 //-----------------------------------------------------------------------------
@@ -530,21 +517,20 @@ Scene_SlotMachine.prototype.initialize = function () {
     this._probability[3].push((1 / (this._probability[0][5] * this._probability[1][5] * this._probability[2][5])) *
         expectation * (1 / odds[2][5])); //55555
 
-    //Interval Spin
-    //this._startingTimer = null;
-    //this._currentStartingReel = 0;
 
     if (this._coin > Scene_SlotMachine.COIN_MAX_VALUE) {
         this._coin = Scene_SlotMachine.COIN_MAX_VALUE;
     }
+
 };
 
+//Creation of slot scene
 Scene_SlotMachine.prototype.create = function () {
+    AudioManager.playBgm({"name": "slotbgm", "volume": 100, "pitch": 100, "pan": 0});
     this.createBackground();
     this._backgroundSprite.bitmap = ImageManager.loadBitmap("img/slotmachine/", "bg");
     this.createReels();
     this.createBetLine();
-    this.createScale();
     this.updateActor();
     this.createWindowLayer();
     this.createHelpWindow();
@@ -564,9 +550,10 @@ Scene_SlotMachine.prototype.start = function() {
     this.makeReel();
     this._instructionWindow.refresh();
     this._slotMachineWindow.refresh();
-    this._helpWindow.setText(helpMessage);
+    this._helpWindow.opacity = 0;
 };
 
+//spinnig itens
 Scene_SlotMachine.prototype.makeReel = function() {
     for (var i = 0; i < 5; i++) {
         for (var j = 0; j < 18; j++) {
@@ -616,13 +603,13 @@ Scene_SlotMachine.prototype.createSlotMachine = function () {
     this.addWindow(this._slotMachineWindow);
 };
 
+//slot scene command  creation done
 Scene_SlotMachine.prototype.createSlotCommand = function () {
-    this._slotCommandWindow = new Window_SlotCommand(0, 0);
+    this._slotCommandWindow = new Window_SlotCommand(0, 550);
     this._slotCommandWindow.setHandler('bet', this.betCommand.bind(this));
     this._slotCommandWindow.setHandler('spin', this.spinCommand.bind(this));
     this._slotCommandWindow.setHandler('cancel', this.cancelCommand.bind(this));
     this.addWindow(this._slotCommandWindow);
-    this._slotCommandWindow.y = this._helpWindow.y - this._slotCommandWindow.height;
 };
 
 Scene_SlotMachine.prototype.createReplayCommand = function () {
@@ -653,49 +640,31 @@ Scene_SlotMachine.prototype.createBetLine = function () {
     var bitmap = ImageManager.loadBitmap("img/slotmachine/", "line_base");
     this._betLine = new LotLineSprite(bitmap);
     this._betLine.x = 43;
-    this._betLine.y = 227;
+    this._betLine.y = 265;
     this._betLine.clear();
     this.addChild(this._betLine);
 };
 
-Scene_SlotMachine.prototype.createScale = function () {
-    var bitmap;
-    if (scale === 10) {
-        bitmap = ImageManager.loadBitmap("img/slotmachine/", "scale_x10");
-    }
-    else if (scale === 100) {
-        bitmap = ImageManager.loadBitmap("img/slotmachine/", "scale_x100");
-    }
-    else {
-        bitmap = ImageManager.loadBitmap("img/slotmachine/", "scale_x1");
-    }
-    this._scale = new Sprite(bitmap);
-    this._scale.x = 719;
-    this._scale.y = 212;
-    this.addChild(this._scale);
-};
-
+//command to cancel scene
 Scene_SlotMachine.prototype.cancelCommand = function () {
     this._bet = 0;
     this.refreshStatus();
     setCoin(this._coin);
+    AudioManager.stopBgm();
     this.popScene();
 };
 
+//command to make bet
 Scene_SlotMachine.prototype.betCommand = function () {
-    if (this._bet < 3) {
-        this._bet++;
-        this._slotCommandWindow.enableSpin();
-    }
-    if (this._bet > 2) {
-        this._slotCommandWindow.disableBet();
-    }
     if (this._coin - this._bet * scale < scale) {
         this._slotCommandWindow.disableBet();
     }
 
-    this.refreshStatus();
+    this._bet++;
+    this._slotCommandWindow.enableSpin();
+    this._slotCommandWindow.disableBet();
 
+    this.refreshStatus();
     this._slotCommandWindow.activate();
 };
 
@@ -716,18 +685,6 @@ Scene_SlotMachine.prototype.spinCommand = function () {
     }
 
     this._rollCount++;
-
-    //Interval Spin
-    //this._currentStartingReel = 0;
-    //this._startingTimer = setInterval(function(){
-    //    this._reels[this._currentStartingReel].spin();
-    //    this._currentStartingReel++;
-    //    console.log("this._currentStartingReel", this._currentStartingReel)
-    //    if (this._currentStartingReel > 4) {
-    //        clearInterval(this._startingTimer);
-    //        this._startingTimer = null;
-    //    }
-    //}.bind(this), 200);
 
     this._spinStart = true;
     this._reels[0].setWinSpot(this._winSpot[0]);
@@ -1014,21 +971,6 @@ Scene_SlotMachine.prototype.update = function () {
         }
     }
 
-    if (Input.isRepeated('up') && this._slotCommandWindow.active) {
-        if (this._slotCommandWindow.isAllowBet) {
-            SoundManager.playOk();
-            this.betCommand();
-        }
-        else {
-            SoundManager.playBuzzer();
-        }
-    }
-    if (Input.isRepeated('down') && this._slotCommandWindow.active) {
-        if (this._slotCommandWindow.isAllowSpin && !this._spinStart) {
-            SoundManager.playOk();
-            this.spinCommand();
-        }
-    }
 };
 
 Scene_SlotMachine.prototype._makeCursorArray = function () {
@@ -1079,6 +1021,7 @@ Window_SlotInstruction.prototype.lineHeight = function () {
     return 24;
 };
 
+//odds in the top
 Window_SlotInstruction.prototype.refresh = function () {
     this.setBackgroundType(2);
     this.contents.clear();
@@ -1086,47 +1029,22 @@ Window_SlotInstruction.prototype.refresh = function () {
     if (this._odds) {
         this.contents.fontSize = 22;
         var x = 51 - 18;
-        var y = 14;
         var w = 224;
-        this.drawText(this._odds[2][5], x, y, w, "right");
-        y += this.lineHeight();
-        this.drawText(this._odds[2][4], x, y, w, "right");
-        y += this.lineHeight();
-        this.drawText(this._odds[2][3], x, y, w, "right");
-        y += this.lineHeight();
-        this.drawText(this._odds[2][2], x, y, w, "right");
-        y += this.lineHeight();
-        this.drawText(this._odds[2][1], x, y, w, "right");
-        y += this.lineHeight();
-        this.drawText(this._odds[2][0], x, y, w, "right");
 
         x += w + 20;
-        y = 14;
+        y = 18;
         this.drawText(this._odds[1][5], x, y, w, "right");
-        y += this.lineHeight();
+        y += this.lineHeight() -5;
         this.drawText(this._odds[1][4], x, y, w, "right");
-        y += this.lineHeight();
+        y += this.lineHeight() -5;
         this.drawText(this._odds[1][3], x, y, w, "right");
-        y += this.lineHeight();
+        y += this.lineHeight() -5;
         this.drawText(this._odds[1][2], x, y, w, "right");
-        y += this.lineHeight();
+        y += this.lineHeight() -5;
         this.drawText(this._odds[1][1], x, y, w, "right");
-        y += this.lineHeight();
+        y += this.lineHeight() -5;
         this.drawText(this._odds[1][0], x, y, w, "right");
 
-        x += w + 20;
-        y = 14;
-        this.drawText(this._odds[0][5], x, y, w, "right");
-        y += this.lineHeight();
-        this.drawText(this._odds[0][4], x, y, w, "right");
-        y += this.lineHeight();
-        this.drawText(this._odds[0][3], x, y, w, "right");
-        y += this.lineHeight();
-        this.drawText(this._odds[0][2], x, y, w, "right");
-        y += this.lineHeight();
-        this.drawText(this._odds[0][1], x, y, w, "right");
-        y += this.lineHeight();
-        this.drawText(this._odds[0][0], x, y, w, "right");
     }
     this.contents.fontSize = this.standardFontSize();
 
