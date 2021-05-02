@@ -1,150 +1,7 @@
-//=============================================================================
-// SlotMachine.js
-//
-// (c)2016 KADOKAWA CORPORATION./YOJI OJIMA
-//=============================================================================
-
-/*:
- * @plugindesc Slot Machine scene
- * @author Takeya Kimura
- *
- * @param Variable ID
- * @desc Variable ID for store the coin.
- * @default 11
- *
- * @param Help Text
- * @desc This text is a help message.
- * @default カーソルキーの上でベット、カーソルキーの下でスタート
- *
- * @param Won Text
- * @desc This text is a won message. "Win Coin" will be replaced with the number of coins won.
- * @default おめでとうございます！Win Coin枚獲得です！
- *
- * @param Lost Text
- * @desc This text is a lost message.
- * @default 残念でした。
- *
- * @param Replay Text
- * @desc This text is a replay message.
- * @default もう一度やりますか？
- *
- * @param CoinFull Text
- * @desc This text is a coin full message.
- * @default コイン枚数が制限に達しました。
- *
- * @param Bet Text
- * @desc This text is a bet command.
- * @default ベット
- *
- * @param Spin Text
- * @desc This text is a coin spin command.
- * @default スピン
- *
- * @param Yes Text
- * @desc This text is a coin "yes" command.
- * @default はい
- *
- * @param No Text
- * @desc This text is a "no" command.
- * @default いいえ
- *
- * @requiredAssets img/slotmachine/bet_line_1
- * @requiredAssets img/slotmachine/bet_line_2
- * @requiredAssets img/slotmachine/bet_line_3
- * @requiredAssets img/slotmachine/bg
- * @requiredAssets img/slotmachine/line_base
- * @requiredAssets img/slotmachine/reel
- * @requiredAssets img/slotmachine/scale_x1
- * @requiredAssets img/slotmachine/scale_x10
- * @requiredAssets img/slotmachine/scale_x100
- * @requiredAssets img/slotmachine/win_cursor
- * @requiredAssets audio/me/Victory1
- * @requiredAssets audio/se/Switch2
- *
- * @help
- * Plugin Command:
- *   SlotMachine open               # Open the slot machines
- *   SlotMachine expectation 0.5    # Set the expectation
- *   SlotMachine scale 0            # Set the scale [0 | 1 | 2](scale1 | scale10 | scale100)
- */
-
-/*:ja
- * @plugindesc Slot Machine scene
- * @author Takeya Kimura
- *
- * @param Variable ID
- * @desc 所持コインの数を保管する変数ID
- * @default 11
- *
- * @param Help Text
- * @desc ヘルプメッセージです。
- * @default カーソルキーの上でベット、カーソルキーの下でスタート
- *
- * @param Won Text
- * @desc 勝利時のメッセージ。 "Win Coin"は獲得したコイン数に置換されます。
- * @default おめでとうございます！Win Coin枚獲得です！
- *
- * @param Lost Text
- * @desc 負けた時のメッセージ
- * @default 残念でした。
- *
- * @param Replay Text
- * @desc リプレイ時の選択メッセージ
- * @default もう一度やりますか？
- *
- * @param Coin Full Text
- * @desc コインが最大数に達した時のメッセージ
- * @default コイン枚数が制限に達しました。
- *
- * @param Bet Text
- * @desc ベットコマンドのテキスト
- * @default ベット
- *
- * @param Spin Text
- * @desc スピンコマンドのテキスト
- * @default スピン
- *
- * @param Yes Text
- * @desc はいコマンドのテキスト
- * @default はい
- *
- * @param No Text
- * @desc いいえコマンドのテキスト
- * @default いいえ
- *
- * @requiredAssets img/slotmachine/bet_line_1
- * @requiredAssets img/slotmachine/bet_line_2
- * @requiredAssets img/slotmachine/bet_line_3
- * @requiredAssets img/slotmachine/bg
- * @requiredAssets img/slotmachine/line_base
- * @requiredAssets img/slotmachine/reel
- * @requiredAssets img/slotmachine/scale_x1
- * @requiredAssets img/slotmachine/scale_x10
- * @requiredAssets img/slotmachine/scale_x100
- * @requiredAssets img/slotmachine/win_cursor
- * @requiredAssets audio/me/Victory1
- * @requiredAssets audio/se/Switch2
- *
- * @help
- * Plugin Command:
- *   SlotMachine open               # スロットマシーンを開きます
- *   SlotMachine expectation 0.5    # 期待値を0〜1の間で設定します。1に近づくほど当たりやすくなりますが、確実に当たるわけではありません。
- *   SlotMachine scale 0            # 倍率を設定します0は1倍、1は10倍、2は100倍です。
- */
-
 (function () {
 
-var parameters = PluginManager.parameters('SlotMachine');
 var variableId = 26;
-var helpMessage = String(parameters['Help Text'] || "カーソルキーの上でベット、カーソルキーの下でスタート");
-var winMessage = String(parameters['Won Text'] || "おめでとうございます！Win Coin枚獲得です！");
-var lostMessage = String(parameters['Lost Text'] || "残念でした。");
-var replayMessage = String(parameters['Replay Text'] || "もう一度やりますか？");
-var coinFullMessage = String(parameters['CoinFull Text'] || "コイン枚数が制限に達しました。");
-var betText = String(parameters['Bet Text'] || "ベット");
-var spinText = String(parameters['Spin Text'] || "スピン");
-var yesText = String(parameters['Yes Text'] || "はい");
-var noText = String(parameters['No Text'] || "いいえ");
+
 var scale = 10;
 var expectation = 0.5;
 
@@ -330,52 +187,12 @@ function ForegroundSprite() {
 ForegroundSprite.prototype = Object.create(Sprite.prototype);
 ForegroundSprite.prototype.constructor = ForegroundSprite;
 
-//drawing the bet loine
 ForegroundSprite.prototype.initialize = function (bitmap) {
     Sprite.prototype.initialize.call(this, bitmap);
 };
 
 
 
-//-----------------------------------------------------------------------------
-// InstructionCursorSprite
-//
-// Cursor indicating the winning
-
-function InstructionCursorSprite() {
-    this.initialize.apply(this, arguments);
-}
-
-InstructionCursorSprite.prototype = Object.create(Sprite.prototype);
-InstructionCursorSprite.prototype.constructor = InstructionCursorSprite;
-
-InstructionCursorSprite.prototype.initialize = function (bitmap) {
-    Sprite.prototype.initialize.call(this, bitmap);
-
-    this._counter = 0;
-};
-
-InstructionCursorSprite.FRAME_BLINK = 10;
-InstructionCursorSprite.FRAME_BLINK_END = 190;
-
-InstructionCursorSprite.prototype.blink = function () {
-    this._counter = 1;
-};
-
-InstructionCursorSprite.prototype.update = function () {
-    Sprite.prototype.update.call(this);
-
-    if (this._counter > 0) {
-        if (this._counter > InstructionCursorSprite.FRAME_BLINK_END + 1) {
-            this._counter = 0;
-        }
-        else {
-            var s = this._counter / InstructionCursorSprite.FRAME_BLINK >> 0;
-            this.visible = s % 2 === 0;
-            this._counter++;
-        }
-    }
-};
 
 /**
  * @method drawImage
@@ -488,7 +305,7 @@ Scene_SlotMachine.prototype.create = function () {
     this.createbgRow();
     this.updateActor();
     this.createWindowLayer();
-    this.createHelpWindow();
+
     this.createInstruction();
     this.createSlotMachine();
     this.createSlotCommand();
@@ -503,7 +320,6 @@ Scene_SlotMachine.prototype.start = function() {
     this.makeReel();
     this._instructionWindow.messageDraw("Joga e Ganha!");
     this._slotMachineWindow.refresh();
-    this._helpWindow.opacity = 0;
 };
 
 
@@ -532,14 +348,8 @@ Scene_SlotMachine.prototype.isWinCounting = function() {
     return this._winCoin > 0;
 };
 
-Scene_SlotMachine.prototype.createHelpWindow = function() {
-    Scene_MenuBase.prototype.createHelpWindow.call(this);
-    this._helpWindow.y = Graphics.boxHeight - this._helpWindow.height;
-};
-
 Scene_SlotMachine.prototype.createInstruction = function () {
     this._instructionWindow = new Window_SlotInstruction(0, 0, Graphics.boxWidth, 26 * 6 + 18 * 2);
-    this._instructionWindow.setOdds(odds);
     this.addWindow(this._instructionWindow);
 };
 
@@ -560,13 +370,11 @@ Scene_SlotMachine.prototype.createSlotCommand = function () {
 };
 
 Scene_SlotMachine.prototype.createReplayCommand = function () {
-    this._replayCommandWindow = new Window_ReplayCommand(0, 0);
+    this._replayCommandWindow = new Window_ReplayCommand(0, 550);
     this._replayCommandWindow.setHandler('yes', this.replayCommand.bind(this));
     this._replayCommandWindow.setHandler('no', this.cancelCommand.bind(this));
     this._replayCommandWindow.setHandler('cancel', this.cancelCommand.bind(this));
     this.addWindow(this._replayCommandWindow);
-    this._replayCommandWindow.x = Graphics.boxWidth - this._replayCommandWindow.width;
-    this._replayCommandWindow.y = this._helpWindow.y - this._replayCommandWindow.height;
 };
 
 Scene_SlotMachine.prototype.createReels = function () {
@@ -622,7 +430,6 @@ Scene_SlotMachine.prototype.spinCommand = function () {
     this._coin -= this._bet * scale;
     this._slotCommandWindow.deactivate();
     this._slotCommandWindow.close();
-    this._helpWindow.close();
 
     this._winSpot = this.drawLot();
 
@@ -665,19 +472,14 @@ Scene_SlotMachine.prototype.result = function () {
     }
 
     if (this._winCoin > 0) {
-        this._winMessage = winMessage;
-        var reg = /Win Coin/gi;
-        this._winMessage = this._winMessage.replace(reg, String(tmp));
-        this._helpWindow.setText(this._winMessage);
-        this._helpWindow.open();
-        AudioManager.playSe({"name": "WinA", "volume": 90, "pitch": 100, "pan": 0});
+        this._instructionWindow.messageDraw("Parabéns!\nGanhaste " + tmp + " chips\nJoga de novo!", 30);
+        AudioManager.playSe({"name": "WinA", "volume": 100, "pitch": 100, "pan": 0});
     }
     else {
-        this._helpWindow.setText(lostMessage + '\n' + replayMessage);
-        this._helpWindow.open();
+        this._instructionWindow.messageDraw("Perdeste!\nTenta de novo");
         this._replayCommandWindow.open();
         this._replayCommandWindow.activate();
-        AudioManager.playSe({"name": "loseA", "volume": 90, "pitch": 100, "pan": 0});
+        AudioManager.playSe({"name": "loseA", "volume": 100, "pitch": 100, "pan": 0});
     }
 };
 
@@ -710,10 +512,6 @@ Scene_SlotMachine.prototype.judge = function (spot) {
             returnValue += win;
         }
     }
-
-
-    this._instructionWindow.blinkCursor(cursorArray);
-
     return returnValue;
 };
 
@@ -812,13 +610,6 @@ Scene_SlotMachine.prototype.isWin = function (spot, r) {
 Scene_SlotMachine.prototype.correct = function () {
     this._coin += this._correctCoin;
     this._correctCoin = 0;
-    if (this._coin >= Scene_SlotMachine.COIN_MAX_VALUE) {
-        this._helpWindow.setText(coinFullMessage + '\n' + replayMessage);
-    }
-    else {
-        this._helpWindow.setText(this._winMessage + '\n' + replayMessage);
-    }
-    this._winMessage = "";
     this._replayCommandWindow.open();
     this._replayCommandWindow.activate();
 };
@@ -833,7 +624,6 @@ Scene_SlotMachine.prototype.replayCommand = function () {
     this._replayCommandWindow.close();
     this._slotCommandWindow.open();
     this._slotCommandWindow.activate();
-    this._helpWindow.setText(helpMessage);
 
     this._bet = 0;
     this.refreshStatus();
@@ -895,22 +685,6 @@ Window_SlotInstruction.prototype.constructor = Window_SlotInstruction;
 Window_SlotInstruction.prototype.initialize = function (x, y, width, height) {
     Window_Base.prototype.initialize.call(this, x, y, width, height);
 
-    this._cursol = [[],[],[]];
-    var b = ImageManager.loadBitmap("img/slotmachine/", "win_cursor");
-
-    var cx = 47;
-    var cy = 32;
-    var cw = 224;
-    for (var i = 2; i >= 0; i--) {
-        for (var j = 5; j >= 0; j--) {
-            var sprite = new InstructionCursorSprite(b);
-            this.addChild(sprite);
-            sprite.x = cx + i * (cw + 20);
-            sprite.y = cy + j * 24;
-            this._cursol[2 - i].push(sprite);
-        }
-    }
-    this.clearCursor();
 };
 
 Window_SlotInstruction.prototype.lineHeight = function () {
@@ -918,37 +692,18 @@ Window_SlotInstruction.prototype.lineHeight = function () {
 };
 
 
-Window_SlotInstruction.prototype.messageDraw = function (message) {
+Window_SlotInstruction.prototype.messageDraw = function (message, y = 50) {
     this.setBackgroundType(2);
     this.contents.clear();
-    this.contents.fontSize = 22;
-    var x = 51 - 18;
+    var x = 33;
     var w = 224;
 
     x += w + 20;
-    this.drawText(message, x, 70, w, "center");
-    this.contents.fontSize = this.standardFontSize();
+
+    this.drawTextEx(message, x, y, w, "center");
 }
 
-Window_SlotInstruction.prototype.setOdds = function (odds) {
-    this._odds = odds;
-};
 
-Window_SlotInstruction.prototype.clearCursor = function () {
-    for (var i = 0; i < 3; i++) {
-        for (var j = 0; j < 6; j++) {
-            this._cursol[i][j].visible = false;
-        }
-    }
-};
-
-Window_SlotInstruction.prototype.blinkCursor = function (array) {
-    for (var i = 0; i < 3; i++) {
-        for (var j = 0; j < 6; j++) {
-            if (array[i][j]) this._cursol[i][j].blink();
-        }
-    }
-};
 
 //-----------------------------------------------------------------------------
 // Window_SlotMachine
@@ -1059,11 +814,11 @@ Window_SlotMachine.prototype._createAllParts = function() {
 
     this._windowCoinSprite = new Sprite();
     this.addChild(this._windowCoinSprite);
-    this._windowCoinSprite.move(320, 213);
+    this._windowCoinSprite.move(250, 233);
 
     this._windowBetSprite = new Sprite();
     this.addChild(this._windowBetSprite);
-    this._windowBetSprite.move(566, 213);
+    this._windowBetSprite.move(600, 233);
 };
 
 Window_SlotMachine.prototype.refresh = function() {
@@ -1158,9 +913,9 @@ Window_SlotCommand.prototype.disableSpin = function () {
 };
 
 Window_SlotCommand.prototype.makeCommandList = function () {
-    this.addCommand(betText, 'bet', this._betAllow);
-    this.addCommand(spinText, 'spin', this._spinAllow);
-    this.addCommand(TextManager.cancel, 'cancel');
+    this.addCommand("Apostar", 'bet', this._betAllow);
+    this.addCommand("Spin", 'spin', this._spinAllow);
+    this.addCommand("Sair", 'cancel');
 };
 
 Window_SlotCommand.prototype.windowWidth = function () {
@@ -1180,7 +935,7 @@ function Window_ReplayCommand() {
     this.initialize.apply(this, arguments);
 }
 
-Window_ReplayCommand.prototype = Object.create(Window_Command.prototype);
+Window_ReplayCommand.prototype = Object.create(Window_HorzCommand.prototype);
 Window_ReplayCommand.prototype.constructor = Window_ReplayCommand;
 
 Window_ReplayCommand.prototype.initialize = function (x, y) {
@@ -1189,8 +944,12 @@ Window_ReplayCommand.prototype.initialize = function (x, y) {
 };
 
 Window_ReplayCommand.prototype.makeCommandList = function () {
-    this.addCommand(yesText, 'yes');
-    this.addCommand(noText, 'no');
+    this.addCommand("Sim", 'yes');
+    this.addCommand("Não", 'no');
 };
+
+Window_ReplayCommand.prototype.windowWidth = function () {
+    return Graphics.boxWidth;
+}
 
 })();

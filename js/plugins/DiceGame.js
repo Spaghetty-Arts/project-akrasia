@@ -31,6 +31,7 @@ function Dice_Picture() {
     //  Plugin commands in effect
     //=============================================================================
 
+
     var _Game_Interpreter_pluginCommand      = Game_Interpreter.prototype.pluginCommand;
     Game_Interpreter.prototype.pluginCommand = function (command, args) {
         _Game_Interpreter_pluginCommand.call(this, command, args);
@@ -159,6 +160,7 @@ function Dice_Picture() {
             this._dice_throwings[i] = [];
         }
     };
+
 
     Game_Screen.prototype.showDice = function(x, y, dice_group, dice_num) {
         for(var j=0; j<MAX_DICE_NUM; j++) {
