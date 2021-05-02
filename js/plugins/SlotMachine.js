@@ -135,7 +135,7 @@
 (function () {
 
 var parameters = PluginManager.parameters('SlotMachine');
-var variableId = Number(parameters['Variable ID'] || 11);
+var variableId = 26;
 var helpMessage = String(parameters['Help Text'] || "カーソルキーの上でベット、カーソルキーの下でスタート");
 var winMessage = String(parameters['Won Text'] || "おめでとうございます！Win Coin枚獲得です！");
 var lostMessage = String(parameters['Lost Text'] || "残念でした。");
@@ -145,7 +145,7 @@ var betText = String(parameters['Bet Text'] || "ベット");
 var spinText = String(parameters['Spin Text'] || "スピン");
 var yesText = String(parameters['Yes Text'] || "はい");
 var noText = String(parameters['No Text'] || "いいえ");
-var scale = 1;
+var scale = 10;
 var expectation = 0.5;
 
 //odds
@@ -191,36 +191,10 @@ function setCoin(value) {
     return $gameVariables.setValue(variableId, value);
 }
 
-var _Game_Interpreter_pluginCommand = Game_Interpreter.prototype.pluginCommand;
-Game_Interpreter.prototype.pluginCommand = function (command, args) {
-    _Game_Interpreter_pluginCommand.call(this, command, args);
-    if (command === "SlotMachine") {
-        switch (args[0]) {
-            case "open":
-                SceneManager.push(Scene_SlotMachine);
-                break;
-            case "expectation":
-                expectation = Number(args[1]);
-                break;
-            case "scale":
-                switch (args[1]) {
-                    case "0":
-                        scale = 1;
-                        break;
-                    case "1":
-                        scale = 10;
-                        break;
-                    case "2":
-                        scale = 100;
-                        break;
-                    default :
-                        scale = 1;
-                        break;
-                }
-                break;
-        }
-    }
-};
+
+startSlot = function () {
+    SceneManager.push(Scene_SlotMachine);
+}
 
 //-----------------------------------------------------------------------------
 // SLTReelSprite
@@ -345,42 +319,23 @@ SLTReelSprite.prototype.spin = function () {
     }
 };
 
-//-----------------------------------------------------------------------------
-// LotLineSprite
-//
-// This Sprite is draw lot line for the slot machines.
+
+// This Sprite is draw foreground in machine.
 // Done
 
-function LotLineSprite() {
+function ForegroundSprite() {
     this.initialize.apply(this, arguments);
 }
 
-LotLineSprite.prototype = Object.create(Sprite.prototype);
-LotLineSprite.prototype.constructor = LotLineSprite;
+ForegroundSprite.prototype = Object.create(Sprite.prototype);
+ForegroundSprite.prototype.constructor = ForegroundSprite;
 
 //drawing the bet loine
-LotLineSprite.prototype.initialize = function (bitmap) {
+ForegroundSprite.prototype.initialize = function (bitmap) {
     Sprite.prototype.initialize.call(this, bitmap);
-
-    var b1 = ImageManager.loadBitmap("img/slotmachine/", "bet_line_1");
-
-    this._line1Sprite = new Sprite(b1);
-
-    this._line1Sprite.x = 0;
-    this._line1Sprite.y = 23;
-
-    this.addChild(this._line1Sprite);
-
 };
 
-LotLineSprite.prototype.enableLine = function (line) {
-    this._line1Sprite.visible = true;
-};
 
-LotLineSprite.prototype.clear = function () {
-    this._line1Sprite.visible = false;
-
-};
 
 //-----------------------------------------------------------------------------
 // InstructionCursorSprite
@@ -530,7 +485,7 @@ Scene_SlotMachine.prototype.create = function () {
     this.createBackground();
     this._backgroundSprite.bitmap = ImageManager.loadBitmap("img/slotmachine/", "bg");
     this.createReels();
-    this.createBetLine();
+    this.createbgRow();
     this.updateActor();
     this.createWindowLayer();
     this.createHelpWindow();
@@ -538,9 +493,7 @@ Scene_SlotMachine.prototype.create = function () {
     this.createSlotMachine();
     this.createSlotCommand();
     this.createReplayCommand();
-
     this.refreshStatus();
-
     if (this._coin < scale) {
         this._slotCommandWindow.disableBet();
     }
@@ -548,24 +501,18 @@ Scene_SlotMachine.prototype.create = function () {
 
 Scene_SlotMachine.prototype.start = function() {
     this.makeReel();
-    this._instructionWindow.refresh();
+    this._instructionWindow.messageDraw("Joga e Ganha!");
     this._slotMachineWindow.refresh();
     this._helpWindow.opacity = 0;
 };
 
-//spinnig itens
+
+//draw every symbol individually done
 Scene_SlotMachine.prototype.makeReel = function() {
-    for (var i = 0; i < 5; i++) {
-        for (var j = 0; j < 18; j++) {
-            for (var k = 0; k < 3; k++) {
-                this._reels[i].bitmap.drawImage(
-                    this._reelBitmap,
-                    reel[i][j] * 116,
-                    0,
-                    116,
-                    54,
-                    0,
-                    (54 * 18 * 3) - j * 54 - k * (18 * 54) - 54);
+    for (let i = 0; i < 5; i++) {
+        for (let j = 0; j < 18; j++) {
+            for (let k = 0; k < 3; k++) {
+                this._reels[i].bitmap.drawImage(this._reelBitmap, reel[i][j] * 116 , 0, 116, 54, 0, (54 * 18 * 3) - j * 54 - k * (18 * 54) - 50);
             }
         }
 
@@ -636,14 +583,15 @@ Scene_SlotMachine.prototype.createReels = function () {
     }
 };
 
-Scene_SlotMachine.prototype.createBetLine = function () {
-    var bitmap = ImageManager.loadBitmap("img/slotmachine/", "line_base");
-    this._betLine = new LotLineSprite(bitmap);
-    this._betLine.x = 43;
-    this._betLine.y = 265;
-    this._betLine.clear();
-    this.addChild(this._betLine);
-};
+
+//Function that create foreground
+Scene_SlotMachine.prototype.createbgRow = function () {
+        var bitmap = ImageManager.loadBitmap("img/slotmachine/", "bgFg");
+        this._bgreel = new ForegroundSprite(bitmap);
+        this._bgreel.x = 0;
+        this._bgreel.y = 0;
+        this.addChild(this._bgreel);
+    };
 
 //command to cancel scene
 Scene_SlotMachine.prototype.cancelCommand = function () {
@@ -670,7 +618,7 @@ Scene_SlotMachine.prototype.betCommand = function () {
 
 //function after pressing sping
 Scene_SlotMachine.prototype.spinCommand = function () {
-    AudioManager.playSe({"name": "spinS", "volume": 90, "pitch": 100, "pan": 0});
+    AudioManager.playSe({"name": "spinS", "volume": 100, "pitch": 100, "pan": 0});
     this._coin -= this._bet * scale;
     this._slotCommandWindow.deactivate();
     this._slotCommandWindow.close();
@@ -733,48 +681,18 @@ Scene_SlotMachine.prototype.result = function () {
     }
 };
 
+//result of the spin
 Scene_SlotMachine.prototype.judge = function (spot) {
-
-    var result1 = [];
-    result1.push(reel[0][(spot[0] + 1) % reel[0].length]);
-    result1.push(reel[1][(spot[1] + 1) % reel[1].length]);
-    result1.push(reel[2][(spot[2] + 1) % reel[2].length]);
-    result1.push(reel[3][(spot[3] + 1) % reel[3].length]);
-    result1.push(reel[4][(spot[4] + 1) % reel[4].length]);
     var result2 = [];
     result2.push(reel[0][spot[0]]);
     result2.push(reel[1][spot[1]]);
     result2.push(reel[2][spot[2]]);
     result2.push(reel[3][spot[3]]);
     result2.push(reel[4][spot[4]]);
-    var result3 = [];
-    result3.push(reel[0][(this._winSpot[0] - 1 + reel[0].length) % reel[0].length]);
-    result3.push(reel[1][(this._winSpot[1] - 1 + reel[1].length) % reel[1].length]);
-    result3.push(reel[2][(this._winSpot[2] - 1 + reel[2].length) % reel[2].length]);
-    result3.push(reel[3][(this._winSpot[3] - 1 + reel[3].length) % reel[3].length]);
-    result3.push(reel[4][(this._winSpot[4] - 1 + reel[4].length) % reel[4].length]);
-
 
     var returnValue = 0;
     var cursorArray = this._makeCursorArray();
 
-    //line1
-    var i, base;
-    var win = 0;
-    base = result1[0];
-    if (this._bet > 1) {
-        for (i = 1; i < 5; i++) {
-            if (base !== result1[i]) {
-                break;
-            }
-        }
-        i--;
-        if (i > 1) {
-            win = scale * odds[i - 2][base];
-            cursorArray[i - 2][base] = true;
-            returnValue += win;
-        }
-    }
 
     //line2
     win = 0;
@@ -793,22 +711,6 @@ Scene_SlotMachine.prototype.judge = function (spot) {
         }
     }
 
-    //line3
-    win = 0;
-    base = result3[0];
-    if (this._bet > 2) {
-        for (i = 1; i < 5; i++) {
-            if (base !== result3[i]) {
-                break;
-            }
-        }
-        i--;
-        if (i > 1) {
-            win = scale * odds[i - 2][base];
-            cursorArray[i - 2][base] = true;
-            returnValue += win;
-        }
-    }
 
     this._instructionWindow.blinkCursor(cursorArray);
 
@@ -941,12 +843,6 @@ Scene_SlotMachine.prototype.refreshStatus = function () {
     this._slotMachineWindow.bet = this._bet * scale;
     this._slotMachineWindow.coin = this._coin - this._bet * scale;
 
-    if (this._bet === 0) {
-        this._betLine.clear();
-    }
-    else {
-        this._betLine.enableLine(this._bet - 1);
-    }
 };
 
 Scene_SlotMachine.prototype.update = function () {
@@ -1021,34 +917,18 @@ Window_SlotInstruction.prototype.lineHeight = function () {
     return 24;
 };
 
-//odds in the top
-Window_SlotInstruction.prototype.refresh = function () {
+
+Window_SlotInstruction.prototype.messageDraw = function (message) {
     this.setBackgroundType(2);
     this.contents.clear();
+    this.contents.fontSize = 22;
+    var x = 51 - 18;
+    var w = 224;
 
-    if (this._odds) {
-        this.contents.fontSize = 22;
-        var x = 51 - 18;
-        var w = 224;
-
-        x += w + 20;
-        y = 18;
-        this.drawText(this._odds[1][5], x, y, w, "right");
-        y += this.lineHeight() -5;
-        this.drawText(this._odds[1][4], x, y, w, "right");
-        y += this.lineHeight() -5;
-        this.drawText(this._odds[1][3], x, y, w, "right");
-        y += this.lineHeight() -5;
-        this.drawText(this._odds[1][2], x, y, w, "right");
-        y += this.lineHeight() -5;
-        this.drawText(this._odds[1][1], x, y, w, "right");
-        y += this.lineHeight() -5;
-        this.drawText(this._odds[1][0], x, y, w, "right");
-
-    }
+    x += w + 20;
+    this.drawText(message, x, 70, w, "center");
     this.contents.fontSize = this.standardFontSize();
-
-};
+}
 
 Window_SlotInstruction.prototype.setOdds = function (odds) {
     this._odds = odds;
