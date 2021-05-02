@@ -112,7 +112,10 @@
 
     shotgunProjectile = function () {
         if ($gameVariables.value(39) > 0) {
-            Galv.PROJ.dir(-1,0,8,6,'shotgun',125,'c(7)|e',[5],[],3,1, 60);
+            let lProj = getDirProj();
+            Galv.PROJ.dir(-1,0,8,3,'bullet0',125,'c(7)|e',[5],[],3,1, 60);
+            Galv.PROJ.dir(-1,lProj[0],8,3,'bullet0',125,'c(7)|e',[5],[],3,1, 60);
+            Galv.PROJ.dir(-1,lProj[1],8,3,'bullet0',125,'c(7)|e',[5],[],3,1, 60);
             AudioManager.playSe({name: "shotgunShot", pan: 0, pitch: 100, volume: 100});
             decreaceAmmo(35);
         } else {
@@ -230,6 +233,26 @@
     getAmmo = function (current, magazine) {
         $gameVariables.setValue(39, current);
         $gameVariables.setValue(40, magazine);
+    }
+
+    getDirProj = function () {
+        let dir = $gamePlayer.direction();
+        let lateralB = [];
+        switch (dir) {
+            case 2:
+                lateralB = [1, 3];
+                break;
+            case 4:
+                lateralB = [1, 7];
+                break;
+            case 8:
+                lateralB = [7, 9];
+                break;
+            case 6:
+                lateralB = [9, 3];
+                break;
+        }
+        return lateralB;
     }
 
     Game_Interpreter.prototype.wait = function(duration) {  this._waitCount = duration;};
