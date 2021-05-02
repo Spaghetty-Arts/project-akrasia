@@ -319,6 +319,7 @@ Scene_SlotMachine.prototype.create = function () {
 Scene_SlotMachine.prototype.start = function() {
     this.makeReel();
     this._instructionWindow.messageDraw("Joga e Ganha!");
+    this._instructionWindow.drawResult();
     this._slotMachineWindow.refresh();
 };
 
@@ -407,6 +408,7 @@ Scene_SlotMachine.prototype.cancelCommand = function () {
     this.refreshStatus();
     setCoin(this._coin);
     AudioManager.stopBgm();
+
     this.popScene();
 };
 
@@ -472,10 +474,12 @@ Scene_SlotMachine.prototype.result = function () {
     }
 
     if (this._winCoin > 0) {
+        img = 2;
         this._instructionWindow.messageDraw("Parabéns!\nGanhaste " + tmp + " chips\nJoga de novo!", 30);
         AudioManager.playSe({"name": "WinA", "volume": 100, "pitch": 100, "pan": 0});
     }
     else {
+        img = 1;
         this._instructionWindow.messageDraw("Perdeste!\nTenta de novo");
         this._replayCommandWindow.open();
         this._replayCommandWindow.activate();
@@ -626,6 +630,8 @@ Scene_SlotMachine.prototype.replayCommand = function () {
     this._slotCommandWindow.activate();
 
     this._bet = 0;
+    this._instructionWindow.messageDraw("Joga e Ganha!");
+    img = 0;
     this.refreshStatus();
 };
 
@@ -656,7 +662,7 @@ Scene_SlotMachine.prototype.update = function () {
             this._slotMachineWindow.coin = result;
         }
     }
-
+    this._instructionWindow.drawResult();
 };
 
 Scene_SlotMachine.prototype._makeCursorArray = function () {
@@ -703,6 +709,21 @@ Window_SlotInstruction.prototype.messageDraw = function (message, y = 50) {
     this.drawTextEx(message, x, y, w, "center");
 }
 
+let img = 0;
+Window_SlotInstruction.prototype.drawResult = function () {
+    switch (img) {
+        case 0:
+            this.drawPicture("moneyS", 575, 30, false);
+            break;
+        case 1:
+            this.drawPicture("fail", 575, 20, false);
+            break;
+        case 2:
+            this.drawPicture("win", 595, 40, false);
+            break;
+    }
+}
+
 
 
 //-----------------------------------------------------------------------------
@@ -724,6 +745,7 @@ Window_SlotMachine.prototype.initialize = function(x, y, width, height) {
     this._lastBet = 0;
     this._coin = 0;
     this._bet = 0;
+    img = 0;
 };
 
 /**
