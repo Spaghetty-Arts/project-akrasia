@@ -238,18 +238,18 @@ Scene_SlotMachine.prototype.initialize = function () {
 
     this._probability.push([]);
     this._probability[1].push((1 / this._probability[0][0]) *
-        expectation * (1 / odds[0][0])); //000
+        expectation * (1)); //000
     this._probability[1].push((1 / this._probability[0][1]) *
-        expectation * (1 / odds[0][1])); //111
+        expectation * (1 /2)); //111
     this._probability[1].push((1 / this._probability[0][2]) *
-        expectation * (1 / odds[0][2])); //222
+        expectation * (1 / 5)); //222
     this._probability[1].push((1 / this._probability[0][3]) *
-        expectation * (1 / odds[0][3])); //333
+        expectation * (1 / 10)); //333
     this._probability[1].push((1 / this._probability[0][4]) *
-        expectation * (1 / odds[0][4])); //444
+        expectation * (1 / 20)); //444
     this._probability[1].push((1 / this._probability[0][5]) *
-        expectation * (1 / odds[0][5])); //555
-
+        expectation * (1 / 100)); //555
+    console.log(this._probability);
 
 
     if (this._coin > Scene_SlotMachine.COIN_MAX_VALUE) {
@@ -417,10 +417,9 @@ Scene_SlotMachine.prototype.spinCommand = function () {
 Scene_SlotMachine.prototype.result = function () {
     this._rollCount = 0;
 
-    var win, tmp;
+    var win;
     win = this.judge(this._winSpot);
     console.log(win);
-    tmp = win;
     if (this._coin + win > Scene_SlotMachine.COIN_MAX_VALUE) {
         win = Scene_SlotMachine.COIN_MAX_VALUE - this._coin;
     }
@@ -436,7 +435,7 @@ Scene_SlotMachine.prototype.result = function () {
 
     if (this._winCoin > 0) {
         img = 2;
-        this._instructionWindow.messageDraw(1, 30);
+        this._instructionWindow.messageDraw(1, win);
         AudioManager.playSe({"name": "WinA", "volume": 100, "pitch": 100, "pan": 0});
     }
     else {
