@@ -2,43 +2,32 @@
 
 var variableId = 26;
 
-var scale = 10;
 var expectation = 0.5;
 
 //odds
 //You can set the odds.
 var odds = [];
 odds.push([]);
-odds[0].push(1); //000
-odds[0].push(2); //111
-odds[0].push(5); //222
-odds[0].push(10); //333
-odds[0].push(20); //444
-odds[0].push(100); //555
-odds.push([]);
-odds[1].push(2); //0000
-odds[1].push(10); //1111
-odds[1].push(20); //2222
-odds[1].push(100); //3333
-odds[1].push(200); //4444
-odds[1].push(1000); //5555
-odds.push([]);
-odds[2].push(20); //00000
-odds[2].push(100); //11111
-odds[2].push(200); //22222
-odds[2].push(1000); //33333
-odds[2].push(2000); //44444
-odds[2].push(10000); //55555
+odds[0].push(50); //000
+odds[0].push(100); //111
+odds[0].push(200); //222
+odds[0].push(400); //333
+odds[0].push(800); //444
+odds[0].push(1600); //555
+
 
 //make reel
 //You can rearrange the order of the reel.
 //The number can not be changed.
+//images that appear in the reel from 0-5
 var reel = [];
-reel.push([0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5]);
 reel.push([5, 4, 3, 2, 1, 0, 5, 4, 3, 2, 1, 0, 5, 4, 3, 2, 1, 0]);
+//reel.push([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+// reel.push([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+// reel.push([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
 reel.push([0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 0, 1, 2, 3, 4, 5]);
 reel.push([0, 2, 4, 1, 3, 5, 0, 2, 4, 1, 3, 5, 0, 2, 4, 1, 3, 5]);
-reel.push([0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5]);
+
 
 function getCoin() {
     return $gameVariables.value(variableId);
@@ -261,33 +250,6 @@ Scene_SlotMachine.prototype.initialize = function () {
     this._probability[1].push((1 / this._probability[0][5]) *
         expectation * (1 / odds[0][5])); //555
 
-    this._probability.push([]);
-    this._probability[2].push((1 / (this._probability[0][0] * this._probability[1][0])) *
-        expectation * (1 / odds[1][0])); //0000
-    this._probability[2].push((1 / (this._probability[0][1] * this._probability[1][1])) *
-        expectation * (1 / odds[1][1])); //1111
-    this._probability[2].push((1 / (this._probability[0][2] * this._probability[1][2])) *
-        expectation * (1 / odds[1][2])); //2222
-    this._probability[2].push((1 / (this._probability[0][3] * this._probability[1][3])) *
-        expectation * (1 / odds[1][3])); //3333
-    this._probability[2].push((1 / (this._probability[0][4] * this._probability[1][4])) *
-        expectation * (1 / odds[1][4])); //4444
-    this._probability[2].push((1 / (this._probability[0][5] * this._probability[1][5])) *
-        expectation * (1 / odds[1][5])); //5555
-
-    this._probability.push([]);
-    this._probability[3].push((1 / (this._probability[0][0] * this._probability[1][0] * this._probability[2][0])) *
-        expectation * (1 / odds[2][0])); //00000
-    this._probability[3].push((1 / (this._probability[0][1] * this._probability[1][1] * this._probability[2][1])) *
-        expectation * (1 / odds[2][1])); //11111
-    this._probability[3].push((1 / (this._probability[0][2] * this._probability[1][2] * this._probability[2][2])) *
-        expectation * (1 / odds[2][2])); //22222
-    this._probability[3].push((1 / (this._probability[0][3] * this._probability[1][3] * this._probability[2][3])) *
-        expectation * (1 / odds[2][3])); //33333
-    this._probability[3].push((1 / (this._probability[0][4] * this._probability[1][4] * this._probability[2][4])) *
-        expectation * (1 / odds[2][4])); //44444
-    this._probability[3].push((1 / (this._probability[0][5] * this._probability[1][5] * this._probability[2][5])) *
-        expectation * (1 / odds[2][5])); //55555
 
 
     if (this._coin > Scene_SlotMachine.COIN_MAX_VALUE) {
@@ -311,14 +273,14 @@ Scene_SlotMachine.prototype.create = function () {
     this.createSlotCommand();
     this.createReplayCommand();
     this.refreshStatus();
-    if (this._coin < scale) {
+    if (this._coin < 10) {
         this._slotCommandWindow.disableBet();
     }
 };
 
 Scene_SlotMachine.prototype.start = function() {
     this.makeReel();
-    this._instructionWindow.messageDraw("Joga e Ganha!");
+    this._instructionWindow.messageDraw(0);
     this._instructionWindow.drawResult();
     this._slotMachineWindow.refresh();
 };
@@ -326,7 +288,7 @@ Scene_SlotMachine.prototype.start = function() {
 
 //draw every symbol individually done
 Scene_SlotMachine.prototype.makeReel = function() {
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 3; i++) {
         for (let j = 0; j < 18; j++) {
             for (let k = 0; k < 3; k++) {
                 this._reels[i].bitmap.drawImage(this._reelBitmap, reel[i][j] * 116 , 0, 116, 54, 0, (54 * 18 * 3) - j * 54 - k * (18 * 54) - 50);
@@ -339,7 +301,7 @@ Scene_SlotMachine.prototype.makeReel = function() {
 
 Scene_SlotMachine.prototype.isSpinning = function() {
     var returnValue = false;
-    for (var i = 0; i < 5; i++) {
+    for (var i = 0; i < 3; i++) {
         returnValue = returnValue || this._reels[i].status !== SLTReelSprite.STOP;
     }
     return returnValue;
@@ -371,7 +333,7 @@ Scene_SlotMachine.prototype.createSlotCommand = function () {
 };
 
 Scene_SlotMachine.prototype.createReplayCommand = function () {
-    this._replayCommandWindow = new Window_ReplayCommand(0, 550);
+    this._replayCommandWindow = new Window_ReplayCommand(250, 550);
     this._replayCommandWindow.setHandler('yes', this.replayCommand.bind(this));
     this._replayCommandWindow.setHandler('no', this.cancelCommand.bind(this));
     this._replayCommandWindow.setHandler('cancel', this.cancelCommand.bind(this));
@@ -384,7 +346,7 @@ Scene_SlotMachine.prototype.createReels = function () {
     for (var i = 0; i < 5; i++) {
         var sprite = new SLTReelSprite(new Bitmap(116, 54 * 18 * 3));
         this._reels.push(sprite);
-        sprite.x = 110 + i * 120;
+        sprite.x = 110 + i * 120 + 120;
         sprite.y = 222;
         sprite.setSpinEndFrame(SLTReelSprite.FRAME_SPIN + i * 40);
         sprite.setFrame(0, 0, 116, 54 * 3);
@@ -414,11 +376,11 @@ Scene_SlotMachine.prototype.cancelCommand = function () {
 
 //command to make bet
 Scene_SlotMachine.prototype.betCommand = function () {
-    if (this._coin - this._bet * scale < scale) {
+    if (this._coin - this._bet  < 10) {
         this._slotCommandWindow.disableBet();
     }
 
-    this._bet++;
+    this._bet+=10;
     this._slotCommandWindow.enableSpin();
     this._slotCommandWindow.disableBet();
 
@@ -429,7 +391,7 @@ Scene_SlotMachine.prototype.betCommand = function () {
 //function after pressing sping
 Scene_SlotMachine.prototype.spinCommand = function () {
     AudioManager.playSe({"name": "spinS", "volume": 100, "pitch": 100, "pan": 0});
-    this._coin -= this._bet * scale;
+    this._coin -= this._bet;
     this._slotCommandWindow.deactivate();
     this._slotCommandWindow.close();
 
@@ -437,7 +399,7 @@ Scene_SlotMachine.prototype.spinCommand = function () {
 
     var t = "";
     var i;
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < 3; i++) {
         t += reel[i][this._winSpot[i]];
     }
 
@@ -447,9 +409,7 @@ Scene_SlotMachine.prototype.spinCommand = function () {
     this._reels[0].setWinSpot(this._winSpot[0]);
     this._reels[1].setWinSpot(this._winSpot[1]);
     this._reels[2].setWinSpot(this._winSpot[2]);
-    this._reels[3].setWinSpot(this._winSpot[3]);
-    this._reels[4].setWinSpot(this._winSpot[4]);
-    for (i = 0; i < 5; i++) {
+    for (i = 0; i < 3; i++) {
         this._reels[i].spin();
     }
 };
@@ -459,6 +419,7 @@ Scene_SlotMachine.prototype.result = function () {
 
     var win, tmp;
     win = this.judge(this._winSpot);
+    console.log(win);
     tmp = win;
     if (this._coin + win > Scene_SlotMachine.COIN_MAX_VALUE) {
         win = Scene_SlotMachine.COIN_MAX_VALUE - this._coin;
@@ -475,12 +436,12 @@ Scene_SlotMachine.prototype.result = function () {
 
     if (this._winCoin > 0) {
         img = 2;
-        this._instructionWindow.messageDraw("Parabéns!\nGanhaste " + tmp + " chips\nJoga de novo!", 30);
+        this._instructionWindow.messageDraw(1, 30);
         AudioManager.playSe({"name": "WinA", "volume": 100, "pitch": 100, "pan": 0});
     }
     else {
         img = 1;
-        this._instructionWindow.messageDraw("Perdeste!\nTenta de novo");
+        this._instructionWindow.messageDraw(2);
         this._replayCommandWindow.open();
         this._replayCommandWindow.activate();
         AudioManager.playSe({"name": "loseA", "volume": 100, "pitch": 100, "pan": 0});
@@ -493,26 +454,24 @@ Scene_SlotMachine.prototype.judge = function (spot) {
     result2.push(reel[0][spot[0]]);
     result2.push(reel[1][spot[1]]);
     result2.push(reel[2][spot[2]]);
-    result2.push(reel[3][spot[3]]);
-    result2.push(reel[4][spot[4]]);
 
     var returnValue = 0;
-    var cursorArray = this._makeCursorArray();
-
 
     //line2
     win = 0;
     base = result2[0];
+    console.log(base);
     if (this._bet > 0) {
-        for (i = 1; i < 5; i++) {
+        //how many values are equal
+        for (i = 1; i < 3; i++) {
             if (base !== result2[i]) {
                 break;
             }
         }
         i--;
         if (i > 1) {
-            win = scale * odds[i - 2][base];
-            cursorArray[i - 2][base] = true;
+            console.log(odds[i -2][base]);
+            win =  odds[i - 2][base];
             returnValue += win;
         }
     }
@@ -527,8 +486,6 @@ Scene_SlotMachine.prototype.drawLot = function () {
     spot.push(Math.random() * reel[0].length >> 0);
     spot.push(Math.random() * reel[1].length >> 0);
     spot.push(Math.random() * reel[2].length >> 0);
-    spot.push(Math.random() * reel[3].length >> 0);
-    spot.push(Math.random() * reel[4].length >> 0);
 
     //2〜5reel
     var l1, l2, l3;
@@ -536,7 +493,7 @@ Scene_SlotMachine.prototype.drawLot = function () {
     var target1 = true;
     var target2 = true;
     var target3 = true;
-    for (i = 1; i < 5; i++) {
+    for (i = 1; i < 3; i++) {
 
         for (j = 0; j < reel[i].length; j++) {
             if (this.isWin(spot, i)) {
@@ -621,7 +578,7 @@ Scene_SlotMachine.prototype.correct = function () {
 Scene_SlotMachine.prototype.replayCommand = function () {
     this._slotCommandWindow.enableBet();
     this._slotCommandWindow.disableSpin();
-    if (this._coin < scale) {
+    if (this._coin < 10) {
         this._slotCommandWindow.disableBet();
     }
     this._slotCommandWindow.select(0);
@@ -630,14 +587,14 @@ Scene_SlotMachine.prototype.replayCommand = function () {
     this._slotCommandWindow.activate();
 
     this._bet = 0;
-    this._instructionWindow.messageDraw("Joga e Ganha!");
+    this._instructionWindow.messageDraw(0);
     img = 0;
     this.refreshStatus();
 };
 
 Scene_SlotMachine.prototype.refreshStatus = function () {
-    this._slotMachineWindow.bet = this._bet * scale;
-    this._slotMachineWindow.coin = this._coin - this._bet * scale;
+    this._slotMachineWindow.bet = this._bet;
+    this._slotMachineWindow.coin = this._coin - this._bet;
 
 };
 
@@ -665,17 +622,6 @@ Scene_SlotMachine.prototype.update = function () {
     this._instructionWindow.drawResult();
 };
 
-Scene_SlotMachine.prototype._makeCursorArray = function () {
-    var returnValue = [];
-    for (var i = 0; i < 3; i++) {
-        returnValue.push([]);
-        for (var j = 0; j < 6; j++) {
-            returnValue[i].push(false);
-        }
-    }
-    return returnValue;
-};
-
 //-----------------------------------------------------------------------------
 // Window_SlotInstruction
 //
@@ -698,15 +644,37 @@ Window_SlotInstruction.prototype.lineHeight = function () {
 };
 
 
-Window_SlotInstruction.prototype.messageDraw = function (message, y = 50) {
+Window_SlotInstruction.prototype.messageDraw = function (message, value = 0) {
     this.setBackgroundType(2);
     this.contents.clear();
+    this.contents.fontSize =20;
     var x = 33;
     var w = 224;
-
+    let y = 0;
     x += w + 20;
-
-    this.drawTextEx(message, x, y, w, "center");
+    switch (message) {
+        case 0:
+            this.changeTextColor("#ffffff");
+            y = 70;
+            this.drawText("Joga e ganha!", x, y, w, "center");
+            break;
+        case 1:
+            this.changeTextColor("#08e500");
+            y = 50;
+            this.drawText("Parabéns!", x, y, w, "center");
+            y = 70;
+            this.drawText("Ganhaste!", x, y, w, "center");
+            y = 90;
+            this.drawText(value + " Chips", x, y, w, "center");
+            break;
+        case 2:
+            this.changeTextColor("#f10000");
+            y = 50;
+            this.drawText("Perdeste!", x, y, w, "center");
+            y = 70;
+            this.drawText("Tenta de novo!", x, y, w, "center");
+            break;
+    }
 }
 
 let img = 0;
@@ -971,7 +939,7 @@ Window_ReplayCommand.prototype.makeCommandList = function () {
 };
 
 Window_ReplayCommand.prototype.windowWidth = function () {
-    return Graphics.boxWidth;
+    return Graphics.boxWidth / 2 - 50;
 }
 
 })();
