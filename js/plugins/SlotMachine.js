@@ -22,9 +22,6 @@ odds[0].push(1600); //555
 //images that appear in the reel from 0-5
 var reel = [];
 reel.push([5, 4, 3, 2, 1, 0, 5, 4, 3, 2, 1, 0, 5, 4, 3, 2, 1, 0]);
-//reel.push([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
-// reel.push([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
-// reel.push([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
 reel.push([0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 0, 1, 2, 3, 4, 5]);
 reel.push([0, 2, 4, 1, 3, 5, 0, 2, 4, 1, 3, 5, 0, 2, 4, 1, 3, 5]);
 
@@ -210,8 +207,7 @@ function Scene_SlotMachine() {
 Scene_SlotMachine.prototype = Object.create(Scene_MenuBase.prototype);
 Scene_SlotMachine.prototype.constructor = Scene_SlotMachine;
 
-Scene_SlotMachine.COIN_MAX_VALUE = 99999999;
-Scene_SlotMachine.ODDS_MAX_VALUE = 100000;
+
 
 Scene_SlotMachine.prototype.initialize = function () {
     Scene_MenuBase.prototype.initialize.call(this);
@@ -252,9 +248,6 @@ Scene_SlotMachine.prototype.initialize = function () {
     console.log(this._probability);
 
 
-    if (this._coin > Scene_SlotMachine.COIN_MAX_VALUE) {
-        this._coin = Scene_SlotMachine.COIN_MAX_VALUE;
-    }
 
 };
 
@@ -420,9 +413,6 @@ Scene_SlotMachine.prototype.result = function () {
     var win;
     win = this.judge(this._winSpot);
     console.log(win);
-    if (this._coin + win > Scene_SlotMachine.COIN_MAX_VALUE) {
-        win = Scene_SlotMachine.COIN_MAX_VALUE - this._coin;
-    }
     this._winCoin = this._correctCoin = win;
 
     var time = 20 * 10; // reduce time
