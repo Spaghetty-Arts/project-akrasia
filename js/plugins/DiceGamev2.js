@@ -16,7 +16,7 @@ function Dice_Picture() {
     var var_index_3 = 30;
     var var_index_4 = 31;
     var var_indices = [var_index_1, var_index_2, var_index_3, var_index_4];
-    var picture_id_start = 1;
+    var picture_id_start = 2;
 
     //=============================================================================
     // Constant settings
@@ -29,114 +29,118 @@ function Dice_Picture() {
     startDGame = function () {
         $gameSwitches.setValue(44, true);
         AudioManager.playBgm({"name": "DiceGame", "volume": 100, "pitch": 100, "pan": 0});
-        $gameScreen.showPicture(100, "retro", 0, 0, 0, 100, 100, 255, 0);
+        $gameScreen.showPicture(1, "retro", 0, 0, 0, 100, 100, 255, 0);
 
     }
 
     endDGame = function () {
         $gameSwitches.setValue(44, false);
-        $gameScreen.erasePicture(100);
+        $gamePlayer.reserveTransfer(20, $gamePlayer.x, $gamePlayer.y, 8, 2);
+        $gameScreen.erasePicture(1);
         AudioManager.stopBgm();
 
     }
 
-    showDice = function (xA, yA, diceG, diceN) {
-        var x          = xA;
-        var y          = yA;
-        var dice_group = diceG;
-        dice_group--;
-        if(dice_group >= MAX_DICE_GROUP || dice_group < 0 )
-        {
-            console.log(dice_group);
-            throw new Error;
-        }
-        var dice_num   = diceN;
-        if(dice_num > MAX_DICE_NUM || dice_num < 0 )
-        {
-            console.log(dice_num);
-            throw new Error;
-        }
-        $gameScreen.showDice(x, y, dice_group, dice_num);
-    }
-
-    throwDice = function (args) {
-        var dice_groups = [parseInt(args[0], 10),
-            parseInt(args[1], 10),
-            parseInt(args[2], 10),
-            parseInt(args[3], 10)];
-
-        if( !dice_groups[0] )
-        {
-            for(var k=0; k<MAX_DICE_GROUP; k++) {
-                dice_group = k;
-                $gameScreen.throwDice(dice_group);
-            }
-        } else {
-            for(var k=0; k<MAX_DICE_GROUP; k++) {
-                if( !dice_groups[k] )
-                    break;
-                dice_group = dice_groups[k] - 1;
+    var _Game_Interpreter_pluginCommand      = Game_Interpreter.prototype.pluginCommand;
+    Game_Interpreter.prototype.pluginCommand = function (command, args) {
+        _Game_Interpreter_pluginCommand.call(this, command, args);
+        switch(command) {
+            case 'showDice':
+                var x          = parseInt(args[0], 10) || 400;
+                var y          = parseInt(args[1], 10) || 400;
+                var dice_group = parseInt(args[2], 10) || 1;
+                dice_group--;
                 if(dice_group >= MAX_DICE_GROUP || dice_group < 0 )
                 {
                     console.log(dice_group);
                     throw new Error;
                 }
-                $gameScreen.throwDice(dice_group);
-            }
-        }
-    }
-
-    removeDice = function (args) {
-        var dice_groups = [parseInt(args[0], 10),
-            parseInt(args[1], 10),
-            parseInt(args[2], 10),
-            parseInt(args[3], 10)];
-        if( !dice_groups[0] )
-        {
-            for(var k=0; k<MAX_DICE_GROUP; k++) {
-                dice_group = k;
-                $gameScreen.removeDice(dice_group);
-            }
-        } else {
-            for(var k=0; k<MAX_DICE_GROUP; k++) {
-                if( !dice_groups[k] )
-                    break;
-                dice_group = dice_groups[k] - 1;
-                if(dice_group >= MAX_DICE_GROUP || dice_group < 0 )
+                var dice_num   = parseInt(args[3], 10).clamp(1, 400) || 1;
+                if(dice_num > MAX_DICE_NUM || dice_num < 0 )
                 {
-                    console.log(dice_group);
+                    console.log(dice_num);
                     throw new Error;
                 }
-                $gameScreen.removeDice(dice_group);
-            }
+                $gameScreen.showDice(x, y, dice_group, dice_num);
+                break;
+            case 'throwDice':
+                var dice_groups = [parseInt(args[0], 10),
+                    parseInt(args[1], 10),
+                    parseInt(args[2], 10),
+                    parseInt(args[3], 10)];
+                if( !dice_groups[0] )
+                {
+                    for(var k=0; k<MAX_DICE_GROUP; k++) {
+                        dice_group = k;
+                        $gameScreen.throwDice(dice_group);
+                    }
+                } else {
+                    for(var k=0; k<MAX_DICE_GROUP; k++) {
+                        if( !dice_groups[k] )
+                            break;
+                        dice_group = dice_groups[k] - 1;
+                        if(dice_group >= MAX_DICE_GROUP || dice_group < 0 )
+                        {
+                            console.log(dice_group);
+                            throw new Error;
+                        }
+                        $gameScreen.throwDice(dice_group);
+                    }
+                }
+                break;
+            case 'removeDice':
+                var dice_groups = [parseInt(args[0], 10),
+                    parseInt(args[1], 10),
+                    parseInt(args[2], 10),
+                    parseInt(args[3], 10)];
+                if( !dice_groups[0] )
+                {
+                    for(var k=0; k<MAX_DICE_GROUP; k++) {
+                        dice_group = k;
+                        $gameScreen.removeDice(dice_group);
+                    }
+                } else {
+                    for(var k=0; k<MAX_DICE_GROUP; k++) {
+                        if( !dice_groups[k] )
+                            break;
+                        dice_group = dice_groups[k] - 1;
+                        if(dice_group >= MAX_DICE_GROUP || dice_group < 0 )
+                        {
+                            console.log(dice_group);
+                            throw new Error;
+                        }
+                        $gameScreen.removeDice(dice_group);
+                    }
+                }
+                break;
         }
-    }
+    };
 
 
     let _Scene_Map_start = Scene_Map.prototype.start;
     Scene_Map.prototype.start = function() {
         _Scene_Map_start.call(this);
         this._chipsWindow = new WindowDiceText(360, 160, 200, 100);
-        this._textWindow = new WindowDiceText(360, 360, 200, 100);
+        this._textWindow = new WindowDiceText(260, 260, 300, 300);
         if ($gameSwitches.value(44)){
             this.addWindow(this._chipsWindow);
             this.addWindow(this._textWindow);
+            this._chipsWindow.messageChips(getChips());
+            this._textWindow.messageText($gameVariables.value(83));
         }
     };
 
     var _Scene_Map_update = Scene_Map.prototype.update;
 
+
     Scene_Map.prototype.update = function() {
         _Scene_Map_update.call(this);
 
-        if ($gameSwitches.value(44)){
+        if ($gameSwitches.value(44)) {
             this.addWindow(this._chipsWindow);
             this.addWindow(this._textWindow);
             this._chipsWindow.messageChips(getChips());
-            this._textWindow.messageText(0);
-        } else if (!$gameSwitches.value(44)) {
-            this._chipsWindow.close();
-            this._textWindow.close();
+            this._textWindow.messageText($gameVariables.value(83));
         }
     };
 
@@ -164,11 +168,33 @@ function Dice_Picture() {
     WindowDiceText.prototype.messageText = function (msg, value = 0) {
         this.setBackgroundType(2);
         this.contents.clear();
-        this.contents.fontSize =20;
+        this.contents.fontSize =18;
         this.changeTextColor("#ffffff");
         switch (msg) {
             case 0:
-                this.drawText("Joga e Ganha!", 0, 0, "center");
+                this.drawText("Bem vindo ao SlotPunk!", 0, 0, "center");
+                this.drawText("Queres jogar?(10chips)", 0, 100, "center");
+                break;
+            case 1:
+                this.drawText("Escolhe um valor(1-6)", 0, 0, "center");
+                break;
+            case 2:
+                this.drawText("", 0, 0, "center");
+                break;
+            case 3:
+                this.drawText("Saiu te " + $gameVariables.value(28)+"!", 0, 0, "center");
+                break;
+            case 4:
+                this.changeTextColor("#52fa0e");
+                this.drawText("Parabens! Ganhaste", 0, 100, "center");
+                break;
+            case 5:
+                this.changeTextColor("#e90c0c");
+                this.drawText("Ora bolas! Tenta de novo", 0, 100, "center");
+                break;
+            case 6:
+                this.changeTextColor("#e90c0c");
+                this.drawText("Não tens chips suficientes", 0, 100, "center");
                 break;
         }
     }
