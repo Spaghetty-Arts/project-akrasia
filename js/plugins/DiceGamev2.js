@@ -26,14 +26,14 @@ function Dice_Picture() {
     const OFFSET_X = [0, 64, 32, 96, 64];
     const OFFSET_Y = [0, 0, 64, 64, 128];
 
-    startGame = function () {
+    startDGame = function () {
         $gameSwitches.setValue(44, true);
         AudioManager.playBgm({"name": "DiceGame", "volume": 100, "pitch": 100, "pan": 0});
         $gameScreen.showPicture(100, "retro", 0, 0, 0, 100, 100, 255, 0);
 
     }
 
-    endGame = function () {
+    endDGame = function () {
         $gameSwitches.setValue(44, false);
         $gameScreen.erasePicture(100);
         AudioManager.stopBgm();
@@ -134,6 +134,9 @@ function Dice_Picture() {
             this.addWindow(this._textWindow);
             this._chipsWindow.messageChips(getChips());
             this._textWindow.messageText(0);
+        } else if (!$gameSwitches.value(44)) {
+            this._chipsWindow.close();
+            this._textWindow.close();
         }
     };
 
