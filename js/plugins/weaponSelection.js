@@ -71,6 +71,9 @@
                 if ($gameSwitches.value(34)) {
                     pistolProjectile();
                 } else if ($gameSwitches.value(35)) {
+                    $gameActors.actor(1).setCharacterImage("zeke_arma", 6);
+                    $gamePlayer.refresh();
+                    crowbarAnimation();
                     attackCrowbar();
                 } else if ($gameSwitches.value(40)) {
                     shotgunProjectile();
@@ -109,8 +112,7 @@
 
     pistolProjectile = function () {
         if ($gameVariables.value(33) > 0) {
-            $gameActors.actor(1).setCharacterImage("zeke_arma", 4);
-            $gamePlayer.refresh();
+
 
             Galv.PROJ.dir(-1,0,8,4,'bullet0(8,5)',125,'c(7)|e',[5],[],3,1);
             AudioManager.playSe({name: "pistolShot", pan: 0, pitch: 100, volume: 100});
@@ -273,5 +275,16 @@
 
     Game_Interpreter.prototype.wait = function(duration) {  this._waitCount = duration;};
 
+    crowbarAnimation = function () {
+        var cMove = {code: 33};
+        var cMove2 = {code: 15, parameters: [60]};
+        var cMoveC = {code: 41, parameters: ['zeke_arma', 6]}
+        var cMove3 = {code: 34};
+        var cMoveC2 = {code: 41, parameters: ['zeke_arma', 2]}
+        var cEnd = {code: 0}
+        var cList = [cMove, cMove2, cMoveC, cMove3, cMoveC2, cEnd];
+        var route = {list: cList, repeat: false, skippable: true, wait: true};
+        $gamePlayer.forceMoveRoute(route);
+    }
 
 })();
