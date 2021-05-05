@@ -115,7 +115,7 @@ https://bit.ly/3vLVOHE (RPG Maker Foruns on Internet Archive)
     Game_Interpreter.prototype.pluginCommand = function (command, args) {
         receivedPluginCommands.call(this, command, args);
 
-        if (command === 'mapGeneratorStart' && mapIDs.contains($gameMap._mapId)) {
+        if (mapIDs.contains($gameMap._mapId)) {
             placeArrayTiles();
             getEventsOnAliveCells();
             transferPlayerRandom();
