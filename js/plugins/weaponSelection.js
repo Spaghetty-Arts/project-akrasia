@@ -19,6 +19,8 @@
 
     weaponsSelection = function () {
         if (Input.isTriggered('arm2') && $gameSwitches.value(86) && !$gameSwitches.value(34)) {
+            $gameActors.actor(1).setCharacterImage("zeke_arma", 0);
+            $gamePlayer.refresh();
             let current = $gameVariables.value(33);
             let magazine = $gameVariables.value(34);
             getAmmo(current, magazine);
@@ -28,14 +30,20 @@
             setSwitchesIventory([35, 36, 37, 38, 40, 82], false);
             AudioManager.playSe({name: "gunCock", pan: 0, pitch: 100, volume: 100});
         } else if (Input.isTriggered('arm1')  && $gameSwitches.value(85) && !$gameSwitches.value(35)) {
+            $gameActors.actor(1).setCharacterImage("zeke_arma", 2);
+            $gamePlayer.refresh();
             $gameSwitches.setValue(35, true);
             setSwitchesIventory([34, 36, 37, 38, 39, 40, 82], false);
             AudioManager.playSe({name: "crowbar", pan: 0, pitch: 100, volume: 100});
         } else if (Input.isTriggered('holster') && $gameSwitches.value(89) && !$gameSwitches.value(38)) {
+            $gameActors.actor(1).setCharacterImage("zekePrisioner", 0);
+            $gamePlayer.refresh();
             setSwitchesIventory([34, 36, 37, 35, 39, 40, 82], false);
             $gameSwitches.setValue(38, true);
             AudioManager.playSe({name: "holster", pan: 0, pitch: 100, volume: 100});
         } else if (Input.isTriggered('arm3')  && $gameSwitches.value(87) && !$gameSwitches.value(40)) {
+            $gameActors.actor(1).setCharacterImage("zeke_arma", 1);
+            $gamePlayer.refresh();
             let current = $gameVariables.value(35);
             let magazine = $gameVariables.value(36);
             getAmmo(current, magazine);
@@ -45,6 +53,8 @@
             setSwitchesIventory([35, 36, 37, 38, 34, 82], false);
             AudioManager.playSe({name: "shotGunCock", pan: 0, pitch: 100, volume: 100});
         } else if (Input.isTriggered('arm4')  && $gameSwitches.value(88) && !$gameSwitches.value(82)) {
+            $gameActors.actor(1).setCharacterImage("zeke_arma", 3);
+            $gamePlayer.refresh();
             let current = $gameVariables.value(37);
             let magazine = $gameVariables.value(38);
             getAmmo(current, magazine);
@@ -65,7 +75,8 @@
                 } else if ($gameSwitches.value(40)) {
                     shotgunProjectile();
                 }
-            } else if (Input.isTriggered('reload') && $gameSwitches.value(35) == false) {
+
+        } else if (Input.isTriggered('reload') && $gameSwitches.value(35) == false) {
                 if ($gameSwitches.value(34)) {
                     reloadAmmo(0);
                 } else if ($gameSwitches.value(40)) {
@@ -74,6 +85,7 @@
                     reloadAmmo(2);
                 }
             }
+
     }
 
     shootAr = function (event, weaponevent) {
@@ -97,9 +109,13 @@
 
     pistolProjectile = function () {
         if ($gameVariables.value(33) > 0) {
-            Galv.PROJ.dir(-1,0,8,6,'bullet0',125,'c(7)|e',[5],[],3,1);
+            $gameActors.actor(1).setCharacterImage("zeke_arma", 4);
+            $gamePlayer.refresh();
+
+            Galv.PROJ.dir(-1,0,8,4,'bullet0(8,5)',125,'c(7)|e',[5],[],3,1);
             AudioManager.playSe({name: "pistolShot", pan: 0, pitch: 100, volume: 100});
             decreaceAmmo(33);
+
         } else {
             AudioManager.playSe({name: "emptyMag", pan: 0, pitch: 100, volume: 100});
         }
@@ -107,7 +123,7 @@
 
     attackCrowbar = function () {
         AudioManager.playSe({name: "crowHit", pan: 0, pitch: 100, volume: 100});
-        Galv.PROJ.dir(-1,0,8,0.1,'bullet0',126,'c(7)|s(B:on)',[5],[],3,1);
+        Galv.PROJ.dir(-1,0,8,0.1,'',126,'c(7)|s(B:on)',[5],[],3,1);
     }
 
     shotgunProjectile = function () {

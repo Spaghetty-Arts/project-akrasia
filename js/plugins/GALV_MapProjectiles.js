@@ -421,8 +421,27 @@ Galv.PROJ.atTarget = function(sid,eid,speed,dist,graphic,hitAnim,action,regions,
 		var eActions = [];
 	};
 
+	getBulletP = function () {
+		let dir = $gamePlayer.direction();
+		let xB = Number(sTarget._realX * Galv.PROJ.tileSize + Galv.PROJ.tileSize / 2);
+		switch (dir) {
+			case 2:
+				xB= Number(sTarget._realX * Galv.PROJ.tileSize + Galv.PROJ.tileSize / 2) - 5;
+				break;
+			case 4:
+				xB= Number(sTarget._realX * Galv.PROJ.tileSize + Galv.PROJ.tileSize / 2) -5;
+				break;
+			case 6:
+				xB= Number(sTarget._realX * Galv.PROJ.tileSize + Galv.PROJ.tileSize / 2) +5;
+				break;
+			case 8:
+				xB= Number(sTarget._realX * Galv.PROJ.tileSize + Galv.PROJ.tileSize / 2) +5;
+				break;
+		}
+		return xB;
+	}
 	var obj = {
-		x: Number(sTarget._realX * Galv.PROJ.tileSize + Galv.PROJ.tileSize / 2),
+		x: getBulletP(),
 		y: Number(sTarget._realY * Galv.PROJ.tileSize + Galv.PROJ.tileSize / 2),
 		sTarget: sTarget,
 		eTarget: eTarget,
@@ -659,7 +678,7 @@ Sprite_MapProjectile.prototype.initialize = function(objId,yoFix) {
 	this._updateType = this._obj.type;
 	this._ticker = 0;
 	this.ttd = 5;
-	this._yo = this._obj.sTarget._projYoffset;
+	this._yo = 8;
 	this._yoFix = yoFix || false;
 	this.setBitmap();
 	this.updateDirection();
@@ -672,7 +691,6 @@ Sprite_MapProjectile.prototype.setupHitbox = function() {
 
 Sprite_MapProjectile.prototype.updateDirection = function() {
 	var yo = this._yo && this._yoFix ? this._yo / 48 : 0;
-	
 	this._angle = Math.atan2(this._obj.eTarget.y - yo - this._obj.sTarget.y, this._obj.eTarget.x - this._obj.sTarget.x) * 180 / Math.PI;
 	this.rotation = (this._angle + 90) * Math.PI / 180;
 
@@ -687,7 +705,7 @@ Sprite_MapProjectile.prototype.setBitmap = function() {
 	this._cFrame = 0;
 	this._fTicker = 0;
 	this.x = this._obj.x;
-	this.y = this._obj.y + this._yo;
+	this.y = this._obj.y;
 	this.z = this._obj.z;
 	var frames = this._obj.graphic.match(/\((.*)\)/i);
 	if (frames) {
