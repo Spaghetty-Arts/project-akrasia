@@ -92,7 +92,13 @@
     }
 
     shootAr = function (event, weaponevent) {
+        if ($gameSwitches.value(82)) {
+            $gameActors.actor(1).setCharacterImage("zeke_arma", 3);
+            $gamePlayer.refresh();
+        }
         if (!$gameMap.isEventRunning() && $gameSwitches.value(82) == true && Input.isPressed('shoot')&& $gameVariables.value(37) > 0) {
+            $gameActors.actor(1).setCharacterImage("zeke_arma", 7);
+            $gamePlayer.refresh();
             $gameSelfSwitches.setValue([$gameMap._mapId, event, 'A'], true);
             $gameSelfSwitches.setValue([$gameMap._mapId, weaponevent, 'A'], true);
             arProjectile();
@@ -112,8 +118,7 @@
 
     pistolProjectile = function () {
         if ($gameVariables.value(33) > 0) {
-
-
+            shootAnimation(4, 0);
             Galv.PROJ.dir(-1,0,8,4,'bullet0(8,5)',125,'c(7)|e',[5],[],3,1);
             AudioManager.playSe({name: "pistolShot", pan: 0, pitch: 100, volume: 100});
             decreaceAmmo(33);
@@ -131,6 +136,7 @@
     shotgunProjectile = function () {
         if ($gameVariables.value(39) > 0) {
             let lProj = getDirProj();
+            shootAnimation(5, 1);
             Galv.PROJ.dir(-1,0,8,3,'bullet0',125,'c(7)|e',[5],[],3,1, 60);
             Galv.PROJ.dir(-1,lProj[0],8,3,'bullet0',125,'c(7)|e',[5],[],3,1, 60);
             Galv.PROJ.dir(-1,lProj[1],8,3,'bullet0',125,'c(7)|e',[5],[],3,1, 60);
@@ -143,6 +149,7 @@
 
     arProjectile = function () {
             if ($gameVariables.value(37) > 0) {
+
                     Galv.PROJ.dir(-1, 0, 8, 6, 'bullet0', 125, 'c(7)|e', [5], [], 3, 1);
                     AudioManager.playSe({name: "arShot", pan: 0, pitch: 100, volume: 100});
                     decreaceAmmo(37);
@@ -283,6 +290,15 @@
         var cMoveC2 = {code: 41, parameters: ['zeke_arma', 2]}
         var cEnd = {code: 0}
         var cList = [cMove, cMove2, cMoveC, cMove3, cMoveC2, cEnd];
+        var route = {list: cList, repeat: false, skippable: true, wait: true};
+        $gamePlayer.forceMoveRoute(route);
+    }
+    shootAnimation = function (shoot, old) {
+        var cMove = {code: 15, parameters: [20]};
+        var cMoveC = {code: 41, parameters: ['zeke_arma', shoot]}
+        var cMoveC2 = {code: 41, parameters: ['zeke_arma', old]}
+        var cEnd = {code: 0}
+        var cList = [ cMoveC, cMove, cMoveC2, cEnd];
         var route = {list: cList, repeat: false, skippable: true, wait: true};
         $gamePlayer.forceMoveRoute(route);
     }
