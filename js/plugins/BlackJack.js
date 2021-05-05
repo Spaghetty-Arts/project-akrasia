@@ -17,27 +17,35 @@
         this.createBackground();
         this._WindowsMsg = new Window_Black(200, 300, 450, 300);
         this.addChild(this._WindowsMsg);
-        this._WindowsC = new Window_Cards(200, 100, 500, 400);
+        this._WindowsC = new Window_Cards(200, 90, 500, 400);
         this.addChild(this._WindowsC);
+        this._WindowsChips = new Window_Cards(200, 390, 200, 200);
+        this.addChild(this._WindowsChips);
         this.createBetCommand();
+        this._apostaIn = 0;
+        this._carta1V = 0;
+        this._carta2V = 0;
+        this._tP = 0;
+        card1 = true;
+        card2 = false;
+        card3 = false;
     }
 
     Scene_Black.prototype.start = function () {
         Scene_Base.prototype.start.call(this);
-        this._WindowsMsg.drawMsg(0);
+        this._WindowsMsg.drawMsg(0, 0, 0);
         this._WindowsC.drawImg();
-        $gameVariables.setValue(63, 0);
-        $gameVariables.setValue(64, 0);
-        $gameVariables.setValue(65, 0);
-        $gameVariables.setValue(66, 0);
+        AudioManager.playBgm({"name": "03_Chasing_Fortune", "volume": 60, "pitch": 100, "pan": 0});
     }
 
-    let tP = 0;
 
     Scene_Black.prototype.update = function () {
         Scene_Base.prototype.update.call(this);
-        this._WindowsMsg.drawMsg(tP);
-        this._WindowsC.drawImg();
+
+        this._WindowsMsg.drawMsg(this._tP, this._carta1V, this._carta2V, this._apostaIn *2);
+
+        this._WindowsC.drawImg(this._carta1V, this._carta2V);
+        this._WindowsChips.drawChips(this._apostaIn);
     }
 
 
@@ -66,18 +74,19 @@
     };
 
     Scene_Black.prototype.betCommand = function (val) {
-        $gameVariables.setValue(63, val);
+        this._apostaIn = val;
         let money = checkMoney();
         if (!money) {
-            tP = 1;
+            this._tP = 1;
             this._betCommandWindow.activate();
+            AudioManager.playSe({"name": "Cancel1", "volume": 100, "pitch": 100, "pan": 0});
         } else {
-            let winV = $gameVariables.value(63) * 2;
-            $gameVariables.setValue(66, winV);
             let cardV = Math.floor(Math.random() * 10) + 2;
-            $gameVariables.setValue(64, cardV);
+            AudioManager.playSe({"name": "chipsP", "volume": 100, "pitch": 100, "pan": 0});
+            this._carta1V = cardV;
+            AudioManager.playSe({"name": "card", "volume": 100, "pitch": 100, "pan": 0});
             card2 = true;
-            tP = 2;
+            this._tP = 2;
             this._betCommandWindow.close();
             this.createBet2Command();
         }
@@ -110,29 +119,38 @@
     Scene_Black.prototype.bet2Command = function (val) {
         card1 = false;
         let cardV = Math.floor(Math.random() * 10) + 2;
-        let cardO = $gameVariables.value(64);
-        $gameVariables.setValue(65, cardV);
+        let cardO = this._carta1V;
+        this._carta2V = cardV;
+        AudioManager.playSe({"name": "card", "volume": 100, "pitch": 100, "pan": 0});
+
         card3 = true;
+        console.log(cardV);
         switch (val) {
             case -1:
                 if (cardV < cardO) {
-                    wonB();
+                    wonB(this._apostaIn * 2);
+                    this._tP = 3;
                 } else {
-                    looseB();
+                    looseB(this._apostaIn);
+                    this._tP = 4;
                 }
                 break;
             case 0:
                 if (cardV == cardO) {
-                    wonB();
+                    wonB(this._apostaIn * 2);
+                    this._tP = 3;
                 } else {
-                    looseB();
+                    looseB(this._apostaIn);
+                    this._tP = 4;
                 }
                 break;
             case 1:
                 if (cardV > cardO) {
-                    wonB();
+                    wonB(this._apostaIn * 2);
+                    this._tP = 3;
                 } else {
-                    looseB();
+                    looseB(this._apostaIn);
+                    this._tP = 4;
                 }
                 break;
         }
@@ -140,16 +158,16 @@
         this.createExitCommand();
     };
 
-    wonB = function () {
+    wonB = function (value) {
         let money = $gameVariables.value(26);
-        $gameVariables.setValue(26, money + $gameVariables.value(63) * 2);
-        tP = 3;
+        $gameVariables.setValue(26, money + value * 2);
+        AudioManager.playSe({"name": "WinB", "volume": 100, "pitch": 100, "pan": 0});
     }
 
-    looseB = function () {
+    looseB = function (value) {
         let money = $gameVariables.value(26);
-        $gameVariables.setValue(26, money - $gameVariables.value(63));
-        tP = 4;
+        $gameVariables.setValue(26, money - value);
+        AudioManager.playSe({"name": "lostB", "volume": 100, "pitch": 100, "pan": 0});
     }
 
     checkMoney = function () {
@@ -174,47 +192,45 @@
         Window_Base.prototype.initialize.call(this, x, y, w, h);
     }
 
-    Window_Black.prototype.drawMsg = function (message, value = 0) {
+    Window_Black.prototype.drawMsg = function (message, value1, value2, win) {
         this.setBackgroundType(2);
         this.contents.clear();
         this.contents.fontSize = 20;
-        var x = 33;
-        let y = 0;
         switch (message) {
             case 0:
                 this.changeTextColor("#ffffff");
-                this.drawText("O jogo começou!", 0, 0, "center");
-                this.drawText("Quanto dejesa apostar", 0, 30, "center");
+                this.drawText(" O jogo começou!", 0, 0, "center");
+                this.drawText(" Quanto dejesa apostar?", 0, 30, "center");
                 break;
             case 1:
                 this.changeTextColor("#f10000");
-                this.drawText("Não tem dinheiro que chegeu!", 0, 0, "center");
+                this.drawText(" Não tem dinheiro que chegeu!", 0, 0, "center");
                 break;
             case 2:
                 this.changeTextColor("#ffffff");
 
-                this.drawText("Saiu " + getCard(64) +"!", 0, 0, "center");
-                this.drawText("A próxima carta será maior, menor ou igual?", 0, 30, "center");
+                this.drawText(" Saiu " + getCard(value1) +"!", 0, 0, "center");
+                this.drawText(" A próxima carta será maior", 0, 30, "center");
+                this.drawText(" menor ou igual?", 0, 50, "center");
                 break;
             case 3:
                 this.changeTextColor("#ffffff");
-                this.drawText("Saiu " + getCard(65) +"!", 0, 0, "center");
+                this.drawText(" Saiu " + getCard(value2) +"!", 0, 0, "center");
                 this.changeTextColor("#32ff00");
-                this.drawText("Parabéns! Ganhou", 0, 30, "center");
+                this.drawText(" Parabéns! Ganhou " + win +" Chips!", 0, 30, "center");
                 break;
             case 4:
                 this.changeTextColor("#ffffff");
-                this.drawText("Saiu " + getCard(65) +"!", 0, 0, "center");
+                this.drawText(" Saiu " + getCard(value2) +"!", 0, 0, "center");
                 this.changeTextColor("#ff0000");
-                this.drawText("Perdeu! Boa sorte para a próxima", 0, 30, "center");
+                this.drawText(" Perdeu! Boa sorte para a próxima", 0, 30, "center");
                 break;
         }
     }
 
     getCard = function (val) {
-        let card = $gameVariables.value(val);
         let cardN;
-        switch (card) {
+        switch (val) {
             case 8:
                 cardN = "Dama";
                 break;
@@ -228,7 +244,7 @@
                 cardN = "Ás";
                 break;
             default:
-                cardN = card;
+                cardN = val;
                 break;
         }
         return cardN;
@@ -245,23 +261,31 @@
         Window_Base.prototype.initialize.call(this, x, y, w, h);
     }
 
-
     let card1 = true;
     let card2 = false;
     let card3 = false;
 
-    Window_Cards.prototype.drawImg = function () {
+    Window_Cards.prototype.drawImg = function (cartaV1, cartaV2, tCards) {
         this.contents.clear();
         this.setBackgroundType(2);
         if(card1) {
             this.drawPicture("cardB", 8, 20, false);
         }
         if (card2) {
-            this.drawPicture("card_"+$gameVariables.value(64), 135, 20, false);
+            this.drawPicture("card_"+cartaV1, 135, 20, false);
         }
         if (card3) {
-            this.drawPicture("card_"+$gameVariables.value(65), 270, 20, false);
+            this.drawPicture("card_"+cartaV2, 265, 20, false);
         }
+    }
+
+    Window_Cards.prototype.drawChips = function (chips) {
+        this.setBackgroundType(2);
+        this.contents.clear();
+        if (chips > 0) {
+            this.drawPicture("chip_"+chips, 0, 30, false);
+        }
+
     }
     /*
     Commands
