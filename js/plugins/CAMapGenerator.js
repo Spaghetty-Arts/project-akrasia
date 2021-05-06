@@ -4,6 +4,9 @@
 * @help This plugin lets you create create random maps, using cellular automatons, 
 inspired by The Game of Life by John Conway.
 
+* In the map you which the plugin to run, create a parallel event with
+the command: mapGeneratorStart
+
 * Map IDs: Lets you specify the map IDs in which you want the map generator
 to work, separated by semicolons. Like so: 1:12:34, for maps 1, 12 and 34
 
@@ -100,22 +103,11 @@ https://bit.ly/3vLVOHE (RPG Maker Foruns on Internet Archive)
     var tilesArr = [];
     var transferCompleted = false;
 
-    //TODO: Remove this 
-    /*var waterTileID = 2096;
-    var landTileID = 2816;
-    var wallTileID = 360;
-    var treeTileID = 11;
-
-    var lavaTileID = 2336;
-    var waterRocksTileID = 2480;*/
-
-
-
     var receivedPluginCommands = Game_Interpreter.prototype.pluginCommand;
     Game_Interpreter.prototype.pluginCommand = function (command, args) {
         receivedPluginCommands.call(this, command, args);
 
-        if (mapIDs.contains($gameMap._mapId)) {
+        if (command === 'mapGeneratorStart' && mapIDs.contains($gameMap._mapId)) {
             placeArrayTiles();
             getEventsOnAliveCells();
             transferPlayerRandom();
