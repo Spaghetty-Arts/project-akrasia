@@ -40,3 +40,9 @@ Window_MenuCommand.prototype.makeCommandList = function() {
     this.addLoadCommand();
     this.addGameEndCommand();
 };
+
+Scene_Load.prototype.createBackground = function () {
+    this._backgroundSprite = new Sprite();
+    this._backgroundSprite.bitmap = ImageManager.loadPicture("cpMenu");
+    this.addChild(this._backgroundSprite);
+}

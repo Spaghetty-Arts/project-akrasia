@@ -8,6 +8,12 @@
     src: url("nokia.ttf");
 }
 
+@font-face {
+    font-family: ExtraTitle;
+    src: url("Cyberway-Riders");
+}
+
+
 
 .IIV::-webkit-media-controls-play-button,
 video::-webkit-media-controls-start-playback-button {

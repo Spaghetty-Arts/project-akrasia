@@ -77,4 +77,8 @@
         chips += x;
         $gameVariables.setValue(26, chips);
     }
+    
+    startDice = function () {
+        
+    }
 })();

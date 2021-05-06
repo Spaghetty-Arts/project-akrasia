@@ -1,6 +1,3 @@
-Window_Options.prototype.addGeneralOptions = function() {
-
-};
 
 Window_Options.prototype.addVolumeOptions = function() {
     this.addCommand("Background Volume", 'bgmVolume');
