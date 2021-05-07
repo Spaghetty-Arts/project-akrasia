@@ -33,6 +33,12 @@ function Dice_Picture() {
 
     }
 
+    startMGame = function () {
+        AudioManager.playBgm({"name": "DiceGame", "volume": 100, "pitch": 100, "pan": 0});
+        $gameScreen.showPicture(1, "diceG", 0, 0, 0, 100, 100, 255, 0);
+
+    }
+
     endDGame = function () {
         $gameSwitches.setValue(44, false);
         $gamePlayer.reserveTransfer(20, $gamePlayer.x, $gamePlayer.y, 8, 2);
@@ -41,81 +47,86 @@ function Dice_Picture() {
 
     }
 
-    var _Game_Interpreter_pluginCommand      = Game_Interpreter.prototype.pluginCommand;
-    Game_Interpreter.prototype.pluginCommand = function (command, args) {
-        _Game_Interpreter_pluginCommand.call(this, command, args);
-        switch(command) {
-            case 'showDice':
-                var x          = parseInt(args[0], 10) || 400;
-                var y          = parseInt(args[1], 10) || 400;
-                var dice_group = parseInt(args[2], 10) || 1;
-                dice_group--;
+    endMGame = function () {
+
+        $gameScreen.erasePicture(1);
+        AudioManager.stopBgm();
+
+    }
+
+
+
+    showDice = function (x, y, z, w) {
+        var x          = parseInt(x, 10) || 400;
+        var y          = parseInt(y, 10) || 400;
+        var dice_group = parseInt(z, 10) || 1;
+        dice_group--;
+        if(dice_group >= MAX_DICE_GROUP || dice_group < 0 )
+        {
+            console.log(dice_group);
+            throw new Error;
+        }
+        var dice_num   = parseInt(w, 10).clamp(1, 400) || 1;
+        if(dice_num > MAX_DICE_NUM || dice_num < 0 )
+        {
+            console.log(dice_num);
+            throw new Error;
+        }
+        $gameScreen.showDice(x, y, dice_group, dice_num);
+    }
+
+    throwDice = function (x, y, z, w) {
+        var dice_groups = [parseInt(x, 10),
+            parseInt(y, 10),
+            parseInt(z, 10),
+            parseInt(w, 10)];
+
+        if( !dice_groups[0] )
+        {
+            for(var k=0; k<MAX_DICE_GROUP; k++) {
+                dice_group = k;
+                $gameScreen.throwDice(dice_group);
+            }
+        } else {
+            for(var k=0; k<MAX_DICE_GROUP; k++) {
+                if( !dice_groups[k] )
+                    break;
+                dice_group = dice_groups[k] - 1;
                 if(dice_group >= MAX_DICE_GROUP || dice_group < 0 )
                 {
                     console.log(dice_group);
                     throw new Error;
                 }
-                var dice_num   = parseInt(args[3], 10).clamp(1, 400) || 1;
-                if(dice_num > MAX_DICE_NUM || dice_num < 0 )
+                $gameScreen.throwDice(dice_group);
+            }
+        }
+    }
+
+    removeDice = function (x, y, z, w) {
+        var dice_groups = [parseInt(x, 10),
+            parseInt(y, 10),
+            parseInt(z, 10),
+            parseInt(w, 10)];
+        if( !dice_groups[0] )
+        {
+            for(var k=0; k<MAX_DICE_GROUP; k++) {
+                dice_group = k;
+                $gameScreen.removeDice(dice_group);
+            }
+        } else {
+            for(var k=0; k<MAX_DICE_GROUP; k++) {
+                if( !dice_groups[k] )
+                    break;
+                dice_group = dice_groups[k] - 1;
+                if(dice_group >= MAX_DICE_GROUP || dice_group < 0 )
                 {
-                    console.log(dice_num);
+                    console.log(dice_group);
                     throw new Error;
                 }
-                $gameScreen.showDice(x, y, dice_group, dice_num);
-                break;
-            case 'throwDice':
-                var dice_groups = [parseInt(args[0], 10),
-                    parseInt(args[1], 10),
-                    parseInt(args[2], 10),
-                    parseInt(args[3], 10)];
-                if( !dice_groups[0] )
-                {
-                    for(var k=0; k<MAX_DICE_GROUP; k++) {
-                        dice_group = k;
-                        $gameScreen.throwDice(dice_group);
-                    }
-                } else {
-                    for(var k=0; k<MAX_DICE_GROUP; k++) {
-                        if( !dice_groups[k] )
-                            break;
-                        dice_group = dice_groups[k] - 1;
-                        if(dice_group >= MAX_DICE_GROUP || dice_group < 0 )
-                        {
-                            console.log(dice_group);
-                            throw new Error;
-                        }
-                        $gameScreen.throwDice(dice_group);
-                    }
-                }
-                break;
-            case 'removeDice':
-                var dice_groups = [parseInt(args[0], 10),
-                    parseInt(args[1], 10),
-                    parseInt(args[2], 10),
-                    parseInt(args[3], 10)];
-                if( !dice_groups[0] )
-                {
-                    for(var k=0; k<MAX_DICE_GROUP; k++) {
-                        dice_group = k;
-                        $gameScreen.removeDice(dice_group);
-                    }
-                } else {
-                    for(var k=0; k<MAX_DICE_GROUP; k++) {
-                        if( !dice_groups[k] )
-                            break;
-                        dice_group = dice_groups[k] - 1;
-                        if(dice_group >= MAX_DICE_GROUP || dice_group < 0 )
-                        {
-                            console.log(dice_group);
-                            throw new Error;
-                        }
-                        $gameScreen.removeDice(dice_group);
-                    }
-                }
-                break;
+                $gameScreen.removeDice(dice_group);
+            }
         }
-    };
-
+    }
 
     let _Scene_Map_start = Scene_Map.prototype.start;
     Scene_Map.prototype.start = function() {
