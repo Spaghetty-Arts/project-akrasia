@@ -1,3 +1,8 @@
+//=============================================================================
+// Cellular Automata Map Generator
+// by Afonso Vitório
+// Date: 05/07/2021  
+//============================================================================= 
 /*: 
 * @plugindesc A map generator based on Cellular Automata
 * @author Afonso Vitório
