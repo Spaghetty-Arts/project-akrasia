@@ -1,5 +1,5 @@
 //=============================================================================
-// Casino.js
+// !SPF_Casino.js
 //=============================================================================
 /*:
  * @plugindesc Code for altering the palyer color
@@ -77,8 +77,5 @@
         chips += x;
         $gameVariables.setValue(26, chips);
     }
-    
-    startDice = function () {
-        
-    }
+
 })();
