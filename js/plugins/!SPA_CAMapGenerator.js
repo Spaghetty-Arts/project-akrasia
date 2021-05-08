@@ -1,3 +1,8 @@
+//=============================================================================
+// Cellular Automata Map Generator
+// by Afonso Vitório
+// Date: 05/07/2021  
+//============================================================================= 
 /*: 
 * @plugindesc A map generator based on Cellular Automata
 * @author Afonso Vitório
@@ -77,8 +82,6 @@ https://bit.ly/3vLVOHE (RPG Maker Foruns on Internet Archive)
 
 //TODO: Fazer tipo um quinto das tiles de erva serem arbustos (Kind of Done)
 //TODO: Fazer placement aleatoria de ervas e items do genero (Kind of done)
-
-//TODO: Dar placement aos events sempre em tiles "bons"
 
 
 (function () {
