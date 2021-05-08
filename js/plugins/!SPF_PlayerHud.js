@@ -78,9 +78,11 @@
         if ($gameSwitches.value(sId)){
             this.open();
             //this.drawActorHp($gameParty.leader(), 30, 0, 200);
-            this.drawPicture("heart", 0, 0, false);
-            this.drawPicture("bar1", 25, -8, false);
-            this.drawActorHp($gameParty.leader(), 50, -9.5, 205, 16);
+            if (!$gameSwitches.value(30)) {
+                this.drawPicture("heart", 0, 0, false);
+                this.drawPicture("bar1", 25, -8, false);
+                this.drawActorHp($gameParty.leader(), 50, -9.5, 205, 16);
+            }
 
             if ($gameSwitches.value(secondHud)) {
                 if ($gameSwitches.value(hudCrowbar)) {
@@ -96,7 +98,15 @@
                     this.drawTextEx("\\c[14]"+$gameVariables.value(39) + "/" + $gameVariables.value(40), 340, 5);
                 } else if ($gameSwitches.value(holster)) {
                     this.drawPicture("hand", 300, -5, false);
+                } else if ($gameSwitches.value(30)) {
+                    this.drawPicture("money", 0, 0, false);
+                    this.drawTextEx("\\c[11]"+$gameParty._gold, 40, 0);
+                    if ($gameSwitches.value(29)) {
+                        this.drawPicture("chips", 120, 0, false);
+                        this.drawTextEx("\\c[10]"+$gameVariables.value(26), 160, 0);
+                    }
                 }
+
             }
 
             if ($gameSwitches.value(thirdHud)) {
