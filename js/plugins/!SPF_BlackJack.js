@@ -22,6 +22,8 @@
         this._WindowsChips = new Window_Cards(200, 390, 200, 200);
         this.addChild(this._WindowsChips);
         this.createBetCommand();
+        this._WindowsMsgChips = new Window_Black(330, 40, 200, 100);
+        this.addChild(this._WindowsMsgChips);
         this._apostaIn = 0;
         this._carta1V = 0;
         this._carta2V = 0;
@@ -34,6 +36,8 @@
     Scene_Black.prototype.start = function () {
         Scene_Base.prototype.start.call(this);
         this._WindowsMsg.drawMsg(0, 0, 0);
+        this._WindowsMsgChips.drawMsgC();
+
         this._WindowsC.drawImg();
         AudioManager.playBgm({"name": "03_Chasing_Fortune", "volume": 60, "pitch": 100, "pan": 0});
     }
@@ -43,6 +47,7 @@
         Scene_Base.prototype.update.call(this);
 
         this._WindowsMsg.drawMsg(this._tP, this._carta1V, this._carta2V, this._apostaIn *2);
+        this._WindowsMsgChips.drawMsgC();
 
         this._WindowsC.drawImg(this._carta1V, this._carta2V);
         this._WindowsChips.drawChips(this._apostaIn);
@@ -160,7 +165,7 @@
 
     wonB = function (value) {
         let money = $gameVariables.value(26);
-        $gameVariables.setValue(26, money + value * 2);
+        $gameVariables.setValue(26, money + value);
         AudioManager.playSe({"name": "WinB", "volume": 100, "pitch": 100, "pan": 0});
     }
 
@@ -228,6 +233,13 @@
         }
     }
 
+    Window_Black.prototype.drawMsgC = function () {
+        this.setBackgroundType(2);
+        this.contents.clear();
+        this.contents.fontSize = 20;
+        this.changeTextColor("#fde609");
+        this.drawText("Chips " + $gameVariables.value(26), 0, 30, "center");
+    }
     getCard = function (val) {
         let cardN;
         switch (val) {
