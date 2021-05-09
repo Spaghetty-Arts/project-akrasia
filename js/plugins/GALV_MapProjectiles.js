@@ -421,9 +421,97 @@ Galv.PROJ.atTarget = function(sid,eid,speed,dist,graphic,hitAnim,action,regions,
 		var eActions = [];
 	};
 
+	getBulletP = function () {
+		let dir;
+		let xB = Number(sTarget._realX * Galv.PROJ.tileSize + Galv.PROJ.tileSize / 2);
+		if (sid == -1) {
+			dir = $gamePlayer.direction();
+		} else {
+			dir = $gameMap.event(sid)._direction;
+		}
+			switch (dir) {
+				case 2:
+					if ($gameSwitches.value(34)) {
+						xB= Number(sTarget._realX * Galv.PROJ.tileSize + Galv.PROJ.tileSize / 2) - 8;
+					} else if ($gameSwitches.value(40)) {
+						xB= Number(sTarget._realX * Galv.PROJ.tileSize + Galv.PROJ.tileSize / 2) - 8;
+					} else if ($gameSwitches.value(82)) {
+						xB= Number(sTarget._realX * Galv.PROJ.tileSize + Galv.PROJ.tileSize / 2) - 5;
+					}
+					break;
+				case 4:
+					if ($gameSwitches.value(34)) {
+						xB= Number(sTarget._realX * Galv.PROJ.tileSize + Galv.PROJ.tileSize / 2) - 11;
+					} else if ($gameSwitches.value(40)) {
+						xB= Number(sTarget._realX * Galv.PROJ.tileSize + Galv.PROJ.tileSize / 2) - 20;
+					} else if ($gameSwitches.value(82)) {
+						xB= Number(sTarget._realX * Galv.PROJ.tileSize + Galv.PROJ.tileSize / 2) - 11;
+					}
+					break;
+				case 6:
+					if ($gameSwitches.value(34)) {
+						xB= Number(sTarget._realX * Galv.PROJ.tileSize + Galv.PROJ.tileSize / 2) + 11;
+					} else if ($gameSwitches.value(40)) {
+						xB= Number(sTarget._realX * Galv.PROJ.tileSize + Galv.PROJ.tileSize / 2) + 20;
+					} else if ($gameSwitches.value(82)) {
+						xB= Number(sTarget._realX * Galv.PROJ.tileSize + Galv.PROJ.tileSize / 2) + 11;
+					}
+					break;
+				case 8:
+					xB= Number(sTarget._realX * Galv.PROJ.tileSize + Galv.PROJ.tileSize / 2) +5;
+					break;
+			}
+
+		return xB;
+	}
+
+	getBulletWP = function () {
+		let dir;
+		let yB = Number(sTarget._realY * Galv.PROJ.tileSize + Galv.PROJ.tileSize / 2);
+		if (sid == -1) {
+			dir = $gamePlayer.direction();
+		} else {
+			dir = $gameMap.event(sid)._direction;
+		}
+			switch (dir) {
+				case 2:
+					if ($gameSwitches.value(34)) {
+						yB = Number(sTarget._realY * Galv.PROJ.tileSize + Galv.PROJ.tileSize / 2) + 8;
+					} else if ($gameSwitches.value(40)) {
+						yB = Number(sTarget._realY * Galv.PROJ.tileSize + Galv.PROJ.tileSize / 2) + 12;
+					} else if ($gameSwitches.value(82)) {
+						yB = Number(sTarget._realY * Galv.PROJ.tileSize + Galv.PROJ.tileSize / 2) + 12;
+					}
+					break;
+				case 4:
+					if ($gameSwitches.value(34)) {
+						yB = Number(sTarget._realY * Galv.PROJ.tileSize + Galv.PROJ.tileSize / 2) + 6;
+					} else if ($gameSwitches.value(40)) {
+						yB = Number(sTarget._realY * Galv.PROJ.tileSize + Galv.PROJ.tileSize / 2) + 8;
+					} else if ($gameSwitches.value(82)) {
+						yB = Number(sTarget._realY * Galv.PROJ.tileSize + Galv.PROJ.tileSize / 2) + 5;
+					}
+					break;
+				case 6:
+					if ($gameSwitches.value(34)) {
+						yB = Number(sTarget._realY * Galv.PROJ.tileSize + Galv.PROJ.tileSize / 2) + 7;
+					} else if ($gameSwitches.value(40)) {
+						yB = Number(sTarget._realY * Galv.PROJ.tileSize + Galv.PROJ.tileSize / 2) + 8;
+					} else if ($gameSwitches.value(82)) {
+						yB = Number(sTarget._realY * Galv.PROJ.tileSize + Galv.PROJ.tileSize / 2) + 4;
+					}
+					break;
+				case 8:
+					yB = Number(sTarget._realY * Galv.PROJ.tileSize + Galv.PROJ.tileSize / 2) + 8;
+
+					break;
+			}
+		return yB;
+	}
+
 	var obj = {
-		x: Number(sTarget._realX * Galv.PROJ.tileSize + Galv.PROJ.tileSize / 2),
-		y: Number(sTarget._realY * Galv.PROJ.tileSize + Galv.PROJ.tileSize / 2),
+		x: getBulletP(),
+		y: getBulletWP(),
 		sTarget: sTarget,
 		eTarget: eTarget,
 		speed: speed,
@@ -659,7 +747,7 @@ Sprite_MapProjectile.prototype.initialize = function(objId,yoFix) {
 	this._updateType = this._obj.type;
 	this._ticker = 0;
 	this.ttd = 5;
-	this._yo = this._obj.sTarget._projYoffset;
+	this._yo = 0;
 	this._yoFix = yoFix || false;
 	this.setBitmap();
 	this.updateDirection();
@@ -672,7 +760,6 @@ Sprite_MapProjectile.prototype.setupHitbox = function() {
 
 Sprite_MapProjectile.prototype.updateDirection = function() {
 	var yo = this._yo && this._yoFix ? this._yo / 48 : 0;
-	
 	this._angle = Math.atan2(this._obj.eTarget.y - yo - this._obj.sTarget.y, this._obj.eTarget.x - this._obj.sTarget.x) * 180 / Math.PI;
 	this.rotation = (this._angle + 90) * Math.PI / 180;
 
@@ -687,7 +774,7 @@ Sprite_MapProjectile.prototype.setBitmap = function() {
 	this._cFrame = 0;
 	this._fTicker = 0;
 	this.x = this._obj.x;
-	this.y = this._obj.y + this._yo;
+	this.y = this._obj.y;
 	this.z = this._obj.z;
 	var frames = this._obj.graphic.match(/\((.*)\)/i);
 	if (frames) {
