@@ -35,11 +35,12 @@ There is no need to install just run the game.exe file.
 **This game was primarly created as our Final Course Project using Scrum Development. At each iteration we plan to
 have diffrent things to share.**
 
-Version | What's new | Scrum
+Version | What's new | Sprint
 ------------ | ------------- | -------------
 0.1 | Prologue Created | 1
+0.2 | Features Created | 2
 
-## Scrum 1
+## Sprint 1
 - Prologue Story
 - Various Maps to explore
 - Paralax Mapping
@@ -47,6 +48,14 @@ Version | What's new | Scrum
 - Casino Minigames
 - Hacking Minigame (Simillar to System Schock 2)
 - Various use of ambince sounds
+
+## Sprint 2
+- Map Generation Plugin
+- Simple AI Plugin
+- V0.1 ABS combat
+- Begining of Multiplayer
+- Casino Minigames (reworked)
+- Various other feaures (keyconfig, auto save...)
    
 ## License
 
