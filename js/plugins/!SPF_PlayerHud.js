@@ -53,7 +53,7 @@
         _Scene_Map_update.call(this);
         if ($gameSwitches.value(sId)){
             this.addWindow(this._myWindow);
-        };
+        }
         this._myWindow.refresh();
     };
 
