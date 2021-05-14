@@ -3,7 +3,7 @@
 
 ![Akrasia](https://i.ibb.co/6Rmp13J/Project.png)
 
-[![Made with RPG Maker](https://badgen.net/badge/RPG%20Maker/MV/green)](https://www.rpgmakerweb.com/products/rpg-maker-mv) [![License: CC BY-NC-ND 4.0](https://img.shields.io/badge/License-CC%20BY--NC--ND%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/) [![GitHub version](https://d25lcipzij17d.cloudfront.net/badge.svg?id=gh&type=6&v=0.1&x2=0)](https://github.com/Naereen/StrapDown.js) ![PT](https://img.shields.io/badge/Language-Portuguese-brightgreen) ![EN](https://img.shields.io/badge/Language-English-blue)
+[![Made with RPG Maker](https://badgen.net/badge/RPG%20Maker/MV/green)](https://www.rpgmakerweb.com/products/rpg-maker-mv) [![License: CC BY-NC-ND 4.0](https://img.shields.io/badge/License-CC%20BY--NC--ND%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/) [![GitHub version](https://d25lcipzij17d.cloudfront.net/badge.svg?id=gh&type=6&v=0.2&x2=0)](https://github.com/Naereen/StrapDown.js) ![PT](https://img.shields.io/badge/Language-Portuguese-brightgreen)
 
 Project Akrasia is a game made by the Game Development team of the 3rd Year of Computer Engineering at Estgoh called Spaghetty Arts.
 
@@ -35,11 +35,12 @@ There is no need to install just run the game.exe file.
 **This game was primarly created as our Final Course Project using Scrum Development. At each iteration we plan to
 have diffrent things to share.**
 
-Version | What's new | Scrum
+Version | What's new | Sprint
 ------------ | ------------- | -------------
 0.1 | Prologue Created | 1
+0.2 | Features Created | 2
 
-## Scrum 1
+## Sprint 1
 - Prologue Story
 - Various Maps to explore
 - Paralax Mapping
@@ -47,6 +48,14 @@ Version | What's new | Scrum
 - Casino Minigames
 - Hacking Minigame (Simillar to System Schock 2)
 - Various use of ambince sounds
+
+## Sprint 2
+- Map Generation Plugin
+- Simple AI Plugin
+- V0.1 ABS combat
+- Begining of Multiplayer
+- Casino Minigames (reworked)
+- Various other feaures (keyconfig, auto save...)
    
 ## License
 
