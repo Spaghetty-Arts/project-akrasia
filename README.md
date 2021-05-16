@@ -5,6 +5,8 @@
 
 [![Made with RPG Maker](https://badgen.net/badge/RPG%20Maker/MV/green)](https://www.rpgmakerweb.com/products/rpg-maker-mv) [![License: CC BY-NC-ND 4.0](https://img.shields.io/badge/License-CC%20BY--NC--ND%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/) [![GitHub version](https://d25lcipzij17d.cloudfront.net/badge.svg?id=gh&type=6&v=0.2&x2=0)](https://github.com/Naereen/StrapDown.js) ![PT](https://img.shields.io/badge/Language-Portuguese-brightgreen)
 
+![JS](https://img.shields.io/badge/javascript-%23323330.svg?&style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) ![Node](https://img.shields.io/badge/node.js-%2343853D.svg?&style=for-the-badge&logo=node.js&logoColor=white)
+
 Project Akrasia is a game made by the Game Development team of the 3rd Year of Computer Engineering at Estgoh called Spaghetty Arts.
 
 ![SP](https://i.ibb.co/SmV4JZ2/4a2a0db8-85d7-4b30-b4d0-473272c3c38d-200x200.png)
