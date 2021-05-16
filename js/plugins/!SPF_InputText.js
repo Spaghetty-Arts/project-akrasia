@@ -488,7 +488,6 @@ function Scene_InputDialog() {
     };
 
     Scene_InputDialog.prototype.create = function () {
-        AudioManager.playBgm({"name": "multiplayer", "volume": 60, "pitch": 100, "pan": 0});
         Scene_Base.prototype.create.call(this);
         this.createBackground();
         this.createTextBox();
@@ -507,7 +506,6 @@ function Scene_InputDialog() {
         Scene_Base.prototype.terminate.call(this);
         this._textBox.terminate();
         this._textBox = null;
-        AudioManager.stopBgm();
     };
 
     Scene_InputDialog.prototype.isScreenLock = function () {
