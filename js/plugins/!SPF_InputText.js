@@ -1,10 +1,3 @@
-var Imported = Imported || {};
-Imported.RS_InputDialog = true;
-
-var RS = RS || {};
-RS.InputDialog = RS.InputDialog || {};
-RS.InputDialog.Params = RS.InputDialog.Params || {};
-RS.Utils = RS.Utils || {};
 
 function Scene_InputDialog() {
     this.initialize.apply(this, arguments);
@@ -12,90 +5,36 @@ function Scene_InputDialog() {
 
 (function () {
 
-    var parameters = $plugins.filter(function (i) {
-        return i.description.contains('<RS_InputDialog>');
-    });
-
-    parameters = (parameters.length > 0) && parameters[0].parameters;
-
 
 
     //============================================================================
     // Global Variables in RS.InputDialog
     //============================================================================
 
-    RS.InputDialog.Params.textBoxWidth = 488;
-    RS.InputDialog.Params.textBoxHeight = 36;
-    RS.InputDialog.Params.variableID = Number(parameters['variable ID'] || 3);
+    let loginRegister;
 
-    RS.InputDialog.Params.debug = Boolean(parameters['debug'] === 'true');
+    let textBoxWidth = 488;
+    let textBoxHeight = 36;
 
-    let passHint = "Digita uma password";
-    let loginHint = "Digita um username";
+    let nMaxLength = 6;
 
-    RS.InputDialog.Params.inputDirection = String(parameters['direction'] || 'ltr');
+    let szTextBoxId = 'md_textBox';
+    let szFieldId = 'md_inputField';
 
-    RS.InputDialog.Params.nMaxLength = parseInt(parameters['Max Length'] || '6');
+    let nCheckScreenLock = 8000;
 
-    RS.InputDialog.Params.szTextBoxId = 'md_textBox';
-    RS.InputDialog.Params.szFieldId = 'md_inputField';
-
-    RS.InputDialog.Params.nCheckScreenLock = 8000;
-
-    RS.InputDialog.Params.okButtonName = "Ok";
-    RS.InputDialog.Params.cancelButtonName = "Cancelar";
-
-
-    RS.InputDialog.Params.pos = new PIXI.Point(0, 0);
-    RS.InputDialog.Params.isCenterAlignment = true;
 
     //============================================================================
-    // public methods in RS.InputDialog
+    // public methods in InputDialog
     //============================================================================
 
-    RS.InputDialog.createInstance = function() {
-        SceneManager.push(Scene_InputDialog);
-    };
 
-    RS.InputDialog.setRect = function () {
-        "use strict";
 
-        var query, textBox, OkButton, CancelButton, textBox2;
-
-        query = `div#${RS.InputDialog.Params.szFieldId} table.inputDialogContainer tr td input[type=text][id=user]`;
-        textBox = document.querySelector(query);
-
-        query = `div#${RS.InputDialog.Params.szFieldId} table.inputDialogContainer tr td input[type=password][id=pass]`;
-        textBox2 = document.querySelector(query);
-
-        query = `div#${RS.InputDialog.Params.szFieldId} table.inputDialogContainer tr td input[type=button][id=inputDialog-OkBtn]`;
-        OkButton = document.querySelector(query);
-
-        query = `div#${RS.InputDialog.Params.szFieldId} table.inputDialogContainer tr td input[type=button][id=inputDialog-CancelBtn]`;
-        CancelButton = document.querySelector(query);
-
-        if(textBox) {
-            textBox.style.fontSize = (Utils.isMobileDevice()) ? '1rem':(2 * Graphics._realScale) + "em";
-            textBox.style.width = RS.InputDialog.getScreenWidth(RS.InputDialog.Params.textBoxWidth * Graphics._realScale) + 'px';
-            textBox.style.height = RS.InputDialog.getScreenHeight(RS.InputDialog.Params.textBoxHeight * Graphics._realScale) + 'px';
-        }
-
-        if(textBox2) {
-            textBox2.style.fontSize = (Utils.isMobileDevice()) ? '1rem':(2 * Graphics._realScale) + "em";
-            textBox2.style.width = RS.InputDialog.getScreenWidth(RS.InputDialog.Params.textBoxWidth * Graphics._realScale) + 'px';
-            textBox2.style.height = RS.InputDialog.getScreenHeight(RS.InputDialog.Params.textBoxHeight * Graphics._realScale) + 'px';
-        }
-
-        if(OkButton) OkButton.style.fontSize = (Utils.isMobileDevice()) ? '1rem':(1 * Graphics._realScale) + "em";
-        if(CancelButton) CancelButton.style.fontSize = (Utils.isMobileDevice()) ? '1rem':(1 * Graphics._realScale) + "em";
-
-    };
-
-    RS.InputDialog.getScreenWidth = function (value) {
+    getScreenWidth = function (value) {
         return value;
     };
 
-    RS.InputDialog.getScreenHeight = function (value) {
+    getScreenHeight = function (value) {
         return value;
     };
 
@@ -242,13 +181,13 @@ function Scene_InputDialog() {
     <table class="inputDialogContainer">
   		<tr class="row">
   			<td class="col">
-  				<input class="inputDialog" type="text" id="user" placeholder="${loginHint}">
-  				<input class="inputDialog" type="text" id="user" placeholder="${loginHint}" hidden>
+  				<input class="inputDialog" type="text" id="user" placeholder="Digite um username">
+  				<input class="inputDialog" type="text" id="user" placeholder="" hidden>
   			</td>
   		</tr>
   		<tr class="row">
   			<td class="col">
-  				<input class="inputDialog" type="password" id="pass" placeholder="${passHint}">
+  				<input class="inputDialog" type="password" id="pass" placeholder="Digite uma passowrd">
   			</td>
   		</tr>
   		<tr class="row" valign="bottom">
@@ -278,9 +217,9 @@ function Scene_InputDialog() {
     TextBox.prototype.getTextBoxId = function (uP) {
         "use strict";
         if (uP == 0) {
-            var query = `div#${RS.InputDialog.Params.szFieldId} table.inputDialogContainer tr td input[type=text][id=user]`;
+            var query = `div#${szFieldId} table.inputDialogContainer tr td input[type=text][id=user]`;
         } else {
-            var query = `div#${RS.InputDialog.Params.szFieldId} table.inputDialogContainer tr td input[type=password][id=pass]`;
+            var query = `div#${szFieldId} table.inputDialogContainer tr td input[type=password][id=pass]`;
         }
         return document.querySelector(query);
     };
@@ -289,21 +228,21 @@ function Scene_InputDialog() {
     TextBox.prototype.getDefaultButtonId = function (id) {
         "use strict";
         id = id || "inputDialog-OkBtn";
-        var query = `div#${RS.InputDialog.Params.szFieldId} table.inputDialogContainer tr td input[type=button][id=${id}]`;
+        var query = `div#${szFieldId} table.inputDialogContainer tr td input[type=button][id=${id}]`;
         return document.querySelector(query);
     };
 
     TextBox.prototype.getMainContainer = function () {
         "use strict";
-        var query = `div#${RS.InputDialog.Params.szFieldId} table.inputDialogContainer`;
+        var query = `div#${szFieldId} table.inputDialogContainer`;
         return document.querySelector(query);
     };
 
     TextBox.prototype.addAllEventListener = function () {
 
         this._textBox = this.getTextBoxId(0);
-        this._textBox.maxLength = RS.InputDialog.Params.nMaxLength;
-        this._textBox.max = RS.InputDialog.Params.nMaxLength;
+        this._textBox.maxLength = nMaxLength;
+        this._textBox.max = nMaxLength;
 
         this._textBox.addEventListener('keydown', this.onKeyDown.bind(this), false);
         if(!Utils.isMobileDevice()) {
@@ -334,16 +273,16 @@ function Scene_InputDialog() {
         var OkButton = this.getDefaultButtonId("inputDialog-OkBtn");
         var CancelButton = this.getDefaultButtonId("inputDialog-CancelBtn");
 
-        if(OkButton) OkButton.style.fontSize = (Utils.isMobileDevice()) ? '1rem':(1 * Graphics._realScale) + "em";
-        if(CancelButton) CancelButton.style.fontSize = (Utils.isMobileDevice()) ? '1rem':(1 * Graphics._realScale) + "em";
+        if(OkButton) OkButton.style.fontSize = (1 * Graphics._realScale) + "em";
+        if(CancelButton) CancelButton.style.fontSize = (1 * Graphics._realScale) + "em";
 
-        textBox.style.fontSize = (Utils.isMobileDevice()) ? '1rem':(2 * Graphics._realScale) + "em";
-        textBox.style.width = RS.InputDialog.getScreenWidth(RS.InputDialog.Params.textBoxWidth * Graphics._realScale) + 'px';
-        textBox.style.height = RS.InputDialog.getScreenHeight(RS.InputDialog.Params.textBoxHeight * Graphics._realScale) + 'px';
+        textBox.style.fontSize = (2 * Graphics._realScale) + "em";
+        textBox.style.width = getScreenWidth(textBoxWidth * Graphics._realScale) + 'px';
+        textBox.style.height = getScreenHeight(textBoxHeight * Graphics._realScale) + 'px';
 
-        textBox2.style.fontSize = (Utils.isMobileDevice()) ? '1rem':(2 * Graphics._realScale) + "em";
-        textBox2.style.width = RS.InputDialog.getScreenWidth(RS.InputDialog.Params.textBoxWidth * Graphics._realScale) + 'px';
-        textBox2.style.height = RS.InputDialog.getScreenHeight(RS.InputDialog.Params.textBoxHeight * Graphics._realScale) + 'px';
+        textBox2.style.fontSize = (2 * Graphics._realScale) + "em";
+        textBox2.style.width = getScreenWidth(textBoxWidth * Graphics._realScale) + 'px';
+        textBox2.style.height = getScreenHeight(textBoxHeight * Graphics._realScale) + 'px';
 
     };
 
@@ -416,17 +355,10 @@ function Scene_InputDialog() {
 
     TextBox.prototype.onFocus = function (e) {
         var text = this.getTextBoxId(0);
-        if(text && Utils.isMobileDevice()) {
-            text.style.bottom = RS.InputDialog.getScreenHeight(Graphics.boxHeight / 2) + 'px';
-        }
     };
 
     TextBox.prototype.onBlur = function (e) {
         var text = this.getTextBoxId(0);
-        if(text && Utils.isMobileDevice()) {
-            text.style.bottom = '0';
-            text.focus();
-        }
         e.preventDefault();
     };
 
@@ -440,14 +372,14 @@ function Scene_InputDialog() {
             if(x < 0) {
                 x = 0;
             }
-            if(x > Graphics.boxWidth - RS.InputDialog.Params.textBoxWidth) {
-                x = Graphics.boxWidth - RS.InputDialog.Params.textBoxWidth;
+            if(x > Graphics.boxWidth - textBoxWidth) {
+                x = Graphics.boxWidth - textBoxWidth;
             }
             if(y < 0) {
                 y = 0;
             }
-            if(y > Graphics.boxHeight - RS.InputDialog.Params.textBoxHeight) {
-                y = Graphics.boxHeight - RS.InputDialog.Params.textBoxHeight;
+            if(y > Graphics.boxHeight - textBoxHeight) {
+                y = Graphics.boxHeight - textBoxHeight;
             }
             mainContainer.style.left = Graphics._canvas.getBoundingClientRect().left + x + "px";
             mainContainer.style.top = Graphics._canvas.getBoundingClientRect().top + y + "px";
@@ -464,8 +396,8 @@ function Scene_InputDialog() {
             Graphics._centerElement(mainContainer);
             this.setRect();
 
-            var px = (Graphics.boxWidth / 2) - (RS.InputDialog.Params.textBoxWidth / 2);
-            var py = (Graphics.boxHeight / 2) - (RS.InputDialog.Params.textBoxHeight / 2);
+            var px = (Graphics.boxWidth / 2) - (textBoxWidth / 2);
+            var py = (Graphics.boxHeight / 2) - (textBoxHeight / 2);
             this.setPosition(px, py);
 
         }
@@ -474,7 +406,7 @@ function Scene_InputDialog() {
     TextBox.prototype.isScreenLock = function () {
         var val = parseInt(performance.now() - this._lastInputTime);
         var ret = false;
-        if(val >= RS.InputDialog.Params.nCheckScreenLock && this.isBusy()) ret = true;
+        if(val >= nCheckScreenLock && this.isBusy()) ret = true;
         this._lastInputTime = performance.now();
         return ret;
     };
@@ -562,7 +494,7 @@ function Scene_InputDialog() {
         this.createTextBox();
     }
 
-    let lol = true;
+
     var alias_Scene_InputDialog_update = Scene_InputDialog.prototype.update;
     Scene_InputDialog.prototype.update = function () {
         alias_Scene_InputDialog_update.call(this);
@@ -584,12 +516,17 @@ function Scene_InputDialog() {
 
     Scene_InputDialog.prototype.createBackground = function() {
         this._backgroundSprite = new Sprite();
-        this._backgroundSprite.bitmap = ImageManager.loadPicture("cpMenu");
+        if (loginRegister == 0) {
+            this._backgroundSprite.bitmap = ImageManager.loadPicture("computerR");
+        } else {
+            this._backgroundSprite.bitmap = ImageManager.loadPicture("computerL");
+        }
+
         this.addChild(this._backgroundSprite);
     };
 
     Scene_InputDialog.prototype.createTextBox = function () {
-        this._textBox = new TextBox(RS.InputDialog.Params.szFieldId, RS.InputDialog.Params.szTextBoxId);
+        this._textBox = new TextBox(szFieldId, szTextBoxId);
         this._textBox.setEvent(this.okResult.bind(this), this.cancelResult.bind(this));
         this._textBox.show();
 
@@ -599,12 +536,16 @@ function Scene_InputDialog() {
         let user = this._textBox.getText(0) || '';
         let pass = this._textBox.getText(1) || '';
 
-        $gameVariables.setValue(RS.InputDialog.Params.variableID, user);
+
         if(SceneManager._stack.length > 0) {
             TouchInput.clear();
             console.log(user + " " + pass);
             Input.clear();
-            ajaxPostRequest(user, pass);
+            if (loginRegister == 0) {
+                ajaxRPostRequest(user, pass);
+            } else {
+                ajaxLGetRequest(user, pass);
+            }
             this.popScene();
         };
     };
@@ -631,27 +572,11 @@ function Scene_InputDialog() {
         }
     };
 
-    RS.InputDialog.isEqual = function(eq) {
-        var data = String($gameVariables.value(RS.InputDialog.Params.variableID));
-        eq = String(eq);
-        return (data === eq);
-    };
 
-    Game_Interpreter.prototype.isEqualInputData = function(eq) {
-        return RS.InputDialog.isEqual(eq);
-    };
-
-    var alias_Game_Interpreter_pluginCommand = Game_Interpreter.prototype.pluginCommand;
-    Game_Interpreter.prototype.pluginCommand = function(command, args) {
-        alias_Game_Interpreter_pluginCommand.call(this, command, args);
-        if(command === "InputDialog") {
-            switch(args[0]) {
-                case 'open':
-                    RS.InputDialog.createInstance();
-                    break;
-            }
-        }
-    };
+    openForm = function (value) {
+        SceneManager.push(Scene_InputDialog);
+        loginRegister = value;
+    }
 
     window.TextBox = TextBox;
 
