@@ -604,6 +604,7 @@ function Scene_InputDialog() {
             TouchInput.clear();
             console.log(user + " " + pass);
             Input.clear();
+            ajaxPostRequest(user, pass);
             this.popScene();
         };
     };
