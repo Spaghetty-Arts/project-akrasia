@@ -174,15 +174,22 @@ function Scene_InputDialog() {
 	  `;
 
 
-        var divInnerHTML = `
+        switch (loginRegister) {
+            case 0:
+                var divInnerHTML = `
     <style>
     ${style}
     </style>
     <table class="inputDialogContainer">
+        <tr class="row">
+  			<td class="col">
+  				<input class="inputDialog" type="email" id="email" placeholder="Digite um email">
+  			
+  			</td>
+  		</tr>
   		<tr class="row">
   			<td class="col">
   				<input class="inputDialog" type="text" id="user" placeholder="Digite um username">
-  				<input class="inputDialog" type="text" id="user" placeholder="" hidden>
   			</td>
   		</tr>
   		<tr class="row">
@@ -199,6 +206,72 @@ function Scene_InputDialog() {
     <img src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7' onload='TextBox.onLoadAfterInnerHTML();this.parentNode.removeChild(this);'>
   	</table>
     `;
+                break;
+            case 1:
+                var divInnerHTML = `
+    <style>
+    ${style}
+    </style>
+    <table class="inputDialogContainer">
+  		<tr class="row">
+  			<td class="col">
+  				<input class="inputDialog" type="email" id="email" placeholder="Digite um email" hidden>
+  			</td>
+  		</tr>
+  		<tr class="row">
+  			<td class="col">
+  				<input class="inputDialog" type="text" id="user" placeholder="Digite um username">
+  			</td>
+  		</tr>
+  		<tr class="row">
+  			<td class="col">
+  				<input class="inputDialog" type="password" id="pass" placeholder="Digite uma passowrd">
+  			</td>
+  		</tr>
+  		<tr class="row" valign="bottom">
+  			<td class="col" align="right">
+  				<input class="defaultButton" id="inputDialog-OkBtn" type="button" value="Confirmar" name="">
+                <input class="defaultButton" id="inputDialog-CancelBtn" type="button" value="Cancelar" name="">
+  			</td>
+  		</tr>
+    <img src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7' onload='TextBox.onLoadAfterInnerHTML();this.parentNode.removeChild(this);'>
+  	</table>
+    `;
+                break;
+            case 2:
+                var divInnerHTML = `
+    <style>
+    ${style}
+    </style>
+    <table class="inputDialogContainer">
+  		<tr class="row">
+  			<td class="col">
+  				<input class="inputDialog" type="email" id="email" placeholder="Digite um email">
+  				<input class="inputDialog" type="text" id="user" placeholder="" hidden>
+  			</td>
+  		</tr>
+  		<tr class="row">
+  			<td class="col">
+  				<input class="inputDialog" type="text" id="user" placeholder="Digite um username" hidden>
+  			</td>
+  		</tr>
+  		<tr class="row">
+  			<td class="col">
+  				<input class="inputDialog" type="password" id="pass" placeholder="Digite uma passowrd">
+  			</td>
+  		</tr>
+  		<tr class="row" valign="bottom">
+  			<td class="col" align="right">
+  				<input class="defaultButton" id="inputDialog-OkBtn" type="button" value="Confirmar" name="">
+                <input class="defaultButton" id="inputDialog-CancelBtn" type="button" value="Cancelar" name="">
+  			</td>
+  		</tr>
+    <img src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7' onload='TextBox.onLoadAfterInnerHTML();this.parentNode.removeChild(this);'>
+  	</table>
+    `;
+                break;
+        }
+
 
         field.innerHTML = divInnerHTML;
 
@@ -217,6 +290,8 @@ function Scene_InputDialog() {
     TextBox.prototype.getTextBoxId = function (uP) {
         "use strict";
         if (uP == 0) {
+            var query = `div#${szFieldId} table.inputDialogContainer tr td input[type=email][id=email]`;
+        } else if (uP == 1) {
             var query = `div#${szFieldId} table.inputDialogContainer tr td input[type=text][id=user]`;
         } else {
             var query = `div#${szFieldId} table.inputDialogContainer tr td input[type=password][id=pass]`;
@@ -240,7 +315,7 @@ function Scene_InputDialog() {
 
     TextBox.prototype.addAllEventListener = function () {
 
-        this._textBox = this.getTextBoxId(0);
+        this._textBox = this.getTextBoxId(1);
         this._textBox.maxLength = nMaxLength;
         this._textBox.max = nMaxLength;
 
@@ -270,11 +345,13 @@ function Scene_InputDialog() {
     TextBox.prototype.setRect = function () {
         var textBox = this.getTextBoxId(0);
         var textBox2 = this.getTextBoxId(1);
+        var textBox3 = this.getTextBoxId(2);
         var OkButton = this.getDefaultButtonId("inputDialog-OkBtn");
         var CancelButton = this.getDefaultButtonId("inputDialog-CancelBtn");
 
         if(OkButton) OkButton.style.fontSize = (1 * Graphics._realScale) + "em";
         if(CancelButton) CancelButton.style.fontSize = (1 * Graphics._realScale) + "em";
+
 
         textBox.style.fontSize = (2 * Graphics._realScale) + "em";
         textBox.style.width = getScreenWidth(textBoxWidth * Graphics._realScale) + 'px';
@@ -283,6 +360,10 @@ function Scene_InputDialog() {
         textBox2.style.fontSize = (2 * Graphics._realScale) + "em";
         textBox2.style.width = getScreenWidth(textBoxWidth * Graphics._realScale) + 'px';
         textBox2.style.height = getScreenHeight(textBoxHeight * Graphics._realScale) + 'px';
+
+        textBox3.style.fontSize = (2 * Graphics._realScale) + "em";
+        textBox3.style.width = getScreenWidth(textBoxWidth * Graphics._realScale) + 'px';
+        textBox3.style.height = getScreenHeight(textBoxHeight * Graphics._realScale) + 'px';
 
     };
 
@@ -422,23 +503,13 @@ function Scene_InputDialog() {
     };
 
     TextBox.prototype.setText = function (text, val) {
-        if (val == 0) {
-            var textBox = this.getTextBoxId(0);
-            textBox.value = text || '';
-        } else {
-            textBox = this.getTextBoxId(1);
-            textBox.value = text || '';
-        }
+        var textBox = this.getTextBoxId(val);
+        textBox.value = text || '';
         return textBox;
     };
 
     TextBox.prototype.getText = function (type) {
-        if (type == 0) {
-            var textBox = this.getTextBoxId(0);
-        } else {
-            textBox = this.getTextBoxId(1);
-        }
-
+        var textBox = this.getTextBoxId(type);
         return textBox.value;
     };
 

@@ -30,6 +30,7 @@
         this._lobbyCommandWindow = new Window_LobbyCommand(0, 550);
         this._lobbyCommandWindow.setHandler('login', this.lobbyCommand.bind(this, 1));
         this._lobbyCommandWindow.setHandler('register', this.lobbyCommand.bind(this, 0));
+        this._lobbyCommandWindow.setHandler('reset', this.lobbyCommand.bind(this, 2));
         this._lobbyCommandWindow.setHandler('exit', this.lobbyCommand.bind(this));
         this.addChild(this._lobbyCommandWindow);
     };
@@ -71,6 +72,7 @@
     Window_LobbyCommand.prototype.makeCommandList = function () {
         this.addCommand("Entrar", 'login');
         this.addCommand("Registar", 'register');
+        this.addCommand("Reset Password", 'reset');
         this.addCommand("Sair", 'exit');
     };
 
