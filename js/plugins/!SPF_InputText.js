@@ -257,7 +257,7 @@ function Scene_InputDialog() {
   		</tr>
   		<tr class="row">
   			<td class="col">
-  				<input class="inputDialog" type="password" id="pass" placeholder="Digite uma passowrd">
+  				<input class="inputDialog" type="password" id="pass" placeholder="Digite uma passowrd" hidden>
   			</td>
   		</tr>
   		<tr class="row" valign="bottom">
@@ -602,18 +602,20 @@ function Scene_InputDialog() {
     };
 
     Scene_InputDialog.prototype.okResult = function () {
-        let user = this._textBox.getText(0) || '';
-        let pass = this._textBox.getText(1) || '';
+        let user = this._textBox.getText(1) || '';
+        let pass = this._textBox.getText(2) || '';
+        let mail = this._textBox.getText(0) || '';
 
 
         if(SceneManager._stack.length > 0) {
             TouchInput.clear();
-            console.log(user + " " + pass);
             Input.clear();
             if (loginRegister == 0) {
-                ajaxRPostRequest(user, pass);
+                ajaxResisterRequest(user, pass, mail);
+            } else if (loginRegister == 1){
+                ajaxLoginRequest(mail, pass);
             } else {
-                ajaxLGetRequest(user, pass);
+                ajaxResetRequest(mail);
             }
             this.popScene();
         };

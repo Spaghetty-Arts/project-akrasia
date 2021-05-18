@@ -1,5 +1,5 @@
 
-    ajaxRPostRequest = function(user, pass) {
+    ajaxResisterRequest = function(user, pass, mail) {
 
         // create a new Ajax request
         var xhttp = new XMLHttpRequest();
@@ -16,12 +16,12 @@
 
         xhttp.setRequestHeader("Content-Type", "application/json");
 
-        var data = JSON.stringify({"username": user, "password": pass});
+        var data = JSON.stringify({"username": user, "password": pass, "email": mail});
         xhttp.send(data);
 
     }
 
-    ajaxLGetRequest = function(user, pass) {
+    ajaxLoginRequest = function(mail, pass) {
 
         // create a new Ajax request
         var xhttp = new XMLHttpRequest();
@@ -35,10 +35,29 @@
         };
 
 
-        let url = encodeURI("http://localhost:8080/user/login?user="+user+"&pass="+pass);
+        let url = encodeURI("http://localhost:8080/user/login?email="+mail+"&pass="+pass);
         xhttp.open("GET", url, false);
 
         xhttp.send();
 
+    }
+
+    ajaxResetRequest = function (mail) {
+        // create a new Ajax request
+        var xhttp = new XMLHttpRequest();
+
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                alert("Reset enviado para o email " + mail);
+            } else if (this.readyState == 4 && this.status == 401) {
+                alert("Autenticação sem sucesso");
+            }
+        };
+
+
+        let url = encodeURI("http://localhost:8080/user/reset?email="+mail);
+        xhttp.open("GET", url, false);
+
+        xhttp.send();
     }
 
