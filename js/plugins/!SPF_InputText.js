@@ -183,18 +183,19 @@ function Scene_InputDialog() {
     <table class="inputDialogContainer">
         <tr class="row">
   			<td class="col">
-  				<input class="inputDialog" type="email" id="email" placeholder="Digite um email">
+  				<input class="inputDialog" type="email" id="email" placeholder="Digite um email" autocomplete="off">
   			
   			</td>
   		</tr>
   		<tr class="row">
   			<td class="col">
-  				<input class="inputDialog" type="text" id="user" placeholder="Digite um username">
+  				<input class="inputDialog" type="text" id="user" placeholder="Digite um username" autocomplete="off">
+  				<input class="inputDialog" type="text" id="user" placeholder="Digite um username" autocomplete="off" hidden>
   			</td>
   		</tr>
   		<tr class="row">
   			<td class="col">
-  				<input class="inputDialog" type="password" id="pass" placeholder="Digite uma passowrd">
+  				<input class="inputDialog" type="password" id="pass" placeholder="Digite uma passowrd" autocomplete="off">
   			</td>
   		</tr>
   		<tr class="row" valign="bottom">
@@ -215,17 +216,18 @@ function Scene_InputDialog() {
     <table class="inputDialogContainer">
   		<tr class="row">
   			<td class="col">
-  				<input class="inputDialog" type="email" id="email" placeholder="Digite um email" hidden>
+  				<input class="inputDialog" type="email" id="email" placeholder="Digite um email" autocomplete="off">
+  				<input class="inputDialog" type="email" id="email" placeholder="Digite um email" autocomplete="off" hidden>
   			</td>
   		</tr>
   		<tr class="row">
   			<td class="col">
-  				<input class="inputDialog" type="text" id="user" placeholder="Digite um username">
+  				<input class="inputDialog" type="text" id="user" placeholder="Digite um username" hidden>
   			</td>
   		</tr>
   		<tr class="row">
   			<td class="col">
-  				<input class="inputDialog" type="password" id="pass" placeholder="Digite uma passowrd">
+  				<input class="inputDialog" type="password" id="pass" placeholder="Digite uma passowrd" autocomplete="off">
   			</td>
   		</tr>
   		<tr class="row" valign="bottom">
@@ -246,7 +248,7 @@ function Scene_InputDialog() {
     <table class="inputDialogContainer">
   		<tr class="row">
   			<td class="col">
-  				<input class="inputDialog" type="email" id="email" placeholder="Digite um email">
+  				<input class="inputDialog" type="email" id="email" placeholder="Digite um email" autocomplete="off">
   				<input class="inputDialog" type="text" id="user" placeholder="" hidden>
   			</td>
   		</tr>
