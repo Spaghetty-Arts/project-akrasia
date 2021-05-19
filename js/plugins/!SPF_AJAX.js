@@ -1,6 +1,5 @@
 
     ajaxResisterRequest = function(user, pass, mail) {
-
         // create a new Ajax request
         var xhttp = new XMLHttpRequest();
 

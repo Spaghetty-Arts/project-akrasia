@@ -608,18 +608,35 @@ function Scene_InputDialog() {
         let pass = this._textBox.getText(2) || '';
         let mail = this._textBox.getText(0) || '';
 
-
         if(SceneManager._stack.length > 0) {
-            TouchInput.clear();
-            Input.clear();
+            //TouchInput.clear();
             if (loginRegister == 0) {
-                ajaxResisterRequest(user, pass, mail);
+                if (checkEmpty(user) || checkEmpty(mail) || checkEmpty(pass)) {
+                    alert("Deixou campos em branco");
+                } else {
+                    if(checkPassword(pass)) {
+                        ajaxResisterRequest(user, pass, mail);
+                        Input.clear();
+                        this.popScene();
+                    }
+                }
             } else if (loginRegister == 1){
-                ajaxLoginRequest(mail, pass);
+                if (checkEmpty(mail) || checkEmpty(pass)) {
+                    alert("Deixou campos em branco");
+                } else {
+                    ajaxLoginRequest(mail, pass);
+                    Input.clear();
+                    this.popScene();
+                }
             } else {
-                ajaxResetRequest(mail);
+                if (checkEmpty(mail)) {
+                    alert("Deixou campos em branco");
+                } else {
+                    ajaxResetRequest(mail);
+                    Input.clear();
+                    this.popScene();
+                }
             }
-            this.popScene();
         };
     };
 
@@ -631,7 +648,35 @@ function Scene_InputDialog() {
         };
     };
 
+    checkEmpty = function (text) {
+        if (text == "") {
+            return true;
+        }
+        return false;
+    }
 
+    checkPassword = function (passowrd) {
+        if (passowrd.length < 8) {
+            alert("A password tem de ter pelo menos 8 caraters");
+            return false;
+        }
+        var lowerCaseLetters = /[a-z]/g;
+        if (!passowrd.match(lowerCaseLetters)) {
+            alert("A passowrd tem de ter pelo menos uma letra minuscula");
+            return false;
+        }
+        var upperCaseLetters = /[A-Z]/g;
+        if(!passowrd.match(upperCaseLetters)) {
+            alert("A passowrd tem de ter pelo menos uma letra maiscula");
+            return false;
+        }
+        var numbers = /[0-9]/g;
+        if(!passowrd.match(numbers)) {
+            alert("A passowrd tem de ter pelo menos um numero");
+            return false;
+        }
+        return true;
+    }
     //============================================================================
     // Game_Interpreter
     //============================================================================
