@@ -564,16 +564,24 @@ function Scene_InputDialog() {
         Scene_Base.prototype.create.call(this);
         this.createBackground();
         this.createTextBox();
+        this._WindowsL = new Window_Loading(200, 200, 450, 100);
+        this.addChild(this._WindowsL);
     }
 
-
+    let loading = false;
     var alias_Scene_InputDialog_update = Scene_InputDialog.prototype.update;
     Scene_InputDialog.prototype.update = function () {
         alias_Scene_InputDialog_update.call(this);
+        this._WindowsL.drawLoad(loading);
         if(this.isScreenLock() && TouchInput.isTriggered()) {
             this.okResult();
         }
     };
+
+    Scene_InputDialog.prototype.refresh = function () {
+        Scene_Base.prototype.refresh.call(this);
+        this._WindowsL.drawLoad(loading);
+    }
 
     Scene_InputDialog.prototype.terminate = function () {
         Scene_Base.prototype.terminate.call(this);
@@ -607,7 +615,7 @@ function Scene_InputDialog() {
         let user = this._textBox.getText(1) || '';
         let pass = this._textBox.getText(2) || '';
         let mail = this._textBox.getText(0) || '';
-
+        document.getElementById("inputDialog-OkBtn").hidden = true;
         if(SceneManager._stack.length > 0) {
             if (loginRegister == 0) {
                 if (checkEmpty(user) || checkEmpty(mail) || checkEmpty(pass)) {
@@ -616,8 +624,6 @@ function Scene_InputDialog() {
                     if (checkUsername(user)) {
                         if(checkPassword(pass)) {
                             ajaxResisterRequest(user, pass, mail);
-                            Input.clear();
-                            this.popScene();
                         }
                     } else {
                         alert("O username têm de ter pelo menos 8 caraters");
@@ -680,10 +686,22 @@ function Scene_InputDialog() {
     }
 
     checkUsername = function (user) {
-        if(user.length < 8) {
+        if(user.length < 2) {
             return false;
         }
         return true;
+    }
+
+    setLoading = function (load) {
+        loading = load;
+    }
+
+    loadAjax = function (value) {
+        document.getElementById("inputDialog-OkBtn").hidden = value;
+        document.getElementById("inputDialog-CancelBtn").hidden = value;
+        document.getElementById("email").disabled = value;
+        document.getElementById("user").disabled = value;
+        document.getElementById("pass").disabled = value;
     }
 
     Scene_InputDialog.prototype.afterResponse = function () {
@@ -713,10 +731,34 @@ function Scene_InputDialog() {
 
     window.TextBox = TextBox;
 
-})();
-
-
-/*
+    /*
 Loading window
  */
 
+    function Window_Loading() {
+        this.initialize.apply(this, arguments);
+    }
+
+
+    Window_Loading.prototype = Object.create(Window_Base.prototype);
+    Window_Loading.prototype.constructor = Window_Loading;
+
+    Window_Loading.prototype.initialize = function (x, y, w, h) {
+        Window_Base.prototype.initialize.call(this, x, y, w, h);
+    }
+
+    Window_Loading.prototype.refresh = function () {
+        this.drawLoad(loading);
+        Window_Base.prototype.refresh.call(this);
+    }
+
+    Window_Loading.prototype.drawLoad = function (loading) {
+        this.contents.clear();
+        this.setBackgroundType(2);
+        if(loading) {
+            this.contents.fontSize = 20;
+            this.drawText("Comunicando com o servidor...", 0, 0, "center");
+            this.drawPicture("server", 350, 0, false);
+        }
+    }
+})();

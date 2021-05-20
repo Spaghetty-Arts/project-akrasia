@@ -7,20 +7,24 @@
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
                     alert("Conta criada com sucesso");
+                    Scene_InputDialog.prototype.afterResponse();
                 } else if (this.readyState == 4 && this.status == 409) {
                     alert("Já existe uma conta com esse username/email");
                 } else if (this.readyState == 4 && this.status == 500) {
                     alert("Ocorreu um erro no servidor");
                     Scene_InputDialog.prototype.afterResponse();
                 }
+                setLoading(false);
+                loadAjax(false);
             };
 
-            xhttp.open("POST", "http://localhost:8080/user/register", false);
+            xhttp.open("POST", "http://localhost:8080/user/register", true);
 
             xhttp.setRequestHeader("Content-Type", "application/json");
 
             var data = JSON.stringify({"username": user, "password": pass, "email": mail});
             xhttp.send(data);
+            loadAjax(true);
         } catch (e) {
             if(e.name == 'NetworkError'){
                 alert("Existem problemas com o servidor tenta mais tarde");
@@ -45,12 +49,12 @@
                     alert("Ocorreu um erro no servidor");
                     Scene_InputDialog.prototype.afterResponse();
                 }
+                setLoading(false);
             };
 
 
             let url = encodeURI("http://localhost:8080/user/login?email="+mail+"&pass="+pass);
-            xhttp.open("GET", url, true);
-
+            xhttp.open("GET", url, false);
             xhttp.send();
         } catch (e) {
             if(e.name == 'NetworkError'){
