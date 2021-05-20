@@ -180,7 +180,8 @@ function Scene_InputDialog() {
                                     <style>
                                     ${style}
                                     </style>
-                                    <table class="inputDialogContainer">
+                                    <form autocomplete="off">
+                                     <table class="inputDialogContainer">
                                         <tr class="row">
                                             <td class="col">
                                                 <input class="inputDialog" type="email" id="email" placeholder="Digite um email" title="O email têm de ser válido e único" autocomplete="off">
@@ -206,6 +207,8 @@ function Scene_InputDialog() {
                                         </tr>
                                     <img src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7' onload='TextBox.onLoadAfterInnerHTML();this.parentNode.removeChild(this);'>
                                     </table>
+</form>
+                                   
                                     `;
                 break;
             case 1:
@@ -317,10 +320,10 @@ function Scene_InputDialog() {
 
     TextBox.prototype.addAllEventListener = function () {
 
-        this._textBox = this.getTextBoxId(1);
-        this._textBox.maxLength = nMaxLength;
-        this._textBox.max = nMaxLength;
+        this._textBox = this.getTextBoxId(0);
 
+
+      
         this._textBox.addEventListener('keydown', this.onKeyDown.bind(this), false);
         if(!Utils.isMobileDevice()) {
             this._textBox.addEventListener('focus', this.onFocus.bind(this), false);
@@ -615,7 +618,6 @@ function Scene_InputDialog() {
         let user = this._textBox.getText(1) || '';
         let pass = this._textBox.getText(2) || '';
         let mail = this._textBox.getText(0) || '';
-        document.getElementById("inputDialog-OkBtn").hidden = true;
         if(SceneManager._stack.length > 0) {
             if (loginRegister == 0) {
                 if (checkEmpty(user) || checkEmpty(mail) || checkEmpty(pass)) {
