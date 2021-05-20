@@ -154,7 +154,7 @@ function Scene_InputDialog() {
       height: 1rem;
   }
   
-
+    
   @media screen and (min-width : 768px) and (max-width : 1000px) {
       .defaultButton {
           font-size : 1rem!important;
@@ -177,100 +177,100 @@ function Scene_InputDialog() {
         switch (loginRegister) {
             case 0:
                 var divInnerHTML = `
-    <style>
-    ${style}
-    </style>
-    <table class="inputDialogContainer">
-        <tr class="row">
-  			<td class="col">
-  				<input class="inputDialog" type="email" id="email" placeholder="Digite um email" autocomplete="off">
-  			
-  			</td>
-  		</tr>
-  		<tr class="row">
-  			<td class="col">
-  				<input class="inputDialog" type="text" id="user" placeholder="Digite um username" autocomplete="off">
-  				<input class="inputDialog" type="text" id="user" placeholder="Digite um username" autocomplete="off" hidden>
-  			</td>
-  		</tr>
-  		<tr class="row">
-  			<td class="col">
-  				<input class="inputDialog" type="password" id="pass" placeholder="Digite uma passowrd" autocomplete="off">
-  			</td>
-  		</tr>
-  		<tr class="row" valign="bottom">
-  			<td class="col" align="right">
-  				<input class="defaultButton" id="inputDialog-OkBtn" type="button" value="Confirmar" name="">
-                <input class="defaultButton" id="inputDialog-CancelBtn" type="button" value="Cancelar" name="">
-  			</td>
-  		</tr>
-    <img src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7' onload='TextBox.onLoadAfterInnerHTML();this.parentNode.removeChild(this);'>
-  	</table>
-    `;
+                                    <style>
+                                    ${style}
+                                    </style>
+                                    <table class="inputDialogContainer">
+                                        <tr class="row">
+                                            <td class="col">
+                                                <input class="inputDialog" type="email" id="email" placeholder="Digite um email" title="O email têm de ser válido e único" autocomplete="off">
+                                            
+                                            </td>
+                                        </tr>
+                                        <tr class="row">
+                                            <td class="col">
+                                                <input class="inputDialog" type="text" id="user" placeholder="Digite um username" title="O username têm de ter pelo menos 8 caraters e ser único" autocomplete="off">
+                                                <input class="inputDialog" type="text" id="user" placeholder="Digite um username" autocomplete="off" hidden>
+                                            </td>
+                                        </tr>
+                                        <tr class="row">
+                                            <td class="col">
+                                                <input class="inputDialog" type="password" id="pass" placeholder="Digite uma passowrd" title="A password têm de ter pelo menos 8 caraters, 1 letra mínuscula, 1 letra maiscula e 1 número" autocomplete="off">
+                                            </td>
+                                        </tr>
+                                        <tr class="row" valign="bottom">
+                                            <td class="col" align="right">
+                                                <input class="defaultButton" id="inputDialog-OkBtn" type="button" value="Confirmar" name="">
+                                                <input class="defaultButton" id="inputDialog-CancelBtn" type="button" value="Cancelar" name="">
+                                            </td>
+                                        </tr>
+                                    <img src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7' onload='TextBox.onLoadAfterInnerHTML();this.parentNode.removeChild(this);'>
+                                    </table>
+                                    `;
                 break;
             case 1:
                 var divInnerHTML = `
-    <style>
-    ${style}
-    </style>
-    <table class="inputDialogContainer">
-  		<tr class="row">
-  			<td class="col">
-  				<input class="inputDialog" type="email" id="email" placeholder="Digite um email" autocomplete="off">
-  				<input class="inputDialog" type="email" id="email" placeholder="Digite um email" autocomplete="off" hidden>
-  			</td>
-  		</tr>
-  		<tr class="row">
-  			<td class="col">
-  				<input class="inputDialog" type="text" id="user" placeholder="Digite um username" hidden>
-  			</td>
-  		</tr>
-  		<tr class="row">
-  			<td class="col">
-  				<input class="inputDialog" type="password" id="pass" placeholder="Digite uma passowrd" autocomplete="off">
-  			</td>
-  		</tr>
-  		<tr class="row" valign="bottom">
-  			<td class="col" align="right">
-  				<input class="defaultButton" id="inputDialog-OkBtn" type="button" value="Confirmar" name="">
-                <input class="defaultButton" id="inputDialog-CancelBtn" type="button" value="Cancelar" name="">
-  			</td>
-  		</tr>
-    <img src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7' onload='TextBox.onLoadAfterInnerHTML();this.parentNode.removeChild(this);'>
-  	</table>
-    `;
+                                    <style>
+                                    ${style}
+                                    </style>
+                                    <table class="inputDialogContainer">
+                                        <tr class="row">
+                                            <td class="col">
+                                                <input class="inputDialog" type="email" id="email" placeholder="Digite um email" title="O email têm de estar registado" autocomplete="off">
+                                                <input class="inputDialog" type="email" id="email" placeholder="Digite um email" autocomplete="off" hidden>
+                                            </td>
+                                        </tr>
+                                        <tr class="row">
+                                            <td class="col">
+                                                <input class="inputDialog" type="text" id="user" placeholder="Digite um username" hidden>
+                                            </td>
+                                        </tr>
+                                        <tr class="row">
+                                            <td class="col">
+                                                <input class="inputDialog" type="password" id="pass" placeholder="Digite uma passowrd" title="A password associada a conta"  autocomplete="off">
+                                            </td>
+                                        </tr>
+                                        <tr class="row" valign="bottom">
+                                            <td class="col" align="right">
+                                                <input class="defaultButton" id="inputDialog-OkBtn" type="button" value="Confirmar" name="">
+                                                <input class="defaultButton" id="inputDialog-CancelBtn" type="button" value="Cancelar" name="">
+                                            </td>
+                                        </tr>
+                                    <img src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7' onload='TextBox.onLoadAfterInnerHTML();this.parentNode.removeChild(this);'>
+                                    </table>
+                                    `;
                 break;
             case 2:
                 var divInnerHTML = `
-    <style>
-    ${style}
-    </style>
-    <table class="inputDialogContainer">
-  		<tr class="row">
-  			<td class="col">
-  				<input class="inputDialog" type="email" id="email" placeholder="Digite um email" autocomplete="off">
-  				<input class="inputDialog" type="text" id="user" placeholder="" hidden>
-  			</td>
-  		</tr>
-  		<tr class="row">
-  			<td class="col">
-  				<input class="inputDialog" type="text" id="user" placeholder="Digite um username" hidden>
-  			</td>
-  		</tr>
-  		<tr class="row">
-  			<td class="col">
-  				<input class="inputDialog" type="password" id="pass" placeholder="Digite uma passowrd" hidden>
-  			</td>
-  		</tr>
-  		<tr class="row" valign="bottom">
-  			<td class="col" align="right">
-  				<input class="defaultButton" id="inputDialog-OkBtn" type="button" value="Confirmar" name="">
-                <input class="defaultButton" id="inputDialog-CancelBtn" type="button" value="Cancelar" name="">
-  			</td>
-  		</tr>
-    <img src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7' onload='TextBox.onLoadAfterInnerHTML();this.parentNode.removeChild(this);'>
-  	</table>
-    `;
+                                    <style>
+                                    ${style}
+                                    </style>
+                                    <table class="inputDialogContainer">
+                                        <tr class="row">
+                                            <td class="col">
+                                                <input class="inputDialog" type="email" id="email" placeholder="Digite um email" title="O email têm de estar registado" autocomplete="off">
+                                                <input class="inputDialog" type="text" id="user" placeholder="" hidden>
+                                            </td>
+                                        </tr>
+                                        <tr class="row">
+                                            <td class="col">
+                                                <input class="inputDialog" type="text" id="user" placeholder="Digite um username" hidden>
+                                            </td>
+                                        </tr>
+                                        <tr class="row">
+                                            <td class="col">
+                                                <input class="inputDialog" type="password" id="pass" placeholder="Digite uma passowrd" hidden>
+                                            </td>
+                                        </tr>
+                                        <tr class="row" valign="bottom">
+                                            <td class="col" align="right">
+                                                <input class="defaultButton" id="inputDialog-OkBtn" type="button" value="Confirmar" name="">
+                                                <input class="defaultButton" id="inputDialog-CancelBtn" type="button" value="Cancelar" name="">
+                                            </td>
+                                        </tr>
+                                    <img src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7' onload='TextBox.onLoadAfterInnerHTML();this.parentNode.removeChild(this);'>
+                                    </table>
+                                    `;
                 break;
         }
 
@@ -609,15 +609,18 @@ function Scene_InputDialog() {
         let mail = this._textBox.getText(0) || '';
 
         if(SceneManager._stack.length > 0) {
-            //TouchInput.clear();
             if (loginRegister == 0) {
                 if (checkEmpty(user) || checkEmpty(mail) || checkEmpty(pass)) {
                     alert("Deixou campos em branco");
                 } else {
-                    if(checkPassword(pass)) {
-                        ajaxResisterRequest(user, pass, mail);
-                        Input.clear();
-                        this.popScene();
+                    if (checkUsername(user)) {
+                        if(checkPassword(pass)) {
+                            ajaxResisterRequest(user, pass, mail);
+                            Input.clear();
+                            this.popScene();
+                        }
+                    } else {
+                        alert("O username têm de ter pelo menos 8 caraters");
                     }
                 }
             } else if (loginRegister == 1){
@@ -625,8 +628,6 @@ function Scene_InputDialog() {
                     alert("Deixou campos em branco");
                 } else {
                     ajaxLoginRequest(mail, pass);
-                    Input.clear();
-                    this.popScene();
                 }
             } else {
                 if (checkEmpty(mail)) {
@@ -677,6 +678,20 @@ function Scene_InputDialog() {
         }
         return true;
     }
+
+    checkUsername = function (user) {
+        if(user.length < 8) {
+            return false;
+        }
+        return true;
+    }
+
+    Scene_InputDialog.prototype.afterResponse = function () {
+        Input.clear();
+        this.popScene();
+    }
+
+
     //============================================================================
     // Game_Interpreter
     //============================================================================
@@ -699,3 +714,9 @@ function Scene_InputDialog() {
     window.TextBox = TextBox;
 
 })();
+
+
+/*
+Loading window
+ */
+
