@@ -26,6 +26,7 @@
         ImageManager.reserveSystem('Weapons3');
         ImageManager.reserveSystem('ButtonSet');
         ImageManager.reserveSystem('WindowMenu');
+
     };
     Window_Command.prototype.loadWindowskin = function () {
         this.windowskin = ImageManager.loadSystem('WindowMenu');

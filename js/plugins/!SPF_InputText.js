@@ -170,7 +170,8 @@ function Scene_InputDialog() {
       .inputDialog {
           font-size : 1rem!important;
       }
-  }
+      
+    
 	  `;
 
 
@@ -207,7 +208,7 @@ function Scene_InputDialog() {
                                         </tr>
                                     <img src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7' onload='TextBox.onLoadAfterInnerHTML();this.parentNode.removeChild(this);'>
                                     </table>
-</form>
+                                    </form>
                                    
                                     `;
                 break;
@@ -481,9 +482,16 @@ function Scene_InputDialog() {
             Graphics._centerElement(field);
             Graphics._centerElement(mainContainer);
             this.setRect();
+            console.log(Graphics.boxWidth);
+            if(window.innerWidth == 816) {
+                var px = (Graphics.boxWidth / 2) - (textBoxWidth / 2); // (Graphics.boxWidth / 2) - (textBoxWidth / 2)
+                var py = (Graphics.boxHeight / 2) - (textBoxHeight / 2); //(Graphics.boxHeight / 2) - (textBoxHeight / 2)
+            } else if (window.innerWidth == 1920) {
+                var px = 300; // (Graphics.boxWidth / 2) - (textBoxWidth / 2)
+                var py = 500; //(Graphics.boxHeight / 2) - (textBoxHeight / 2)
+            }
 
-            var px = (Graphics.boxWidth / 2) - (textBoxWidth / 2);
-            var py = (Graphics.boxHeight / 2) - (textBoxHeight / 2);
+            console.log(px + " " + py);
             this.setPosition(px, py);
 
         }
@@ -569,22 +577,18 @@ function Scene_InputDialog() {
         this.createTextBox();
         this._WindowsL = new Window_Loading(200, 200, 450, 100);
         this.addChild(this._WindowsL);
+        this._WindowsL.drawLoad(false);
     }
 
     let loading = false;
     var alias_Scene_InputDialog_update = Scene_InputDialog.prototype.update;
     Scene_InputDialog.prototype.update = function () {
         alias_Scene_InputDialog_update.call(this);
-        this._WindowsL.drawLoad(loading);
         if(this.isScreenLock() && TouchInput.isTriggered()) {
             this.okResult();
         }
     };
 
-    Scene_InputDialog.prototype.refresh = function () {
-        Scene_Base.prototype.refresh.call(this);
-        this._WindowsL.drawLoad(loading);
-    }
 
     Scene_InputDialog.prototype.terminate = function () {
         Scene_Base.prototype.terminate.call(this);
@@ -618,6 +622,7 @@ function Scene_InputDialog() {
         let user = this._textBox.getText(1) || '';
         let pass = this._textBox.getText(2) || '';
         let mail = this._textBox.getText(0) || '';
+        this.loaText(true);
         if(SceneManager._stack.length > 0) {
             if (loginRegister == 0) {
                 if (checkEmpty(user) || checkEmpty(mail) || checkEmpty(pass)) {
@@ -642,8 +647,6 @@ function Scene_InputDialog() {
                     alert("Deixou campos em branco");
                 } else {
                     ajaxResetRequest(mail);
-                    Input.clear();
-                    this.popScene();
                 }
             }
         };
@@ -694,10 +697,6 @@ function Scene_InputDialog() {
         return true;
     }
 
-    setLoading = function (load) {
-        loading = load;
-    }
-
     loadAjax = function (value) {
         document.getElementById("inputDialog-OkBtn").hidden = value;
         document.getElementById("inputDialog-CancelBtn").hidden = value;
@@ -711,6 +710,9 @@ function Scene_InputDialog() {
         this.popScene();
     }
 
+    Scene_InputDialog.prototype.loaText = function (value) {
+            this._WindowsL.drawLoad(value);
+    }
 
     //============================================================================
     // Game_Interpreter
@@ -734,8 +736,8 @@ function Scene_InputDialog() {
     window.TextBox = TextBox;
 
     /*
-Loading window
- */
+    Loading window
+     */
 
     function Window_Loading() {
         this.initialize.apply(this, arguments);
@@ -747,12 +749,9 @@ Loading window
 
     Window_Loading.prototype.initialize = function (x, y, w, h) {
         Window_Base.prototype.initialize.call(this, x, y, w, h);
+        ImageManager.reservePicture("server");
     }
 
-    Window_Loading.prototype.refresh = function () {
-        this.drawLoad(loading);
-        Window_Base.prototype.refresh.call(this);
-    }
 
     Window_Loading.prototype.drawLoad = function (loading) {
         this.contents.clear();
@@ -763,4 +762,5 @@ Loading window
             this.drawPicture("server", 350, 0, false);
         }
     }
+
 })();

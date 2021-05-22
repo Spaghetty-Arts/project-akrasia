@@ -14,8 +14,8 @@
                     alert("Ocorreu um erro no servidor");
                     Scene_InputDialog.prototype.afterResponse();
                 }
-                setLoading(false);
                 loadAjax(false);
+
             };
 
             xhttp.open("POST", "http://localhost:8080/user/register", true);
@@ -49,13 +49,15 @@
                     alert("Ocorreu um erro no servidor");
                     Scene_InputDialog.prototype.afterResponse();
                 }
-                setLoading(false);
+
+                loadAjax(false);
             };
 
 
             let url = encodeURI("http://localhost:8080/user/login?email="+mail+"&pass="+pass);
-            xhttp.open("GET", url, false);
+            xhttp.open("GET", url, true);
             xhttp.send();
+            loadAjax(true);
         } catch (e) {
             if(e.name == 'NetworkError'){
                 alert("Existem problemas com o servidor tenta mais tarde");
@@ -79,13 +81,15 @@
                     alert("Ocorreu um erro no servidor");
                     Scene_InputDialog.prototype.afterResponse();
                 }
+                loadAjax(false);
             };
 
 
             let url = encodeURI("http://localhost:8080/user/reset?email="+mail);
-            xhttp.open("GET", url, false);
+            xhttp.open("GET", url, true);
 
             xhttp.send();
+            loadAjax(true);
         } catch (e) {
             if(e.name == 'NetworkError'){
                 alert("Existem problemas com o servidor tenta mais tarde");
