@@ -34,6 +34,8 @@
         }
     }
 
+
+
     ajaxLoginRequest = function(mail, pass) {
         try {
             // create a new Ajax request
@@ -43,7 +45,15 @@
                 if (this.readyState == 4 && this.status == 200) {
                     alert("Login com sucesso");
                     DataManager.setupMultiGame();
+                   /*
+                   AudioManager.playSe({"name": "linkStart", "volume": 100, "pitch": 100, "pan": 0});
+                    if(!playVideo) {
+                        playVideo = true;
+                        Graphics.playVideo("movies/linkStart.webm");
+
+                    }*/
                     SceneManager.goto(Scene_Map);
+
                 } else if (this.readyState == 4 && this.status == 401) {
                     alert("Autenticação sem sucesso");
                 }  else if (this.readyState == 4 && this.status == 500) {
@@ -106,8 +116,9 @@
 
     //done but need to see again
     DataManager.setupMultiGame = function() {
+
         this.createGameObjects();
         $gameParty.addActor(2);
-        $gamePlayer.reserveTransfer(31, 9,  11);
+        $gamePlayer.reserveTransfer(31, 4,  14);
         Graphics.frameCount = 0;
     };
