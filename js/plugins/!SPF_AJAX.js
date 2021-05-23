@@ -42,7 +42,8 @@
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
                     alert("Login com sucesso");
-                    Scene_InputDialog.prototype.afterResponse();
+                    DataManager.setupMultiGame();
+                    SceneManager.goto(Scene_Map);
                 } else if (this.readyState == 4 && this.status == 401) {
                     alert("Autenticação sem sucesso");
                 }  else if (this.readyState == 4 && this.status == 500) {
@@ -53,6 +54,9 @@
                 loadAjax(false);
             };
 
+            xhttp.onerror = function(e){
+                alert("Existem problemas com o servidor tenta mais tarde");
+            };
 
             let url = encodeURI("http://localhost:8080/user/login?email="+mail+"&pass="+pass);
             xhttp.open("GET", url, true);
@@ -61,7 +65,8 @@
         } catch (e) {
             if(e.name == 'NetworkError'){
                 alert("Existem problemas com o servidor tenta mais tarde");
-            } else {
+            }
+            else {
                 alert("Existem problemas tenta mais tarde");
             }
         }
@@ -99,3 +104,10 @@
         }
     }
 
+    //done but need to see again
+    DataManager.setupMultiGame = function() {
+        this.createGameObjects();
+        $gameParty.addActor(2);
+        $gamePlayer.reserveTransfer(31, 9,  11);
+        Graphics.frameCount = 0;
+    };

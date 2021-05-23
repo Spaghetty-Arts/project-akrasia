@@ -649,7 +649,7 @@ function Scene_InputDialog() {
                     ajaxResetRequest(mail);
                 }
             }
-        };
+        }
     };
 
     Scene_InputDialog.prototype.cancelResult = function () {
@@ -762,5 +762,6 @@ function Scene_InputDialog() {
             this.drawPicture("server", 350, 0, false);
         }
     }
+
 
 })();
