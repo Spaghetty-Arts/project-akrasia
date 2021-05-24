@@ -1,0 +1,2 @@
+let playerID;
+let playerName;

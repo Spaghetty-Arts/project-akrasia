@@ -43,6 +43,10 @@
 
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
+                    let obj = this.response;
+                    playerID = obj.id;
+                    playerName = obj.username;
+                    console.log(playerName);
                     alert("Login com sucesso");
                     DataManager.setupMultiGame();
                    /*
@@ -70,6 +74,7 @@
 
             let url = encodeURI("http://localhost:8080/user/login?email="+mail+"&pass="+pass);
             xhttp.open("GET", url, true);
+            xhttp.responseType = 'json';
             xhttp.send();
             loadAjax(true);
         } catch (e) {
