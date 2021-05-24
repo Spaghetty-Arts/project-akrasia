@@ -276,6 +276,38 @@ function Scene_InputDialog() {
                                     </table>
                                     `;
                 break;
+            case 3:
+                var divInnerHTML = `
+                                    <style>
+                                    ${style}
+                                    </style>
+                                    <table class="inputDialogContainer">
+                                        <tr class="row">
+                                            <td class="col">
+                                                <input class="inputDialog" type="email" id="email" placeholder="Digite um email" title="O email têm de estar registado" autocomplete="off" hidden>
+                                                <input class="inputDialog" type="text" id="user" placeholder="" hidden>
+                                            </td>
+                                        </tr>
+                                        <tr class="row">
+                                            <td class="col">
+                                                <input class="inputDialog" type="text" id="user" placeholder="Digite um username">
+                                            </td>
+                                        </tr>
+                                        <tr class="row">
+                                            <td class="col">
+                                                <input class="inputDialog" type="password" id="pass" placeholder="Digite uma passowrd" hidden>
+                                            </td>
+                                        </tr>
+                                        <tr class="row" valign="bottom">
+                                            <td class="col" align="right">
+                                                <input class="defaultButton" id="inputDialog-OkBtn" type="button" value="Confirmar" name="">
+                                                <input class="defaultButton" id="inputDialog-CancelBtn" type="button" value="Cancelar" name="">
+                                            </td>
+                                        </tr>
+                                    <img src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7' onload='TextBox.onLoadAfterInnerHTML();this.parentNode.removeChild(this);'>
+                                    </table>
+                                    `;
+                break;
         }
 
 
@@ -642,11 +674,21 @@ function Scene_InputDialog() {
                 } else {
                     ajaxLoginRequest(mail, pass);
                 }
-            } else {
+            } else if (loginRegister == 2) {
                 if (checkEmpty(mail)) {
                     alert("Deixou campos em branco");
                 } else {
                     ajaxResetRequest(mail);
+                }
+            } else if (loginRegister == 3) {
+                if(checkEmpty(user)) {
+                    alert("Deixou o campo em branco")
+                } else {
+                    if(checkUsername(user)) {
+                        ajaxChangeRequest(user);
+                    } else {
+                        alert("O username têm de ter pelo menos 8 caraters");
+                    }
                 }
             }
         }

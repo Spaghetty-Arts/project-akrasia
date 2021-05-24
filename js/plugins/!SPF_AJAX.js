@@ -119,6 +119,47 @@
         }
     }
 
+    ajaxChangeRequest = function(user) {
+        try {
+            // create a new Ajax request
+            var xhttp = new XMLHttpRequest();
+
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    let obj = this.response;
+                    playerName = obj.username;
+                    alert("Username atualizado com sucesso");
+                    Scene_InputDialog.prototype.afterResponse();
+
+                } else if (this.readyState == 4 && this.status == 401) {
+                    alert("Username já existe");
+                }  else if (this.readyState == 4 && this.status == 500) {
+                    alert("Ocorreu um erro no servidor");
+                    Scene_InputDialog.prototype.afterResponse();
+                }
+
+                loadAjax(false);
+            };
+
+            xhttp.onerror = function(e){
+                alert("Existem problemas com o servidor tenta mais tarde");
+            };
+
+            let url = encodeURI("http://localhost:8080/user/changeName?id="+playerID+"&user="+user);
+            xhttp.open("PUT", url, true);
+            xhttp.responseType = 'json';
+            xhttp.send();
+            loadAjax(true);
+        } catch (e) {
+            if(e.name == 'NetworkError'){
+                alert("Existem problemas com o servidor tenta mais tarde");
+            }
+            else {
+                alert("Existem problemas tenta mais tarde");
+            }
+        }
+    }
+
     //done but need to see again
     DataManager.setupMultiGame = function() {
 
