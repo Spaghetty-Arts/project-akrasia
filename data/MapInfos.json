@@ -5,7 +5,7 @@ null,
 {"id":3,"expanded":false,"name":"hacking","order":10,"parentId":2,"scrollX":973.1999999999999,"scrollY":687.6},
 {"id":4,"expanded":true,"name":"Prologue","order":11,"parentId":0,"scrollX":819,"scrollY":461},
 {"id":5,"expanded":true,"name":"Metro","order":16,"parentId":4,"scrollX":1013,"scrollY":459.5},
-{"id":6,"expanded":true,"name":"Station","order":12,"parentId":4,"scrollX":1685,"scrollY":459.5},
+{"id":6,"expanded":false,"name":"Station","order":12,"parentId":4,"scrollX":1685,"scrollY":459.5},
 {"id":7,"expanded":true,"name":"City","order":14,"parentId":4,"scrollX":1685,"scrollY":459.5},
 {"id":8,"expanded":true,"name":"WhiteSafe","order":17,"parentId":4,"scrollX":811,"scrollY":467.5},
 {"id":9,"expanded":true,"name":"Station f0","order":13,"parentId":6,"scrollX":1892,"scrollY":459.5},
@@ -30,5 +30,5 @@ null,
 null,
 {"id":29,"expanded":false,"name":"MAP029","order":7,"parentId":1,"scrollX":819,"scrollY":467.5},
 {"id":30,"expanded":false,"name":"Multiplayer","order":8,"parentId":1,"scrollX":811,"scrollY":472.5},
-{"id":31,"expanded":false,"name":"Loby","order":30,"parentId":27,"scrollX":819,"scrollY":461}
+{"id":31,"expanded":false,"name":"Loby","order":30,"parentId":27,"scrollX":819,"scrollY":467.5}
 ]
