@@ -521,6 +521,9 @@ function Scene_InputDialog() {
             } else if (window.innerWidth == 1920) {
                 var px = 300; // (Graphics.boxWidth / 2) - (textBoxWidth / 2)
                 var py = 500; //(Graphics.boxHeight / 2) - (textBoxHeight / 2)
+            } else {
+                var px = (Graphics.boxWidth / 2) - (textBoxWidth / 2); // (Graphics.boxWidth / 2) - (textBoxWidth / 2)
+                var py = (Graphics.boxHeight / 2) - (textBoxHeight / 2); //(Graphics.boxHeight / 2) - (textBoxHeight / 2)
             }
 
             console.log(px + " " + py);

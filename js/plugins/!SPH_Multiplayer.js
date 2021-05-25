@@ -1,4 +1,4 @@
-const ws = new WebSocket('ws://localhost:9990/chat');
+const ws = new WebSocket('ws://84.90.189.228:8081/chat');
 var xpos=1;
 var ypos=2;
 //var id=Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);

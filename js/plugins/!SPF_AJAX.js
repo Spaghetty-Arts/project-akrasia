@@ -49,12 +49,11 @@
                     console.log(playerName);
                     alert("Login com sucesso");
                     DataManager.setupMultiGame();
-                   /*
+/*
                    AudioManager.playSe({"name": "linkStart", "volume": 100, "pitch": 100, "pan": 0});
                     if(!playVideo) {
                         playVideo = true;
                         Graphics.playVideo("movies/linkStart.webm");
-
                     }*/
                     SceneManager.goto(Scene_Map);
 
@@ -73,7 +72,7 @@
             };
 
             let url = encodeURI("http://localhost:8080/user/login?email="+mail+"&pass="+pass);
-            xhttp.open("GET", url, true);
+            xhttp.open("PUT", url, true);
             xhttp.responseType = 'json';
             xhttp.send();
             loadAjax(true);
@@ -95,6 +94,7 @@
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
                     alert("Reset enviado para o email " + mail);
+                    Scene_InputDialog.prototype.afterResponse();
                 } else if (this.readyState == 4 && this.status == 409) {
                     alert("Email não pertence a uma conta");
                 } else if (this.readyState == 4 && this.status == 500) {
@@ -106,7 +106,7 @@
 
 
             let url = encodeURI("http://localhost:8080/user/reset?email="+mail);
-            xhttp.open("GET", url, true);
+            xhttp.open("POST", url, true);
 
             xhttp.send();
             loadAjax(true);
