@@ -1,2 +1,0 @@
-let playerID;
-let playerName;

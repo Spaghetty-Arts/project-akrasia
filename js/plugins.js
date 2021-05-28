@@ -56,7 +56,7 @@ var $plugins =
 {"name":"!SPH_Multiplayer","status":true,"description":"","parameters":{}},
 {"name":"!SPH_randomevents","status":false,"description":"","parameters":{}},
 {"name":"!SPF_InputText","status":true,"description":"This plugin allows you to display Text Edit Box on the screen. <RS_InputDialog>","parameters":{"textBox Width":"488","textBox Height":"36","variable ID":"3","debug":"false","Text Hint":"Please enter the value...","direction":"ltr","Max Length":"255","Style":"","CSS":"\"\"","Button Name":"","Ok":"OK","Cancel":"Cancel","Position":"center"}},
-{"name":"!SPF_AJAX","status":true,"description":"","parameters":{}},
+{"name":"!SPF_AuthAJAX","status":true,"description":"","parameters":{}},
 {"name":"!SPF_MultiplayerLobby","status":true,"description":"","parameters":{}},
 {"name":"----------------------------------","status":false,"description":"","parameters":{}},
 {"name":"OcRam_Audio_EX","status":true,"description":"v2.07 This plugin provides dynamic sound positioning and adds 2 'generic' BGS channels which will also play in battle. PLUGIN NAME MUST BE OcRam_Audio_EX.js","parameters":{"Default Distance (BGS/SE)":"20","Default Radius (BGS/SE)":"0","Default create new (BGS)":"false","Default fade (BGS)":"2","Default forced play (BGS)":"true","Default autopan (BGS/SE)":"true","Default fade (BGM)":"6","BGS2/3 volume control":"true","BGS2 option caption":"BGS2 Volume","BGS3 option caption":"BGS3 Volume","Use linear curve":"true","Debug mode":"false"}},
