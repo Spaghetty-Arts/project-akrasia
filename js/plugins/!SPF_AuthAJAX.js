@@ -18,7 +18,7 @@
 
             };
 
-            xhttp.open("POST", "http://localhost:8080/user/register", true);
+            xhttp.open("POST", "http://localhost:8080/auth/register", true);
 
             xhttp.setRequestHeader("Content-Type", "application/json");
 
@@ -46,18 +46,19 @@
                     let obj = this.response;
                     playerID = obj.id;
                     playerName = obj.username;
-                    console.log(playerName);
+                    playerToken = obj.user_token;
+                    playerGotReward = obj.got_reward;
+                    playerDaily = obj.login_reward;
+                    playerMoney = obj.money;
+
+                    //console.log(playerName);
                     alert("Login com sucesso");
                     DataManager.setupMultiGame();
-/*
-                   AudioManager.playSe({"name": "linkStart", "volume": 100, "pitch": 100, "pan": 0});
-                    if(!playVideo) {
-                        playVideo = true;
-                        Graphics.playVideo("movies/linkStart.webm");
-                    }*/
                     SceneManager.goto(Scene_Map);
 
                 } else if (this.readyState == 4 && this.status == 401) {
+                    alert("Autenticação sem sucesso");
+                } else if (this.readyState == 4 && this.status == 404) {
                     alert("Autenticação sem sucesso");
                 }  else if (this.readyState == 4 && this.status == 500) {
                     alert("Ocorreu um erro no servidor");
@@ -71,10 +72,14 @@
                 alert("Existem problemas com o servidor tenta mais tarde");
             };
 
-            let url = encodeURI("http://localhost:8080/user/login?email="+mail+"&pass="+pass);
-            xhttp.open("PUT", url, true);
+            xhttp.open("PUT", "http://localhost:8080/auth/login", true);
+
+            xhttp.setRequestHeader("Content-Type", "application/json");
+
             xhttp.responseType = 'json';
-            xhttp.send();
+
+            var data = JSON.stringify({"email": mail, "password": pass});
+            xhttp.send(data);
             loadAjax(true);
         } catch (e) {
             if(e.name == 'NetworkError'){
@@ -105,7 +110,7 @@
             };
 
 
-            let url = encodeURI("http://localhost:8080/user/reset?email="+mail);
+            let url = encodeURI("http://localhost:8080/auth/reset?email="+mail);
             xhttp.open("POST", url, true);
 
             xhttp.send();
@@ -166,6 +171,6 @@
         this.createGameObjects();
         $gameParty.removeActor(1);
         $gameParty.addActor(2);
-        $gamePlayer.reserveTransfer(31, 4,  14);
+        $gamePlayer.reserveTransfer(31, 5,  16);
         Graphics.frameCount = 0;
     };
