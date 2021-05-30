@@ -13,4 +13,11 @@ Character information
  */
 let playerLife;
 let playerMoney;
+let playerALevel;
 
+/*
+Scores
+ */
+let playerWin;
+let playerLose;
+let playerRank;

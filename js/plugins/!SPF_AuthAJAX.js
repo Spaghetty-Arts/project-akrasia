@@ -44,13 +44,7 @@
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
                     let obj = this.response;
-                    playerID = obj.id;
-                    playerName = obj.username;
-                    playerToken = obj.user_token;
-                    playerGotReward = obj.got_reward;
-                    playerDaily = obj.login_reward;
-                    playerMoney = obj.money;
-
+                    saveData(obj);
                     //console.log(playerName);
                     alert("Login com sucesso");
                     DataManager.setupMultiGame();
@@ -58,8 +52,10 @@
 
                 } else if (this.readyState == 4 && this.status == 401) {
                     alert("Autenticação sem sucesso");
-                } else if (this.readyState == 4 && this.status == 404) {
-                    alert("Autenticação sem sucesso");
+                } else if (this.readyState == 4 && this.status == 403) {
+                    alert("Dados Errados");
+                }else if (this.readyState == 4 && this.status == 404) {
+                    alert("Utilizador não existe");
                 }  else if (this.readyState == 4 && this.status == 500) {
                     alert("Ocorreu um erro no servidor");
                     Scene_InputDialog.prototype.afterResponse();
@@ -174,3 +170,19 @@
         $gamePlayer.reserveTransfer(31, 5,  16);
         Graphics.frameCount = 0;
     };
+
+saveData = function (obj) {
+    playerID = obj.id;
+    playerName = obj.username;
+    playerToken = obj.user_token;
+    playerGotReward = obj.got_reward;
+    playerDaily = obj.login_reward;
+
+    playerMoney = obj.money;
+    playerALevel = obj.life;
+    playerLife = playerALevel * 100;
+
+    playerWin = obj.win;
+    playerLose = obj.lose;
+    playerRank = obj.rank;
+}
