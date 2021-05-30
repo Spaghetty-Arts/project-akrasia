@@ -31,7 +31,7 @@
         this._lobbyCommandWindow.setHandler('login', this.lobbyCommand.bind(this, 1));
         this._lobbyCommandWindow.setHandler('register', this.lobbyCommand.bind(this, 0));
         this._lobbyCommandWindow.setHandler('reset', this.lobbyCommand.bind(this, 2));
-        this._lobbyCommandWindow.setHandler('exit', this.lobbyCommand.bind(this));
+        this._lobbyCommandWindow.setHandler('exit', this.cancelCommand.bind(this));
         this.addChild(this._lobbyCommandWindow);
     };
 
