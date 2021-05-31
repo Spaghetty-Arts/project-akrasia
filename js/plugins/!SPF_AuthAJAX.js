@@ -122,40 +122,34 @@
 
     ajaxChangeRequest = function(user) {
         try {
-            // create a new Ajax request
             var xhttp = new XMLHttpRequest();
 
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                    let obj = this.response;
-                    playerName = obj.username;
-                    alert("Username atualizado com sucesso");
+                    alert("Nome alterado com sucesso");
+                    playerName = user;
                     Scene_InputDialog.prototype.afterResponse();
-
                 } else if (this.readyState == 4 && this.status == 401) {
-                    alert("Username já existe");
-                }  else if (this.readyState == 4 && this.status == 500) {
+                    alert("Erro");
+                } else if (this.readyState == 4 && this.status == 500) {
                     alert("Ocorreu um erro no servidor");
-                    Scene_InputDialog.prototype.afterResponse();
+                    SceneManager.exit();
+                    window.close();
                 }
 
-                loadAjax(false);
             };
 
-            xhttp.onerror = function(e){
-                alert("Existem problemas com o servidor tenta mais tarde");
-            };
+            xhttp.open("PUT", "http://localhost:8080/user/changeName/", true);
 
-            let url = encodeURI("http://localhost:8080/user/changeName?id="+playerID+"&user="+user);
-            xhttp.open("PUT", url, true);
-            xhttp.responseType = 'json';
-            xhttp.send();
-            loadAjax(true);
+            xhttp.setRequestHeader("Content-Type", "application/json");
+
+            var data = JSON.stringify({"id": playerID, "username": user,"user_token": playerToken});
+            xhttp.send(data);
+
         } catch (e) {
             if(e.name == 'NetworkError'){
                 alert("Existem problemas com o servidor tenta mais tarde");
-            }
-            else {
+            } else {
                 alert("Existem problemas tenta mais tarde");
             }
         }

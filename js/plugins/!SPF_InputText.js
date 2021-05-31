@@ -285,12 +285,13 @@ function Scene_InputDialog() {
                                         <tr class="row">
                                             <td class="col">
                                                 <input class="inputDialog" type="email" id="email" placeholder="Digite um email" title="O email têm de estar registado" autocomplete="off" hidden>
+                                                <input class="inputDialog" type="text" id="user" placeholder="Digite um username">
                                                 <input class="inputDialog" type="text" id="user" placeholder="" hidden>
                                             </td>
                                         </tr>
                                         <tr class="row">
                                             <td class="col">
-                                                <input class="inputDialog" type="text" id="user" placeholder="Digite um username">
+                                                <input class="inputDialog" type="text" id="user" placeholder="Digite um username" hidden>
                                             </td>
                                         </tr>
                                         <tr class="row">
@@ -639,8 +640,12 @@ function Scene_InputDialog() {
         this._backgroundSprite = new Sprite();
         if (loginRegister == 0) {
             this._backgroundSprite.bitmap = ImageManager.loadPicture("computerR");
-        } else {
+        } else if (loginRegister == 1) {
             this._backgroundSprite.bitmap = ImageManager.loadPicture("computerL");
+        } else if (loginRegister == 2) {
+            this._backgroundSprite.bitmap = ImageManager.loadPicture("computerReset");
+        } else if (loginRegister == 3) {
+            this._backgroundSprite.bitmap = ImageManager.loadPicture("computerUser");
         }
 
         this.addChild(this._backgroundSprite);
