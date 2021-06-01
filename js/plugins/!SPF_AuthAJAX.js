@@ -18,7 +18,7 @@
 
             };
 
-            xhttp.open("POST", "http://localhost:8080/user/register", true);
+            xhttp.open("POST", "http://localhost:8080/auth/register", true);
 
             xhttp.setRequestHeader("Content-Type", "application/json");
 
@@ -44,21 +44,18 @@
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
                     let obj = this.response;
-                    playerID = obj.id;
-                    playerName = obj.username;
-                    console.log(playerName);
+                    saveData(obj);
+                    //console.log(playerName);
                     alert("Login com sucesso");
                     DataManager.setupMultiGame();
-/*
-                   AudioManager.playSe({"name": "linkStart", "volume": 100, "pitch": 100, "pan": 0});
-                    if(!playVideo) {
-                        playVideo = true;
-                        Graphics.playVideo("movies/linkStart.webm");
-                    }*/
                     SceneManager.goto(Scene_Map);
 
                 } else if (this.readyState == 4 && this.status == 401) {
                     alert("Autenticação sem sucesso");
+                } else if (this.readyState == 4 && this.status == 403) {
+                    alert("Dados Errados");
+                }else if (this.readyState == 4 && this.status == 404) {
+                    alert("Utilizador não existe");
                 }  else if (this.readyState == 4 && this.status == 500) {
                     alert("Ocorreu um erro no servidor");
                     Scene_InputDialog.prototype.afterResponse();
@@ -71,10 +68,14 @@
                 alert("Existem problemas com o servidor tenta mais tarde");
             };
 
-            let url = encodeURI("http://localhost:8080/user/login?email="+mail+"&pass="+pass);
-            xhttp.open("PUT", url, true);
+            xhttp.open("PUT", "http://localhost:8080/auth/login", true);
+
+            xhttp.setRequestHeader("Content-Type", "application/json");
+
             xhttp.responseType = 'json';
-            xhttp.send();
+
+            var data = JSON.stringify({"email": mail, "password": pass});
+            xhttp.send(data);
             loadAjax(true);
         } catch (e) {
             if(e.name == 'NetworkError'){
@@ -105,7 +106,7 @@
             };
 
 
-            let url = encodeURI("http://localhost:8080/user/reset?email="+mail);
+            let url = encodeURI("http://localhost:8080/auth/reset?email="+mail);
             xhttp.open("POST", url, true);
 
             xhttp.send();
@@ -121,40 +122,35 @@
 
     ajaxChangeRequest = function(user) {
         try {
-            // create a new Ajax request
             var xhttp = new XMLHttpRequest();
 
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                    let obj = this.response;
-                    playerName = obj.username;
-                    alert("Username atualizado com sucesso");
+                    alert("Nome alterado com sucesso");
+                    playerName = user;
                     Scene_InputDialog.prototype.afterResponse();
-
                 } else if (this.readyState == 4 && this.status == 401) {
-                    alert("Username já existe");
-                }  else if (this.readyState == 4 && this.status == 500) {
+                    alert("Erro");
+                } else if (this.readyState == 4 && this.status == 500) {
                     alert("Ocorreu um erro no servidor");
-                    Scene_InputDialog.prototype.afterResponse();
+                    SceneManager.exit();
+                    window.close();
                 }
 
-                loadAjax(false);
             };
 
-            xhttp.onerror = function(e){
-                alert("Existem problemas com o servidor tenta mais tarde");
-            };
+            xhttp.open("PUT", "http://localhost:8080/user/changeName/", true);
 
-            let url = encodeURI("http://localhost:8080/user/changeName?id="+playerID+"&user="+user);
-            xhttp.open("PUT", url, true);
-            xhttp.responseType = 'json';
-            xhttp.send();
-            loadAjax(true);
+            xhttp.setRequestHeader("Authorization", "Bearer " + playerToken);
+            xhttp.setRequestHeader("Content-Type", "application/json");
+
+            var data = JSON.stringify({"id": playerID, "username": user});
+            xhttp.send(data);
+
         } catch (e) {
             if(e.name == 'NetworkError'){
                 alert("Existem problemas com o servidor tenta mais tarde");
-            }
-            else {
+            } else {
                 alert("Existem problemas tenta mais tarde");
             }
         }
@@ -166,6 +162,22 @@
         this.createGameObjects();
         $gameParty.removeActor(1);
         $gameParty.addActor(2);
-        $gamePlayer.reserveTransfer(31, 4,  14);
+        $gamePlayer.reserveTransfer(31, 5,  16);
         Graphics.frameCount = 0;
     };
+
+saveData = function (obj) {
+    playerID = obj.id;
+    playerName = obj.username;
+    playerToken = obj.user_token;
+    playerGotReward = obj.got_reward;
+    playerDaily = obj.login_reward;
+
+    playerMoney = obj.money;
+    playerALevel = obj.life;
+    playerLife = playerALevel * 100;
+
+    playerWin = obj.win;
+    playerLose = obj.lose;
+    playerRank = obj.rank;
+}
