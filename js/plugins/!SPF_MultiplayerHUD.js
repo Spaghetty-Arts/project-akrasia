@@ -17,8 +17,8 @@
             this.addWindow(this._muhWindow);
             this.addWindow(this._muhEWindow);
         }
-        this._muhWindow.refresh();
-        this._muhEWindow.refresh();
+        this._muhWindow.refresh(0);
+        this._muhEWindow.refresh(1);
     };
 
     openMU = function () {
@@ -44,7 +44,7 @@
         this.contents.fontSize = 20;
         this.changeTextColor("#08e500");
         this.drawPicture("heart", 0, -5, false);
-        if(user == 1) {
+        if(user == 0) {
             this.drawText("binogamer - ", 50, 5);
         } else {
             this.drawText("Inimigo - ", 50, 5);
@@ -52,7 +52,7 @@
 
         this.changeTextColor("#e50000");
 
-        if(user == 1) {
+        if(user == 0) {
             this.drawText(100, 200, 5);
         } else {
             this.drawText(100, 200, 5);
