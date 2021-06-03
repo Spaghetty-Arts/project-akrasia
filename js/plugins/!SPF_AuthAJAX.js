@@ -106,7 +106,7 @@
             };
 
 
-            let url = encodeURI("http://localhost:8080/auth/reset?email="+mail);
+            let url = encodeURI("http://localhost:8080/auth/reset/"+mail);
             xhttp.open("POST", url, true);
 
             xhttp.send();
