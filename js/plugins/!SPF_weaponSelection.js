@@ -118,6 +118,7 @@
 
     pistolProjectile = function () {
         if ($gameVariables.value(33) > 0) {
+            disparo=1;
             shootAnimation(4, 0);
             Galv.PROJ.dir(-1,0,8,4,'bullet0(8,5)',125,'c(7)|e',[5],[],3,1);
             AudioManager.playSe({name: "pistolShot", pan: 0, pitch: 100, volume: 100});
