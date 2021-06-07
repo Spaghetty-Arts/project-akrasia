@@ -56,6 +56,8 @@
                     alert("Dados Errados");
                 }else if (this.readyState == 4 && this.status == 404) {
                     alert("Utilizador não existe");
+                } else if (this.readyState == 4 && this.status == 409) {
+                    alert("Utilizador está a jogar de momento");
                 }  else if (this.readyState == 4 && this.status == 500) {
                     alert("Ocorreu um erro no servidor");
                     Scene_InputDialog.prototype.afterResponse();
