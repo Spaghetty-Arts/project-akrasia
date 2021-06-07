@@ -93,22 +93,10 @@ Scene_Title.prototype.createCommandWindow = function () {
   };
 
 
-  //done but need to see again
-DataManager.setupMultiGame = function() {
-    this.createGameObjects();
-    this.selectSavefileForNewGame();
-    $gameParty.setupStartingMembers();
-    $gamePlayer.reserveTransfer(28, 9,  11);
-    Graphics.frameCount = 0;
-};
 
 //Done good
 Scene_Title.prototype.commandMulti = function () {
-    DataManager.setupMultiGame();
-    if (this._commandWindow) this._commandWindow.close();
-    this.fadeOutAll();
-
-    SceneManager.goto(Scene_Map);
+    enterLobby();
 };
 
     //Done good
