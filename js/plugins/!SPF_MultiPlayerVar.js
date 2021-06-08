@@ -11,7 +11,7 @@ let playerGotReward;
 /*
 Character information
  */
-let playerLife;
+let playerLife = 30;
 let playerMoney;
 let playerALevel;
 
