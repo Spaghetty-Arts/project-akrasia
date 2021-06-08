@@ -94,13 +94,14 @@ function Scene_InputDialog() {
         var field = document.getElementById(this._fieldId);
 
         var style = `
+        
+        
     .inputDialogContainer {
       min-width : 10em;
       max-width : 2.5em;
       top : 0em;
       left : 0em;
-      width : 10em;
-      height : 2.5em;
+      
       display : flex;
       flex-flow : column wrap;
       align-items : left;
@@ -112,38 +113,40 @@ function Scene_InputDialog() {
       font-size: 16px!important;
   }
   
+  * {
+  font-family: 'VT323', monospace;
+ }
+
   .inputDialog {
-      top : 0em;
-      left : 0em;
-      right : 0em;
-      bottom : 0em;
-      z-index : 1000;
-      opacity : 0.8;
-      position : relative;
-      background-color : #ffffff;
-      border : 2px solid #414141;
-      border-radius : 10px;
-      text-shadow : 0px 1px 3px #696969;
-      font-family : arial;
-      color : #1a1a1a;
-      outline : none;
-      font-size: 1rem!important;
+ 
+          color: white;
+          width: 400px;
+          height: 20x;
+          border: 15px solid #E6ff1d;
+          border-left: 5px solid #E6ff1d;
+          border-right: 5px solid #E6ff1d;
+          border-bottom: 15px solid #E6ff1d;
+          background-color: #000;
+          font-size: 1rem; 
+   
+          clip-path: polygon(
+            0px 15px,
+            26px 0px,
+            calc(600% - 25px) 0px,
+            600% 25px,
+            100% 25px,
+            100% calc(100% - 10px),
+            calc(100% - 15px) calc(100% - 10px),
+            calc(80% - 10px) calc(100% - 10px),
+            calc(80% - 15px) calc(100% - 0px),
+            10px calc(100% - 0px),
+            0% calc(100% - 10px)
+          );
+          
+          outline: none;
   }
   
-  .defaultButton {
-      opacity : 0.8;
-      font-family : arial;
-      border : 1px solid rgb(73, 73, 73);
-      background-image: -webkit-linear-gradient(top, rgba(255,255,255,.2) 0%, rgba(255,255,255,0) 100%);
-      color : rgb(19, 19, 19);
-      text-shadow : rgba(105, 105, 105, 0.7) 0 1px 0;
-      cursor : pointer;
-      border-radius : 0.5em;
-      box-sizing : border-box;
-      box-shadow : 0 1px 4px rgba(78, 78, 78, 0.6);
-      font-size : 1rem!important;
-  }
-  
+
   .row {
       width : 70%;
       height: 1rem;
@@ -171,6 +174,71 @@ function Scene_InputDialog() {
           font-size : 1rem!important;
       }
       
+      
+.lol {
+  display: block;
+  border: none;
+  border-radius: 0%;
+  font-size: 1.5rem;
+  line-height: 1rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 600;
+   padding: 5px 35px;
+  margin: 10px;
+  position: relative;
+  color: #fff;
+  clip-path: polygon(
+    -15px 0%,
+    calc(100% + 15px) 0%,
+    calc(100% + 15px) 100%,
+    20px 100%,
+    -15px calc(100% - 35px)
+  );
+  cursor: pointer;
+  background-color: #02cb38;
+  outline: none;
+  display: inline-block;
+}
+
+.lol:hover {
+  background-color: #007720;
+}
+
+.res {
+ margin-bottom: 12px;
+}
+
+.lol2 {
+background-color: #E20a04;
+ display: block;
+  border: none;
+  border-radius: 0%;
+  font-size: 1rem;
+  line-height: 1rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 600;
+   padding: 5px 35px;
+  margin: 10px;
+  position: relative;
+  color: #fff;
+  clip-path: polygon(
+    -15px 0%,
+    calc(100% + 15px) 0%,
+    calc(100% - 20px) 100%,
+    20px 100%,
+    -15px calc(100% + 35px)
+  );
+  cursor: pointer;
+  outline: none;
+  display: inline-block;
+}
+
+.lol2:hover { 
+background-color: #9c0501;
+
+}
     
 	  `;
 
@@ -178,6 +246,8 @@ function Scene_InputDialog() {
         switch (loginRegister) {
             case 0:
                 var divInnerHTML = `
+ <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
                                     <style>
                                     ${style}
                                     </style>
@@ -185,25 +255,25 @@ function Scene_InputDialog() {
                                      <table class="inputDialogContainer">
                                         <tr class="row">
                                             <td class="col">
-                                                <input class="inputDialog" type="email" id="email" placeholder="Digite um email" title="O email têm de ser válido e único" autocomplete="off">
+                                                <input class="inputDialog res" type="email" id="email" placeholder="Digite um email" title="O email têm de ser válido e único" autocomplete="off">
                                             
                                             </td>
                                         </tr>
                                         <tr class="row">
                                             <td class="col">
-                                                <input class="inputDialog" type="text" id="user" placeholder="Digite um username" title="O username têm de ter pelo menos 8 caraters e ser único" autocomplete="off">
+                                                <input class="inputDialog res" type="text" id="user" placeholder="Digite um username" title="O username têm de ter pelo menos 8 caraters e ser único" autocomplete="off">
                                                 <input class="inputDialog" type="text" id="user" placeholder="Digite um username" autocomplete="off" hidden>
                                             </td>
                                         </tr>
                                         <tr class="row">
                                             <td class="col">
-                                                <input class="inputDialog" type="password" id="pass" placeholder="Digite uma passowrd" title="A password têm de ter pelo menos 8 caraters, 1 letra mínuscula, 1 letra maiscula e 1 número" autocomplete="off">
+                                                <input class="inputDialog res" type="password" id="pass" placeholder="Digite uma passowrd" title="A password têm de ter pelo menos 8 caraters, 1 letra mínuscula, 1 letra maiscula e 1 número" autocomplete="off">
                                             </td>
                                         </tr>
-                                        <tr class="row" valign="bottom">
+                                        <tr class="row" align="bottom">
                                             <td class="col" align="right">
-                                                <input class="defaultButton" id="inputDialog-OkBtn" type="button" value="Confirmar" name="">
-                                                <input class="defaultButton" id="inputDialog-CancelBtn" type="button" value="Cancelar" name="">
+                                                <input class="lol" id="inputDialog-OkBtn" type="button" value="Confirmar" name="">
+                                                <input class="lol2" id="inputDialog-CancelBtn" type="button" value="Cancelar" name="">
                                             </td>
                                         </tr>
                                     <img src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7' onload='TextBox.onLoadAfterInnerHTML();this.parentNode.removeChild(this);'>
@@ -214,13 +284,15 @@ function Scene_InputDialog() {
                 break;
             case 1:
                 var divInnerHTML = `
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
                                     <style>
                                     ${style}
                                     </style>
                                     <table class="inputDialogContainer">
                                         <tr class="row">
                                             <td class="col">
-                                                <input class="inputDialog" type="email" id="email" placeholder="Digite um email" title="O email têm de estar registado" autocomplete="off">
+                                                <input class="inputDialog cyberpunk" type="email" id="email" placeholder="Digite um email" title="O email têm de estar registado" autocomplete="off">
                                                 <input class="inputDialog" type="email" id="email" placeholder="Digite um email" autocomplete="off" hidden>
                                             </td>
                                         </tr>
@@ -231,13 +303,13 @@ function Scene_InputDialog() {
                                         </tr>
                                         <tr class="row">
                                             <td class="col">
-                                                <input class="inputDialog" type="password" id="pass" placeholder="Digite uma passowrd" title="A password associada a conta"  autocomplete="off">
+                                                <input class="inputDialog cyberpunk" type="password" id="pass" placeholder="Digite uma passowrd" title="A password associada a conta"  autocomplete = 'new-password'>
                                             </td>
                                         </tr>
-                                        <tr class="row" valign="bottom">
-                                            <td class="col" align="right">
-                                                <input class="defaultButton" id="inputDialog-OkBtn" type="button" value="Confirmar" name="">
-                                                <input class="defaultButton" id="inputDialog-CancelBtn" type="button" value="Cancelar" name="">
+                                        <tr class="row" align="bottom">
+                                            <td class="col" align="center">
+                                                <input class="lol" id="inputDialog-OkBtn" type="button" value="Confirmar" name="">
+                                                <input class="lol2" id="inputDialog-CancelBtn" type="button" value="Cancelar" name="">
                                             </td>
                                         </tr>
                                     <img src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7' onload='TextBox.onLoadAfterInnerHTML();this.parentNode.removeChild(this);'>
@@ -246,9 +318,12 @@ function Scene_InputDialog() {
                 break;
             case 2:
                 var divInnerHTML = `
+ <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
                                     <style>
                                     ${style}
                                     </style>
+                                 
                                     <table class="inputDialogContainer">
                                         <tr class="row">
                                             <td class="col">
@@ -266,10 +341,10 @@ function Scene_InputDialog() {
                                                 <input class="inputDialog" type="password" id="pass" placeholder="Digite uma passowrd" hidden>
                                             </td>
                                         </tr>
-                                        <tr class="row" valign="bottom">
+                                        <tr class="row" align="bottom">
                                             <td class="col" align="right">
-                                                <input class="defaultButton" id="inputDialog-OkBtn" type="button" value="Confirmar" name="">
-                                                <input class="defaultButton" id="inputDialog-CancelBtn" type="button" value="Cancelar" name="">
+                                                <input class="lol" id="inputDialog-OkBtn" type="button" value="Confirmar" name="">
+                                                <input class="lol2" id="inputDialog-CancelBtn" type="button" value="Cancelar" name="">
                                             </td>
                                         </tr>
                                     <img src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7' onload='TextBox.onLoadAfterInnerHTML();this.parentNode.removeChild(this);'>
@@ -278,6 +353,8 @@ function Scene_InputDialog() {
                 break;
             case 3:
                 var divInnerHTML = `
+ <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
                                     <style>
                                     ${style}
                                     </style>
@@ -299,10 +376,10 @@ function Scene_InputDialog() {
                                                 <input class="inputDialog" type="password" id="pass" placeholder="Digite uma passowrd" hidden>
                                             </td>
                                         </tr>
-                                        <tr class="row" valign="bottom">
+                                        <tr class="row" align="bottom">
                                             <td class="col" align="right">
-                                                <input class="defaultButton" id="inputDialog-OkBtn" type="button" value="Confirmar" name="">
-                                                <input class="defaultButton" id="inputDialog-CancelBtn" type="button" value="Cancelar" name="">
+                                                <input class="lol" id="inputDialog-OkBtn" type="button" value="Confirmar" name="">
+                                                <input class="lol2" id="inputDialog-CancelBtn" type="button" value="Cancelar" name="">
                                             </td>
                                         </tr>
                                     <img src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7' onload='TextBox.onLoadAfterInnerHTML();this.parentNode.removeChild(this);'>
@@ -392,17 +469,11 @@ function Scene_InputDialog() {
         if(CancelButton) CancelButton.style.fontSize = (1 * Graphics._realScale) + "em";
 
 
-        textBox.style.fontSize = (2 * Graphics._realScale) + "em";
         textBox.style.width = getScreenWidth(textBoxWidth * Graphics._realScale) + 'px';
-        textBox.style.height = getScreenHeight(textBoxHeight * Graphics._realScale) + 'px';
 
-        textBox2.style.fontSize = (2 * Graphics._realScale) + "em";
         textBox2.style.width = getScreenWidth(textBoxWidth * Graphics._realScale) + 'px';
-        textBox2.style.height = getScreenHeight(textBoxHeight * Graphics._realScale) + 'px';
 
-        textBox3.style.fontSize = (2 * Graphics._realScale) + "em";
         textBox3.style.width = getScreenWidth(textBoxWidth * Graphics._realScale) + 'px';
-        textBox3.style.height = getScreenHeight(textBoxHeight * Graphics._realScale) + 'px';
 
     };
 
