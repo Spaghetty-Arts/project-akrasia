@@ -36,7 +36,7 @@ para2=1;
                  }
              }, 5);
      };
-     
+
 function obterlocal(){
 var x=$gamePlayer.x;
 var y=$gamePlayer.y;
@@ -51,6 +51,8 @@ var dir=$gamePlayer.direction();
             y: y,
             dir:dir,
             disparo:disparo,
+            lifead:playerLife,
+            arma:armaAtual,
         };
         console.log(data);
   /*      waitForSocketConnection(ws, function() {
@@ -62,7 +64,7 @@ var dir=$gamePlayer.direction();
         ws.send(JSON.stringify(data));
         disparo=0;
  // };
-  
+
 
 
 }
@@ -77,6 +79,10 @@ var charEvent = $gameMap._events[1];
        data = JSON.parse(event.data);
       // Escrevemos no DOM
       if (data.ida==id){
+        armaAd=data.arma;
+        if(data.lifead<=0){
+          alert('Ganhaste!');
+        }
 if(data.x<100){
     // setpos(data.x, data.y);
       //$gameMap.event(1).x = data.x;
@@ -85,15 +91,18 @@ if(data.x<100){
       // $gameMap.event(1).moveStraight(data.dir);
        $gameMap.event(1).setDirection(data.dir);
        if(data.disparo==1){
-          
+
               shootAnimation(4, 0);
-              Galv.PROJ.dir(1,0,8,4,'bullet0(8,5)',125,'c(7)|e',[5],[],3,1);
+              Galv.PROJ.dir(1,0,8,4,'bullet0(8,5)',125,'c(55)|e',[5],[],3,1);
               AudioManager.playSe({name: "pistolShot", pan: 0, pitch: 100, volume: 100});
-              
-  
-        
+
+
+
        }
-    }}
+    }
+
+
+  }
     //console.log('x:' + data.x + " | y:" + data.y);
   });
 
