@@ -46,7 +46,13 @@
                     let obj = this.response;
                     saveData(obj);
                     //console.log(playerName);
-                    alert("Login com sucesso");
+                    swal({
+                        title: "Sucesso!",
+                        text: "O login ocorreu com sucesso!",
+                        icon: "success",
+                        button: "Ok",
+                        timer: 5000,
+                    });
                     DataManager.setupMultiGame();
                     SceneManager.goto(Scene_Map);
 

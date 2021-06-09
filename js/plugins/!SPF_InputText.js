@@ -113,7 +113,7 @@ function Scene_InputDialog() {
       font-size: 16px!important;
   }
   
-  * {
+  input {
   font-family: 'VT323', monospace;
  }
 
@@ -246,11 +246,7 @@ background-color: #9c0501;
         switch (loginRegister) {
             case 0:
                 var divInnerHTML = `
- <link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
-                                    <style>
-                                    ${style}
-                                    </style>
+                                    <link rel="stylesheet" type="text/css" href="css/form.css">
                                     <form autocomplete="off">
                                      <table class="inputDialogContainer">
                                         <tr class="row">
@@ -284,11 +280,8 @@ background-color: #9c0501;
                 break;
             case 1:
                 var divInnerHTML = `
-  <link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
-                                    <style>
-                                    ${style}
-                                    </style>
+                                  <link rel="stylesheet" type="text/css" href="css/form.css">
+                                   
                                     <table class="inputDialogContainer">
                                         <tr class="row">
                                             <td class="col">
@@ -318,12 +311,7 @@ background-color: #9c0501;
                 break;
             case 2:
                 var divInnerHTML = `
- <link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
-                                    <style>
-                                    ${style}
-                                    </style>
-                                 
+                                    <link rel="stylesheet" type="text/css" href="css/form.css">
                                     <table class="inputDialogContainer">
                                         <tr class="row">
                                             <td class="col">
@@ -353,11 +341,7 @@ background-color: #9c0501;
                 break;
             case 3:
                 var divInnerHTML = `
- <link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
-                                    <style>
-                                    ${style}
-                                    </style>
+                                    <link rel="stylesheet" type="text/css" href="css/form.css">
                                     <table class="inputDialogContainer">
                                         <tr class="row">
                                             <td class="col">
@@ -749,7 +733,13 @@ background-color: #9c0501;
                 }
             } else if (loginRegister == 1){
                 if (checkEmpty(mail) || checkEmpty(pass)) {
-                    alert("Deixou campos em branco");
+                    swal({
+                        title: "Erro!",
+                        text: "Deixou campos em branco!",
+                        icon: "error",
+                        button: "Ok",
+                        timer: 5000,
+                    });
                 } else {
                     ajaxLoginRequest(mail, pass);
                 }
