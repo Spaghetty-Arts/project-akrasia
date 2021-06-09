@@ -21,7 +21,8 @@
 
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                    //good
+                    let obj = this.response;
+                    saveData(obj);
                 } else if (this.readyState == 4 && this.status == 403) {
                     alert("Já recebeste o diario");
                 }else if (this.readyState == 4 && this.status == 404) {
@@ -37,6 +38,8 @@
             xhttp.open("PUT", "http://localhost:8080/user/dailyReward/", true);
             xhttp.setRequestHeader("Authorization", "Bearer " + playerToken);
             xhttp.setRequestHeader("Content-Type", "application/json");
+
+            xhttp.responseType = 'json';
 
             var data = JSON.stringify({"id": playerID, "money": playerMoney});
             xhttp.send(data);

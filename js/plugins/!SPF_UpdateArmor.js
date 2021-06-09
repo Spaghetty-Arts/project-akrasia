@@ -26,7 +26,8 @@
 
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                    //good
+                    let obj = this.response;
+                    saveData(obj);
                 } else if (this.readyState == 4 && this.status == 400) {
                     alert("Aconteceu algo");
                 }else if (this.readyState == 4 && this.status == 403) {
@@ -42,6 +43,8 @@
             xhttp.open("PUT", "http://localhost:8080/user/updateArmor/", true);
             xhttp.setRequestHeader("Authorization", "Bearer " + playerToken);
             xhttp.setRequestHeader("Content-Type", "application/json");
+
+            xhttp.responseType = 'json';
 
             var data = JSON.stringify({"id": playerID, "money": playerMoney, "life": playerALevel});
             xhttp.send(data);

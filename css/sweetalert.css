@@ -1,0 +1,47 @@
+.swal-overlay {
+    background-color: rgba(0, 0, 0, 0.45);
+}
+
+.swal-modal {
+    border: 3px solid #00158f;
+
+    background-image: url("../img/pictures/alert.png");
+}
+
+.swal-title {
+    color: white;
+    font-family: 'VT323', monospace;
+    font-size: 2rem;
+}
+
+.swal-text {
+    color: white;
+    font-family: 'VT323', monospace;
+    font-size: 1.5rem;
+}
+
+.swal-button {
+    display: block;
+    border: none;
+    border-radius: 0%;
+    font-size: 1.5rem;
+    line-height: 1rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 600;
+    padding: 5px 35px;
+    margin: 10px;
+    position: relative;
+    color: #fff;
+    clip-path: polygon(
+            -15px 0%,
+            calc(100% + 15px) 0%,
+            calc(100% + 15px) 100%,
+            20px 100%,
+            -15px calc(100% - 35px)
+    );
+    cursor: pointer;
+    background-color: #ff5353;
+    outline: none;
+    display: inline-block;
+}

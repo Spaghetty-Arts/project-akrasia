@@ -22,3 +22,21 @@ let playerWin;
 let playerLose;
 let playerRank;
 
+/*
+Retrieve Data
+ */
+saveData = function (obj) {
+    playerID = obj.id;
+    playerName = obj.username;
+    playerToken = obj.user_token;
+    playerGotReward = obj.got_reward;
+    playerDaily = obj.login_reward;
+
+    playerMoney = obj.money;
+    playerALevel = obj.life;
+    playerLife = playerALevel * 100;
+
+    playerWin = obj.win;
+    playerLose = obj.lose;
+    playerRank = obj.rank;
+}
