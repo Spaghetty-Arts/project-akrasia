@@ -49,12 +49,14 @@
                     swal({
                         title: "Sucesso!",
                         text: "O login ocorreu com sucesso!",
-                        icon: "success",
+                        icon: "info",
                         button: "Ok",
                         timer: 5000,
+                    }).then((value) => {
+                            DataManager.setupMultiGame();
+                            SceneManager.goto(Scene_Map);
                     });
-                    DataManager.setupMultiGame();
-                    SceneManager.goto(Scene_Map);
+
 
                 } else if (this.readyState == 4 && this.status == 401) {
                     alert("Autenticação sem sucesso");
@@ -135,7 +137,8 @@
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
                     alert("Nome alterado com sucesso");
-                    playerName = user;
+                    let obj = this.response;
+                    saveData(obj);
                     Scene_InputDialog.prototype.afterResponse();
                 } else if (this.readyState == 4 && this.status == 401) {
                     alert("Erro");
@@ -151,6 +154,8 @@
 
             xhttp.setRequestHeader("Authorization", "Bearer " + playerToken);
             xhttp.setRequestHeader("Content-Type", "application/json");
+
+            xhttp.responseType = 'json';
 
             var data = JSON.stringify({"id": playerID, "username": user});
             xhttp.send(data);
@@ -173,19 +178,3 @@
         $gamePlayer.reserveTransfer(31, 5,  16);
         Graphics.frameCount = 0;
     };
-
-saveData = function (obj) {
-    playerID = obj.id;
-    playerName = obj.username;
-    playerToken = obj.user_token;
-    playerGotReward = obj.got_reward;
-    playerDaily = obj.login_reward;
-
-    playerMoney = obj.money;
-    playerALevel = obj.life;
-    playerLife = playerALevel * 100;
-
-    playerWin = obj.win;
-    playerLose = obj.lose;
-    playerRank = obj.rank;
-}

@@ -721,18 +721,7 @@ background-color: #9c0501;
         if(SceneManager._stack.length > 0) {
             if (loginRegister == 0) {
                 if (checkEmpty(user) || checkEmpty(mail) || checkEmpty(pass)) {
-                    alert("Deixou campos em branco");
-                } else {
-                    if (checkUsername(user)) {
-                        if(checkPassword(pass)) {
-                            ajaxResisterRequest(user, pass, mail);
-                        }
-                    } else {
-                        alert("O username têm de ter pelo menos 8 caraters");
-                    }
-                }
-            } else if (loginRegister == 1){
-                if (checkEmpty(mail) || checkEmpty(pass)) {
+                    AudioManager.playSe({name: "error", pan: 0, pitch: 100, volume: 100});
                     swal({
                         title: "Erro!",
                         text: "Deixou campos em branco!",
@@ -741,22 +730,72 @@ background-color: #9c0501;
                         timer: 5000,
                     });
                 } else {
+                    if (checkUsername(user)) {
+                        if(checkPassword(pass)) {
+                            ajaxResisterRequest(user, pass, mail);
+                        }
+                    } else {
+                        AudioManager.playSe({name: "error", pan: 0, pitch: 100, volume: 100});
+                        swal({
+                            title: "Erro!",
+                            text: "O username têm de ter pelo menos 8 caraters!",
+                            icon: "error",
+                            button: "Ok",
+                            timer: 5000,
+                        });
+                    }
+                }
+            } else if (loginRegister == 1){
+                if (checkEmpty(mail) || checkEmpty(pass)) {
+
+                    AudioManager.playSe({name: "error", pan: 0, pitch: 100, volume: 100});
+                    swal({
+                        title: "Erro!",
+                        text: "Deixou campos em branco!",
+                        icon: "error",
+                        button: "Ok",
+                        timer: 5000,
+                    }).then((value) => {
+                        this.loaText(false);
+                    });;
+                } else {
                     ajaxLoginRequest(mail, pass);
                 }
             } else if (loginRegister == 2) {
                 if (checkEmpty(mail)) {
-                    alert("Deixou campos em branco");
+                    AudioManager.playSe({name: "error", pan: 0, pitch: 100, volume: 100});
+                    swal({
+                        title: "Erro!",
+                        text: "Deixou campos em branco!",
+                        icon: "error",
+                        button: "Ok",
+                        timer: 5000,
+                    });
                 } else {
                     ajaxResetRequest(mail);
                 }
             } else if (loginRegister == 3) {
                 if(checkEmpty(user)) {
-                    alert("Deixou o campo em branco")
+                    AudioManager.playSe({name: "error", pan: 0, pitch: 100, volume: 100});
+                    swal({
+                        title: "Erro!",
+                        text: "Deixou campos em branco!",
+                        icon: "error",
+                        button: "Ok",
+                        timer: 5000,
+                    });
                 } else {
                     if(checkUsername(user)) {
                         ajaxChangeRequest(user);
                     } else {
-                        alert("O username têm de ter pelo menos 8 caraters");
+                        AudioManager.playSe({name: "error", pan: 0, pitch: 100, volume: 100});
+                        swal({
+                            title: "Erro!",
+                            text: "O username têm de ter pelo menos 8 caraters!",
+                            icon: "error",
+                            button: "Ok",
+                            timer: 5000,
+                        });
                     }
                 }
             }
@@ -780,22 +819,46 @@ background-color: #9c0501;
 
     checkPassword = function (passowrd) {
         if (passowrd.length < 8) {
-            alert("A password tem de ter pelo menos 8 caraters");
+            swal({
+                title: "Erro!",
+                text: "O username têm de ter pelo menos 8 caraters!",
+                icon: "error",
+                button: "Ok",
+                timer: 5000,
+            });
             return false;
         }
         var lowerCaseLetters = /[a-z]/g;
         if (!passowrd.match(lowerCaseLetters)) {
-            alert("A passowrd tem de ter pelo menos uma letra minuscula");
+            swal({
+                title: "Erro!",
+                text: "O username têm de ter pelo menos 8 caraters!",
+                icon: "error",
+                button: "Ok",
+                timer: 5000,
+            });
             return false;
         }
         var upperCaseLetters = /[A-Z]/g;
         if(!passowrd.match(upperCaseLetters)) {
-            alert("A passowrd tem de ter pelo menos uma letra maiscula");
+            swal({
+                title: "Erro!",
+                text: "O username têm de ter pelo menos 8 caraters!",
+                icon: "error",
+                button: "Ok",
+                timer: 5000,
+            });
             return false;
         }
         var numbers = /[0-9]/g;
         if(!passowrd.match(numbers)) {
-            alert("A passowrd tem de ter pelo menos um numero");
+            swal({
+                title: "Erro!",
+                text: "O username têm de ter pelo menos 8 caraters!",
+                icon: "error",
+                button: "Ok",
+                timer: 5000,
+            });
             return false;
         }
         return true;
