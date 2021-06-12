@@ -22,6 +22,14 @@ let playerWin;
 let playerLose;
 let playerRank;
 
+
+/*
+Enemie
+ */
+let enemieID
+let enemieHealth
+let enemieName
+
 /*
 Retrieve Data
  */
