@@ -46,39 +46,44 @@ and detect the player in a range of 8 tiles, and start shooting at
 
     function actionNPC(npc){
 
-        npc = $gameMap._events[npc];
+        if ($gameSelfSwitches.value([29, npc, 'A'])) {
+            npc = $gameMap._events[npc];
 
-        var totalDist = getDistance(npc);
+            var totalDist = getDistance(npc);
 
-        changeDebugText("Player life: " + $gameParty.leader().hp);
-            
-
-        if(totalDist <= shootingDistance){
-            npc._moveType = 0;
-            npc.setDirection(npc.findDirectionTo($gamePlayer.x, $gamePlayer.y));
+            changeDebugText("Player life: " + $gameParty.leader().hp);
 
 
-            npc.requestAnimation(0);
-            debugCounter++;
-            
-            if (debugCounter % hit_random_num === 0) {
-                hit_random_num = getRandomInt(25, 35);
-                $gamePlayer.requestAnimation(7);
-                
-                $gameActors.actor(1)._hp -= getRandomInt(1, 20);
+            if (totalDist <= shootingDistance) {
+                npc._moveType = 0;
+                npc.setDirection(npc.findDirectionTo($gamePlayer.x, $gamePlayer.y));
+
+
+                npc.requestAnimation(0);
+                debugCounter++;
+
+                if (debugCounter % hit_random_num === 0) {
+                    //hit_random_num = getRandomInt(25, 35);
+                    // console.log(npc._eventId);
+                    Galv.PROJ.dir(npc._eventId, 0, 8, 4, 'bullet0(8,5)', 125, 'c(5)|', [5], [], 3, 1);
+                    AudioManager.playSe({name: "pistolShot", pan: 0, pitch: 100, volume: 100});
+                    // $gamePlayer.requestAnimation(7);
+
+                    //$gameActors.actor(1)._hp -= getRandomInt(1, 20);
+                }
+
+
+            } else if (totalDist < distance) {
+                npc.setMoveSpeed(4.5);
+                npc.setMoveFrequency(4.5);
+                npc._moveType = 2;
+
+            } else {
+                npc.setMoveFrequency(4);
+                npc.setMoveSpeed(3.5);
+                npc._moveType = 1;
+
             }
-
-
-        } else if (totalDist < distance) {
-            npc.setMoveSpeed(4.5);
-            npc.setMoveFrequency(4.5);
-            npc._moveType = 2;
-
-        }else{
-            npc.setMoveFrequency(4);
-            npc.setMoveSpeed(3.5);
-            npc._moveType = 1;
-
         }
             
     }

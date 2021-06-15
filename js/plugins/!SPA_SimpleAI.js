@@ -48,25 +48,27 @@ and detect the player in a range of 8 tiles.
 
     function actionNPC(npc){
 
-        npc = $gameMap._events[npc];
-        var totalDist = getDistance(npc);
+        if ($gameSelfSwitches.value([29, npc, 'A'])) {
+            npc = $gameMap._events[npc];
+            var totalDist = getDistance(npc);
 
-        if(totalDist == 1){
-            npc._moveType = 0;
-            npc.setDirection(npc.findDirectionTo($gamePlayer.x, $gamePlayer.y));
+            if(totalDist == 1){
+                npc._moveType = 0;
+                npc.setDirection(npc.findDirectionTo($gamePlayer.x, $gamePlayer.y));
 
-            doAttack();
+                doAttack();
 
-        } else if (totalDist < distance) {
-            npc.setMoveSpeed(4.5);
-            npc.setMoveFrequency(4.5);
-            npc._moveType = 2;
+            } else if (totalDist < distance) {
+                npc.setMoveSpeed(4.5);
+                npc.setMoveFrequency(4.5);
+                npc._moveType = 2;
 
-        }else{
-            npc.setMoveFrequency(4);
-            npc.setMoveSpeed(3.5);
-            npc._moveType = 1;
+            }else{
+                npc.setMoveFrequency(4);
+                npc.setMoveSpeed(3.5);
+                npc._moveType = 1;
 
+            }
         }
             
     }
@@ -102,7 +104,7 @@ and detect the player in a range of 8 tiles.
             hit_random_num = getRandomInt(min_hit_value, max_hit_value);
             $gamePlayer.requestAnimation(7);
                             
-            $gameActors.actor(1)._hp -= getRandomInt(1, 20);
+            playerLife -= 1;
 
             changeDebugText("Player life: " + $gameActors.actor(1)._hp);
 

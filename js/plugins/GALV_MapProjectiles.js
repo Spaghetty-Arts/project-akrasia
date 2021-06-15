@@ -616,16 +616,19 @@ Galv.PROJ.executeAction = function(action,target) {
 			switch (data[0]) {
 				case '1':
 					//console.log(target.eventId());
-					crowbarAttack(target.eventId());
+					attackE(target.eventId(), 1);
 					break;
 				case '2':
-					pistolShoot();
+					attackE(target.eventId(), 5);
 					break;
 				case '3':
-					shotgunShoot();
+					attackE(target.eventId(), 10);
 					break;
 				case '4':
-					arShoot();
+					attackE(target.eventId(), 3);
+					break;
+				case '5':
+					attackP(1);
 					break;
 			}
 			break;
