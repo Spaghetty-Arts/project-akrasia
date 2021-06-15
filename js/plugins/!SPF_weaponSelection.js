@@ -126,7 +126,7 @@
         if ($gameVariables.value(33) > 0) {
             disparo=1;
             shootAnimation(4, 0);
-            Galv.PROJ.dir(-1,0,8,4,'bullet0(8,5)',125,'c(55)|e',[5],[],3,1);
+            Galv.PROJ.dir(-1,0,8,4,'bullet0(8,5)',125,'c(55)|c(2)',[5],[],3,1);
             AudioManager.playSe({name: "pistolShot", pan: 0, pitch: 100, volume: 100});
             decreaceAmmo(33);
 
@@ -137,7 +137,7 @@
 
     attackCrowbar = function () {
         AudioManager.playSe({name: "crowHit", pan: 0, pitch: 100, volume: 100});
-        Galv.PROJ.dir(-1,0,8,0.1,'',126,'c(7)|s(B:on)',[5],[],3,1);
+        Galv.PROJ.dir(-1,0,8,0.1,'',1,'c(7)|c(1)',[5],[],3,1);
     }
 
     shotgunProjectile = function () {
@@ -145,7 +145,7 @@
             let lProj = getDirProj();
             shootAnimation(5, 1);
             Galv.PROJ.dir(-1,0,8,3,'bullet0',125,'c(7)|e',[5],[],3,1, 60);
-            Galv.PROJ.dir(-1,lProj[0],8,3,'bullet0',125,'c(7)|e',[5],[],3,1, 60);
+            Galv.PROJ.dir(-1,lProj[0],8,3,'bullet0',125,'c(7)|c(3)',[5],[],3,1, 60);
             Galv.PROJ.dir(-1,lProj[1],8,3,'bullet0',125,'c(7)|e',[5],[],3,1, 60);
             AudioManager.playSe({name: "shotgunShot", pan: 0, pitch: 100, volume: 100});
             decreaceAmmo(35);
@@ -157,7 +157,7 @@
     arProjectile = function () {
             if ($gameVariables.value(37) > 0) {
 
-                    Galv.PROJ.dir(-1, 0, 8, 6, 'bullet0', 125, 'c(7)|e', [5], [], 3, 1);
+                    Galv.PROJ.dir(-1, 0, 8, 6, 'bullet0', 125, 'c(7)|c(4)', [5], [], 3, 1);
                     AudioManager.playSe({name: "arShot", pan: 0, pitch: 100, volume: 100});
                     decreaceAmmo(37);
                 }

@@ -85,7 +85,7 @@ https://bit.ly/3vLVOHE (RPG Maker Foruns on Internet Archive)
 
 
 (function () {
-    var parameters = PluginManager.parameters('CAMapGenerator');
+    var parameters = PluginManager.parameters('!SPA_CAMapGenerator');
 
     var mapIDs = parameters['Map IDs'];
     var aliveLimit = Number(parameters['Alive Limit']);
@@ -97,6 +97,8 @@ https://bit.ly/3vLVOHE (RPG Maker Foruns on Internet Archive)
     var secondAliveCellTileID = Number(parameters['Second Alive Cell Tile ID']);
     var borderWallTileID = Number(parameters['Border Tile ID']);
     mapIDs = mapIDs.split(':');
+
+    console.log(mapIDs);
 
     // Converter String em Numbers
     mapIDs = mapIDs.map(function (x) {

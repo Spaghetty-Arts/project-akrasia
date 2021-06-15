@@ -602,15 +602,32 @@ Galv.PROJ.ceTargetId = function() {
 	return Galv.PROJ.cTargets[$gameTemp._savedcommonEventId];
 };
 
+	crowbarAttack = function () {
+		console.log("crowbar");
+	}
+
+
 Galv.PROJ.executeAction = function(action,target) {
 	if (!action) return;
 	var data = action.match(/\((.*)\)/i);
 	data = data ? data[1].split(':') : [];
 	switch(action[0]) {
 		case 'c':  // common event
-			var id = Number(data[0]);
-			$gameTemp.reserveCommonEventWithSave(id);
-			Galv.PROJ.setEventTarget(id,target);
+			switch (data[0]) {
+				case '1':
+					//console.log(target.eventId());
+					crowbarAttack(target.eventId());
+					break;
+				case '2':
+					pistolShoot();
+					break;
+				case '3':
+					shotgunShoot();
+					break;
+				case '4':
+					arShoot();
+					break;
+			}
 			break;
 		case 's':  // self switch
 			var key = [$gameMap.mapId(), target.eventId(), data[0].toUpperCase()];
@@ -626,6 +643,10 @@ Galv.PROJ.executeAction = function(action,target) {
 			break;
 	};
 };
+
+helloWord = function () {
+	console.log("LOL")
+}
 
 // Disable mouse move for map if setting checked
 if (Galv.PROJ.mouseMove) {
