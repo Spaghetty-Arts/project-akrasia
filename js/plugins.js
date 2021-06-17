@@ -46,7 +46,7 @@ var $plugins =
 {"name":"!SPF_WriteReadFile","status":true,"description":"","parameters":{}},
 {"name":"!SPF_TitleScreen","status":true,"description":"","parameters":{}},
 {"name":"!SPF_TitleScreenVideo","status":true,"description":"","parameters":{}},
-{"name":"!SPF_Fonts","status":true,"description":"","parameters":{}},
+{"name":"!SPF_LoadFonts","status":true,"description":"","parameters":{}},
 {"name":"!SPF_GameEnd","status":true,"description":"","parameters":{}},
 {"name":"!SPF_SlotMachine","status":true,"description":"","parameters":{}},
 {"name":"!SPF_DiceGamev2","status":true,"description":"","parameters":{}},
