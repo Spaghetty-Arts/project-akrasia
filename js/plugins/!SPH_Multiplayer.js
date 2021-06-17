@@ -1,13 +1,13 @@
-const ws = new WebSocket('ws://project-akrasia-websockets.herokuapp.com:9990/chat');
+const ws = new WebSocket('ws://localhost:9990/chat');
 
 var xpos=2;
 var ypos=1;
 var disparo=0;
 
 //var id=Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
-var id=2;  //id player var
+var id=1;  //id player var
 
-var ida=1; // id do adversario
+var ida=2; // id do adversario
 
 
 var para2=0;
@@ -62,11 +62,11 @@ var dir=$gamePlayer.direction();
       ws.send(JSON.stringify(data));
 });
         */
-   ws.onopen = function(response) {
+  // ws.onopen = function(response) {
         // Serializamos o objeto para json
         ws.send(JSON.stringify(data));
         disparo=0;
-  };
+  //};
 
 
 

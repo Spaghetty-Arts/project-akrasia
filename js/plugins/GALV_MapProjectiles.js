@@ -221,10 +221,10 @@ Galv.PROJ = Galv.PROJ || {};      // Galv's plugin stuff
  * It used Galv.PROJ.dir call so it will fire in direction 4 (left)
  * It has a speed of 3
  * It will travel 6 tiles
- * It will use 'bullet0' graphic from /img/pictures/. 
+ * It will use 'bullet0' graphic from /img/pictures/.
  * It will play animation 1 on contact.
  * If it hits the player it will run common event 7.
- * If it hits an event it will erase it (if event has the <projEffect> tag). 
+ * If it hits an event it will erase it (if event has the <projEffect> tag).
  * It will collide on region 5
  * It has no terrain collision
  * It has a z value of 3 (same as player)
@@ -236,16 +236,16 @@ Galv.PROJ = Galv.PROJ || {};      // Galv's plugin stuff
  * It used Galv.PROJ.atTarget call so it will fire at event 2
  * It has a speed of 5
  * It will travel 7 tiles
- * It will use 'bullet1(8,5)' graphic from /img/pictures/. 
+ * It will use 'bullet1(8,5)' graphic from /img/pictures/.
  *   This image needs to have 8 frames and will animate with speed of 5
  * It will play animation 2 on contact.
  * If it hits player it does nothing (it cant anyway as it is from player).
- * If it hits an event it will turn self switch A on (if <projEffect> tag). 
+ * If it hits an event it will turn self switch A on (if <projEffect> tag).
  * It will collide on regions 5 and 6
  * It will collide on a tile with terrain tag 6
  * It has a z value of 3 (same as player)
  * It has an identifier of 2
- * 
+ *
  * EXAMPLE 3:
  * Galv.PROJ.quickTar(1);
  * Fires a projectile with setup taken from 'Premade 1' in plugin settings
@@ -263,10 +263,10 @@ Galv.PROJ = Galv.PROJ || {};      // Galv's plugin stuff
  * It used Galv.PROJ.atTarget call so it will fire at event 2
  * It has a speed of 5
  * It will travel 4 tiles
- * It will use 'bulletBlast' graphic from /img/pictures/. 
+ * It will use 'bulletBlast' graphic from /img/pictures/.
  * It will play animation 12 on contact.
  * If it hits player it does nothing (it cant anyway as it is from player).
- * If it hits an event it will turn self switch A on (if <projEffect> tag). 
+ * If it hits an event it will turn self switch A on (if <projEffect> tag).
  * It will collide on region 9
  * It won't collide with any terrain tiles
  * It has a z value of 3 (same as player)
@@ -292,7 +292,7 @@ Galv.PROJ = Galv.PROJ || {};      // Galv's plugin stuff
  *
  *   <projBlock:true>    // will block all projectiles
  *   <projBlock:false>   // will block no projectiles
- *   <projBlock:x,x,x>   // will NOT block projectiles that have a pid 
+ *   <projBlock:x,x,x>   // will NOT block projectiles that have a pid
  *                       // included in this list.
  *
  *   <projEffect>        // Must include this comment on an event page if you
@@ -353,7 +353,7 @@ Galv.PROJ.quickTar = function(id,overrideId) {
 		var origId = settings.match(/\d+/i);
 		settings = settings.replace(origId,overrideId);
 	};
-	
+
 	if (Galv.PROJ.premade[id]) eval('Galv.PROJ.atTarget(' + settings + ')');
 };
 
@@ -400,7 +400,7 @@ Galv.PROJ.getTarget = function(id) {
 			//return {x: id[0], y: id[1]};
 			return id;
 		}
-		
+
 	};
 };
 
@@ -528,7 +528,7 @@ Galv.PROJ.atTarget = function(sid,eid,speed,dist,graphic,hitAnim,action,regions,
 		atTarget: eTarget._characterName,
 		hitbox: Number(hitbox)
 	};
-	
+
 	$gameMap.addMapProjectile(obj);
 };
 
@@ -546,7 +546,7 @@ Galv.PROJ.dir = function(sid,dir,speed,dist,graphic,hitAnim,action,regions,terra
 	if ([1,3,7,9].contains(dir)) {
 		// do diagonal direction
 		var horVer = Galv.PROJ.diag[dir];
-		
+
 		var x = $gameMap.roundXWithDirection(sTarget.x, horVer[0]);
     	var y = $gameMap.roundYWithDirection(sTarget.y, horVer[1]);
 	} else {
@@ -554,16 +554,16 @@ Galv.PROJ.dir = function(sid,dir,speed,dist,graphic,hitAnim,action,regions,terra
 		var x = $gameMap.xWithDirection(sTarget.x,dir);
 		var y = $gameMap.yWithDirection(sTarget.y,dir);
 	};
-	
+
 	Galv.PROJ.atTarget(sid,{x:x,y:y},speed,dist,graphic,hitAnim,action,regions,terrains,z,pid,hitbox,type);
 };
 
 Galv.PROJ.getTtl = function(dist,speed) {
 	if (!dist || !speed) return 120;
-	
+
 	var dist = dist * Galv.PROJ.tileSize + Galv.PROJ.tileSize / 2;
 	var ttl = dist / speed;
-	
+
 	return ttl;
 };
 
@@ -611,6 +611,7 @@ Galv.PROJ.executeAction = function(action,target) {
 	if (!action) return;
 	var data = action.match(/\((.*)\)/i);
 	data = data ? data[1].split(':') : [];
+//	console.log("-------------"+action[0])
 	switch(action[0]) {
 		case 'c':  // common event
 			switch (data[0]) {
@@ -629,6 +630,8 @@ Galv.PROJ.executeAction = function(action,target) {
 					break;
 				case '5':
 					attackP(1);
+				case '55':
+			  	decrementaVida();
 					break;
 			}
 			break;
@@ -713,7 +716,7 @@ Spriteset_Map.prototype.createCharacters = function() {
 
 Spriteset_Map.prototype.createProjectiles = function() {
 	this._mapProjectileSprites = [];
-	
+
 	// Create existing projectiles
 	for (var i = 0; i < $gameMap._mapProjectiles.length; i++) {
 		this.createProjectile(i);
@@ -738,12 +741,12 @@ Spriteset_Map.prototype.update = function() {
 Spriteset_Map.prototype.updateProjectiles = function() {
 	if (Galv.PROJ.requireClean) {
 		Galv.PROJ.requireClean = false;
-		
+
 		// clean up dead projectiles
 		for (var i = 0; i < this._mapProjectileSprites.length; i++) {
 			if (!this._mapProjectileSprites[i] || this._mapProjectileSprites[i].dead) {
 				this._tilemap.removeChild(this._mapProjectileSprites[i]);
-				this._mapProjectileSprites[i] = null;    
+				this._mapProjectileSprites[i] = null;
 				$gameMap._mapProjectiles[i] = null;
 			};
 		};
@@ -806,7 +809,7 @@ Sprite_MapProjectile.prototype.setBitmap = function() {
 		this._frames = Number(frames[0]);
 		this._frameSpeed = Number(frames[1]);
 	}
-	
+
 	this.bitmap = ImageManager.loadPicture(this._obj.graphic);
 };
 
@@ -834,7 +837,7 @@ Sprite_MapProjectile.prototype.updateFrame = function() {
 		var ph = this.bitmap.height;
 		var sx = this._cFrame * pw;
 		var sy = 0;
-		
+
 		if (this._fTicker >= this._frameSpeed) {
 
 			this._fTicker = 0;
@@ -898,7 +901,7 @@ Sprite_MapProjectile.prototype.checkHitEvent = function() {
 	// Basic checking for events
 	var tx = Math.floor(this._obj.x / Galv.PROJ.tileSize);
 	var ty = Math.floor(this._obj.y / Galv.PROJ.tileSize);
-	
+
 	// check regions
 	if (this._obj.regions.contains($gameMap.regionId(tx,ty)) || this._obj.terrains.contains($gameMap.terrainTag(tx,ty))) {
 		this.doHit();
@@ -1002,22 +1005,22 @@ Game_Event.prototype.setProjStuff = function() {
 	var page = this.page();
 	this.initProjVars();
 	if (!page) return;
-	
+
 	for (var i = 0; i < page.list.length; i++) {
 		if (page.list[i].code == 108) {
 			var params = page.list[i].parameters[0];
-			
+
 			var yO = params.match(/<projY:(.*)>/i)
 			this._projYoffset = yO ? Number(yO[1]) : 0;
-			
-			
+
+
 			if (params == '<projEffect>') {
 				this._projEffects = true;
 				continue;
 			};
-			
+
 			var projEffects = params.match(/<projEffect:(.*)>/i);
-			
+
 			if (projEffects) {
 				projEffects = projEffects[1].split(",");
 				this._projEffects = [];
@@ -1026,7 +1029,7 @@ Game_Event.prototype.setProjStuff = function() {
 				};
 				continue;
 			}
-			
+
 			var blockId = params.match(/<projBlock:(.*)>/i);
 			if (blockId) {
 				blockId = blockId[1].toLowerCase();
