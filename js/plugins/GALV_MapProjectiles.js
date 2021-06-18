@@ -617,7 +617,7 @@ Galv.PROJ.executeAction = function(action,target) {
 			switch (data[0]) {
 				case '1':
 					//console.log(target.eventId());
-					attackE(target.eventId(), 1);
+					attackE(target.eventId(), 5);
 					break;
 				case '2':
 					attackE(target.eventId(), 5);
