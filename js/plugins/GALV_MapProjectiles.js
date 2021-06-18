@@ -611,6 +611,7 @@ Galv.PROJ.executeAction = function(action,target) {
 	if (!action) return;
 	var data = action.match(/\((.*)\)/i);
 	data = data ? data[1].split(':') : [];
+	console.log(action);
 	switch(action[0]) {
 		case 'c':  // common event
 			switch (data[0]) {
