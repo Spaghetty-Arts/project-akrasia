@@ -22,6 +22,7 @@ playerLife-=10;
 playerLife-=10;
     break;
     default:
+      playerLife--;
       //Instruções executadas quando o valor da expressão é diferente de todos os cases
       break;
   }

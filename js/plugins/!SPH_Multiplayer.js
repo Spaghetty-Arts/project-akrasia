@@ -5,8 +5,11 @@ var ypos=1;
 var disparo=0;
 
 //var id=Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
-var id=2;
-var ida=1;
+var id=1;  //id player var
+
+var ida=2; // id do adversario
+
+
 var para2=0;
 function startgame() {
  if (para2==0){
@@ -59,11 +62,11 @@ var dir=$gamePlayer.direction();
       ws.send(JSON.stringify(data));
 });
         */
-     // ws.onopen = function(response) {
+  // ws.onopen = function(response) {
         // Serializamos o objeto para json
         ws.send(JSON.stringify(data));
         disparo=0;
- // };
+  //};
 
 
 
@@ -95,7 +98,6 @@ if(data.x<100){
               shootAnimation(4, 0);
               Galv.PROJ.dir(1,0,8,4,'bullet0(8,5)',125,'c(55)|e',[5],[],3,1);
               AudioManager.playSe({name: "pistolShot", pan: 0, pitch: 100, volume: 100});
-
 
 
        }

@@ -126,7 +126,7 @@
         if ($gameVariables.value(33) > 0) {
             disparo=1;
             shootAnimation(4, 0);
-            Galv.PROJ.dir(-1,0,8,4,'bullet0(8,5)',125,'c(55)|c(2)',[5],[],3,1);
+            Galv.PROJ.dir(-1,0,8,4,'bullet0(8,5)',130,'c(55)|c(2)',[5],[],3,1);
             AudioManager.playSe({name: "pistolShot", pan: 0, pitch: 100, volume: 100});
             decreaceAmmo(33);
 
@@ -137,7 +137,7 @@
 
     attackCrowbar = function () {
         AudioManager.playSe({name: "crowHit", pan: 0, pitch: 100, volume: 100});
-        Galv.PROJ.dir(-1,0,8,0.1,'',1,'c(7)|c(1)',[5],[],3,1);
+        Galv.PROJ.dir(-1,0,8,0.1,'',130,'c(7)|c(1)',[5],[],3,1);
     }
 
     shotgunProjectile = function () {

@@ -15,25 +15,15 @@ let npcInMap = [];
             $gameSelfSwitches.setValue([$gameMap._mapId, id, "A"], false);
             AudioManager.playSe({name: "soliderD", pan: 0, pitch: 100, volume: 100});
         } else {
+            $gameSelfSwitches.setValue([$gameMap._mapId, 6, "B"], true);
             AudioManager.playSe({name: "pain", pan: 0, pitch: 100, volume: 100});
         }
     }
 
     attackP = function (damageW) {
         playerLife -= damageW;
+        $gamePlayer.requestAnimation(130);
         AudioManager.playSe({name: "pain", pan: 0, pitch: 100, volume: 100});
-    }
-
-    pistolShoot = function () {
-        console.log("PISTOL");
-    }
-
-    shotgunShoot = function () {
-        console.log("Shotgun")
-    }
-
-    arShoot = function () {
-        console.log("AR");
     }
 
     setNPCHealth = function (id, health) {

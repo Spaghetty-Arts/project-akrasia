@@ -48,7 +48,7 @@ and detect the player in a range of 8 tiles.
 
     function actionNPC(npc){
 
-        if ($gameSelfSwitches.value([29, npc, 'A'])) {
+        if ($gameSelfSwitches.value([$gameMap.mapId(), npc, 'A'])) {
             npc = $gameMap._events[npc];
             var totalDist = getDistance(npc);
 
@@ -102,12 +102,14 @@ and detect the player in a range of 8 tiles.
 
         if (iterationCounter % hit_random_num === 0) {
             hit_random_num = getRandomInt(min_hit_value, max_hit_value);
-            $gamePlayer.requestAnimation(7);
+            $gamePlayer.requestAnimation(129);
+            AudioManager.playSe({name: "Paralyze2", pan: 0, pitch: 100, volume: 100});
                             
-            playerLife -= 1;
+            playerLife -= 10;
 
             changeDebugText("Player life: " + $gameActors.actor(1)._hp);
 
+            $gameSelfSwitches.setValue([$gameMap._mapId, 6, "B"], true);
         }
     }
 
@@ -148,6 +150,4 @@ and detect the player in a range of 8 tiles.
 
     }
 
-    
-          
 })(); 

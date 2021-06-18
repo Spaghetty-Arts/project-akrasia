@@ -1,9 +1,7 @@
 (function () {
     
-    sendInvite = function () {
+    sendInvite = function (username) {
         try {
-            let id = $gameVariables.value(85);
-            console.log(id);
             // create a new Ajax request
             var xhttp = new XMLHttpRequest();
 
@@ -18,7 +16,9 @@
                         button: "Ok",
                         timer: 5000,
                     }).then((value) => {
-
+                        $gameSelfSwitches.setValue([31, 12, 'A'], true);
+                        AudioManager.stopBgm();
+                        SceneManager.pop();
                     });
 
 
@@ -42,16 +42,16 @@
                 alert("Existem problemas com o servidor tenta mais tarde");
             };
 
-            let url = encodeURI("http://localhost:8080/pvp/play/"+playerID+"/"+id);
-            xhttp.open("GET", url, true);
+            let url = encodeURI("http://localhost:8080/pvp/play/"+playerID);
+            xhttp.open("PUT", url, true);
 
             xhttp.setRequestHeader("Authorization", "Bearer " + playerToken);
             xhttp.setRequestHeader("Content-Type", "application/json");
 
             xhttp.responseType = 'json';
 
-
-            xhttp.send();
+            var data = JSON.stringify({"username": username});
+            xhttp.send(data);
 
         } catch (e) {
             if(e.name == 'NetworkError'){

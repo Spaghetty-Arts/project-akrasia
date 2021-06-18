@@ -12,6 +12,7 @@ function Scene_InputDialog() {
     //============================================================================
 
     let loginRegister;
+    let userN;
 
     let textBoxWidth = 488;
     let textBoxHeight = 36;
@@ -316,6 +317,37 @@ background-color: #9c0501;
                                         <tr class="row">
                                             <td class="col">
                                                 <input class="inputDialog" type="email" id="email" placeholder="Digite um email" title="O email têm de estar registado" autocomplete="off">
+                                                <input class="inputDialog" type="text" id="user" placeholder="" hidden>
+                                            </td>
+                                        </tr>
+                                        <tr class="row">
+                                            <td class="col">
+                                                <input class="inputDialog" type="text" id="user" placeholder="Digite um username" hidden>
+                                            </td>
+                                        </tr>
+                                        <tr class="row">
+                                            <td class="col">
+                                                <input class="inputDialog" type="password" id="pass" placeholder="Digite uma passowrd" hidden>
+                                            </td>
+                                        </tr>
+                                        <tr class="row" align="bottom">
+                                            <td class="col" align="right">
+                                                <input class="lol" id="inputDialog-OkBtn" type="button" value="Confirmar" name="">
+                                                <input class="lol2" id="inputDialog-CancelBtn" type="button" value="Cancelar" name="">
+                                            </td>
+                                        </tr>
+                                    <img src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7' onload='TextBox.onLoadAfterInnerHTML();this.parentNode.removeChild(this);'>
+                                    </table>
+                                    `;
+                break;
+            case 3:
+                var divInnerHTML = `
+                                    <link rel="stylesheet" type="text/css" href="css/form.css">
+                                    <table class="inputDialogContainer">
+                                        <tr class="row">
+                                            <td class="col">
+                                                <input class="inputDialog" type="email" id="email" placeholder="Digite um email" title="O email têm de estar registado" autocomplete="off" hidden>
+                                                <input class="inputDialog" type="text" id="user" placeholder="Digite um username">
                                                 <input class="inputDialog" type="text" id="user" placeholder="" hidden>
                                             </td>
                                         </tr>
@@ -786,7 +818,12 @@ background-color: #9c0501;
                     });
                 } else {
                     if(checkUsername(user)) {
-                        ajaxChangeRequest(user);
+                        if (userN == 1) {
+                            sendInvite(user)
+                        } else {
+                            ajaxChangeRequest(user);
+                        }
+
                     } else {
                         AudioManager.playSe({name: "error", pan: 0, pitch: 100, volume: 100});
                         swal({
@@ -902,9 +939,14 @@ background-color: #9c0501;
     };
 
 
-    openForm = function (value) {
+    openForm = function (value, user = 0) {
         SceneManager.push(Scene_InputDialog);
         loginRegister = value;
+        userN = user;
+
+        if (user == 1) {
+            AudioManager.playBgm({name: "multiBG", pan: 0, pitch: 100, volume: 100});
+        }
     }
 
     window.TextBox = TextBox;
