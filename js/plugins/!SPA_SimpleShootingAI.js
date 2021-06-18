@@ -46,7 +46,8 @@ and detect the player in a range of 8 tiles, and start shooting at
 
     function actionNPC(npc){
 
-        if ($gameSelfSwitches.value([29, npc, 'A'])) {
+
+        if ($gameSelfSwitches.value([$gameMap.mapId(), npc, 'A'])) {
             npc = $gameMap._events[npc];
 
             var totalDist = getDistance(npc);
@@ -65,8 +66,50 @@ and detect the player in a range of 8 tiles, and start shooting at
                 if (debugCounter % hit_random_num === 0) {
                     //hit_random_num = getRandomInt(25, 35);
                     // console.log(npc._eventId);
-                    Galv.PROJ.dir(npc._eventId, 0, 8, 4, 'bullet0(8,5)', 125, 'c(5)|', [5], [], 3, 1);
-                    AudioManager.playSe({name: "pistolShot", pan: 0, pitch: 100, volume: 100});
+
+                    let distY = npc.y - $gamePlayer.y;
+                    let distX = npc.x - $gamePlayer.x;
+
+                    switch (npc.direction()) {
+                        case 2:
+                            distY = npc.y - $gamePlayer.y;
+                            distX = npc.x - $gamePlayer.x;
+                            if (distY <= 4 && distX == 0) {
+                                Galv.PROJ.dir(npc._eventId, 0, 8, 4, 'bullet0(8,5)', 130, 'c(5)|', [5], [], 3, 1);
+                                AudioManager.playSe({name: "pistolShot", pan: 0, pitch: 100, volume: 100});
+                            } else {
+                                npc.setMoveSpeed(4.5);
+                                npc.setMoveFrequency(4.5);
+                                npc._moveType = 2;
+                            }
+                            break;
+                        case 4:
+                            distY = npc.y - $gamePlayer.y;
+                            distX = $gamePlayer.x - npc.x;
+                            if (distX <= 4 && distY == 0) {
+                                Galv.PROJ.dir(npc._eventId, 0, 8, 4, 'bullet0(8,5)', 130, 'c(5)|', [5], [], 3, 1);
+                                AudioManager.playSe({name: "pistolShot", pan: 0, pitch: 100, volume: 100});
+                            }
+                            break;
+                        case 6:
+                            distY = npc.y - $gamePlayer.y;
+                            distX = npc.x - $gamePlayer.x;
+                            if (distX <= 4 && distY == 0) {
+                                Galv.PROJ.dir(npc._eventId, 0, 8, 4, 'bullet0(8,5)', 130, 'c(5)|', [5], [], 3, 1);
+                                AudioManager.playSe({name: "pistolShot", pan: 0, pitch: 100, volume: 100});
+                            }
+                            break;
+                        case 8:
+                            distY = $gamePlayer.y - npc.y;
+                            distX = npc.x - $gamePlayer.x;
+                            if (distY <= 4 && distX == 0) {
+                                Galv.PROJ.dir(npc._eventId, 0, 8, 4, 'bullet0(8,5)', 130, 'c(5)|', [5], [], 3, 1);
+                                AudioManager.playSe({name: "pistolShot", pan: 0, pitch: 100, volume: 100});
+                            }
+                            break;
+                    }
+
+
                     // $gamePlayer.requestAnimation(7);
 
                     //$gameActors.actor(1)._hp -= getRandomInt(1, 20);
