@@ -1,4 +1,6 @@
 let npcInMap = [];
+let eventID = -1;
+
 (function () {
 
     clearNPC = function () {
@@ -16,19 +18,21 @@ let npcInMap = [];
             $gameSelfSwitches.setValue([$gameMap._mapId, id, "A"], false);
             AudioManager.playSe({name: "soliderD", pan: 0, pitch: 100, volume: 100});
 
-            if (npcInMap.length == 0) {
+            if (checkAllDead()) {
                 AudioManager.stopBgm();
                 $gameSwitches.setValue(93, true);
             }
 
         } else {
-            $gameSelfSwitches.setValue([$gameMap._mapId, 6, "B"], true);
+            $gameSelfSwitches.setValue([$gameMap._mapId, eventID, "B"], true);
             AudioManager.playSe({name: "pain", pan: 0, pitch: 100, volume: 100});
         }
     }
 
     attackP = function (damageW) {
         playerLife -= damageW;
+        $gameSelfSwitches.setValue([$gameMap._mapId, eventID, "B"], true);
+        $gameVariables.setValue(86, playerLife);
         $gamePlayer.requestAnimation(130);
         AudioManager.playSe({name: "pain", pan: 0, pitch: 100, volume: 100});
     }
@@ -85,8 +89,22 @@ let npcInMap = [];
 
     healPlayer = function () {
         playerLife += 25;
-        $gamePlayer.requestAnimation(130);
-        AudioManager.playSe({name: "pain", pan: 0, pitch: 100, volume: 100});
+        $gamePlayer.requestAnimation(131);
+        AudioManager.playSe({name: "Heal8", pan: 0, pitch: 100, volume: 100});
+    }
+
+    getID = function (id) {
+        eventID = id;
+    }
+
+    checkAllDead = function () {
+        for (let i = 0; i < npcInMap.length; i++) {
+            let npc = npcInMap[i];
+            if (npc.health > 0) {
+                return false;
+            }
+        }
+        return true;
     }
 })();
 

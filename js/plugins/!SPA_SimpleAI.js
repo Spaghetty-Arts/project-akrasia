@@ -108,8 +108,7 @@ and detect the player in a range of 8 tiles.
             playerLife -= 10;
 
             changeDebugText("Player life: " + $gameActors.actor(1)._hp);
-
-            $gameSelfSwitches.setValue([$gameMap._mapId, 6, "B"], true);
+            $gameSelfSwitches.setValue([$gameMap._mapId, eventID, "B"], true);
         }
     }
 
