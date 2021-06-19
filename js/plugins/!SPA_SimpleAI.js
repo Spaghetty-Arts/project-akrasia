@@ -106,7 +106,7 @@ and detect the player in a range of 8 tiles.
             AudioManager.playSe({name: "Paralyze2", pan: 0, pitch: 100, volume: 100});
                             
             playerLife -= 10;
-
+            $gameVariables.setValue(86, playerLife);
             changeDebugText("Player life: " + $gameActors.actor(1)._hp);
             $gameSelfSwitches.setValue([$gameMap._mapId, eventID, "B"], true);
         }

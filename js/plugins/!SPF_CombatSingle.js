@@ -89,6 +89,9 @@ let eventID = -1;
 
     healPlayer = function () {
         playerLife += 25;
+        if (playerLife > $gameVariables.value(87)) {
+            playerLife = $gameVariables.value(87);
+        }
         $gamePlayer.requestAnimation(131);
         AudioManager.playSe({name: "Heal8", pan: 0, pitch: 100, volume: 100});
     }
