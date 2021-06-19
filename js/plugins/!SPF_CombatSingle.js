@@ -15,6 +15,12 @@ let npcInMap = [];
             $gameSelfSwitches.setValue([$gameMap._mapId, id, "B"], true);
             $gameSelfSwitches.setValue([$gameMap._mapId, id, "A"], false);
             AudioManager.playSe({name: "soliderD", pan: 0, pitch: 100, volume: 100});
+
+            if (npcInMap.length == 0) {
+                AudioManager.stopBgm();
+                $gameSwitches.setValue(93, true);
+            }
+
         } else {
             $gameSelfSwitches.setValue([$gameMap._mapId, 6, "B"], true);
             AudioManager.playSe({name: "pain", pan: 0, pitch: 100, volume: 100});
@@ -28,6 +34,7 @@ let npcInMap = [];
     }
 
     setNPCHealth = function (id, health) {
+        $gameSwitches.setValue(93, false);
         let healthNPC = {id:id, health:health};
         npcInMap.push(healthNPC);
     }
@@ -70,6 +77,16 @@ let npcInMap = [];
             $gameSelfSwitches.setValue([$gameMap._mapId, npcArr[i], "B"], false);
             $gameSelfSwitches.setValue([$gameMap._mapId, npcArr[i], "C"], false);
         }
+    }
+
+    setPlayerSingle = function () {
+        playerLife = $gameVariables.value(86);
+    }
+
+    healPlayer = function () {
+        playerLife += 25;
+        $gamePlayer.requestAnimation(130);
+        AudioManager.playSe({name: "pain", pan: 0, pitch: 100, volume: 100});
     }
 })();
 
