@@ -130,5 +130,13 @@ let shootID = -1;
     getAmmo = function () {
 
     }
+
+    turretDistance = function (id) {
+        let dist = $gameMap.distance($gamePlayer.x, $gamePlayer.y, $gameMap.event(id).x, $gameMap.event(id).y);
+        if (dist <= 5) {
+            Galv.PROJ.quickTar(2, id);
+            AudioManager.playSe({name: "shotTurret", pan: 0, pitch: 100, volume: 100});
+        }
+    }
 })();
 
