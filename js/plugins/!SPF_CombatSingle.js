@@ -1,5 +1,6 @@
 let npcInMap = [];
 let eventID = -1;
+let shootID = -1;
 
 (function () {
 
@@ -25,13 +26,14 @@ let eventID = -1;
 
         } else {
             $gameSelfSwitches.setValue([$gameMap._mapId, eventID, "B"], true);
+            $gameSelfSwitches.setValue([$gameMap._mapId, shootID, "B"], true);
             AudioManager.playSe({name: "pain", pan: 0, pitch: 100, volume: 100});
         }
     }
 
     attackP = function (damageW) {
         playerLife -= damageW;
-        $gameSelfSwitches.setValue([$gameMap._mapId, eventID, "B"], true);
+        $gameSelfSwitches.setValue([$gameMap._mapId, shootID, "B"], true);
         $gameVariables.setValue(86, playerLife);
         $gamePlayer.requestAnimation(130);
         AudioManager.playSe({name: "pain", pan: 0, pitch: 100, volume: 100});
@@ -92,12 +94,19 @@ let eventID = -1;
         if (playerLife > $gameVariables.value(87)) {
             playerLife = $gameVariables.value(87);
         }
+        $gameVariables.setValue(86, playerLife);
         $gamePlayer.requestAnimation(131);
         AudioManager.playSe({name: "Heal8", pan: 0, pitch: 100, volume: 100});
     }
 
-    getID = function (id) {
+    healTotal = function () {
+        playerLife = $gameVariables.value(87);
+        $gameVariables.setValue(86, playerLife);
+    }
+
+    getID = function (id, sID = -1) {
         eventID = id;
+        shootID = sID;
     }
 
     checkAllDead = function () {
@@ -108,6 +117,18 @@ let eventID = -1;
             }
         }
         return true;
+    }
+
+    getAmmoLevel2 = function () {
+        let ammo = $gameVariables.value(34);
+        ammo += 5;
+        AudioManager.playSe({name: "pick", pan: 0, pitch: 100, volume: 100});
+        $gameVariables.setValue(34, ammo);
+        $gameVariables.setValue(40, ammo);
+    }
+
+    getAmmo = function () {
+
     }
 })();
 
