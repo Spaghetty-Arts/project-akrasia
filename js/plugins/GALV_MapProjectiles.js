@@ -630,6 +630,10 @@ Galv.PROJ.executeAction = function(action,target) {
 					break;
 				case '5':
 					attackP(20);
+					break;
+				case '6':
+					attackP(10);
+					break;
 				case '55':
 			  	decrementaVida();
 					break;

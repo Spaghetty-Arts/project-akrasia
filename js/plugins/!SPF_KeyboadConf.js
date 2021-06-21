@@ -86,7 +86,7 @@
             ['up', 38], ['down', 40], ['left', 37], ['right', 39],
             ['shift', 16], ['shoot', 83], ['reload', 82], ['ok', 32],
             ['arm1', 49], ['arm2', 50], ['arm3', 51], ['arm4', 52],
-            ['holster', 72], ['escape', 27]
+            ['holster', 72], ['escape', 27], ['light', 76]
         ];
         window.MVNodeFS.writeFile("data", "keyboardKeys.json", confKeys);
         keyboardKeys = confKeys;
@@ -111,7 +111,7 @@
             ['up', 87], ['down', 83], ['left', 65], ['right', 68],
             ['shift', 16], ['shoot', 101], ['reload', 102], ['ok', 13],
             ['arm1', 97], ['arm2', 98], ['arm3', 99], ['arm4', 100],
-            ['holster', 103], ['escape', 110]
+            ['holster', 103], ['escape', 110], ['light', 76]
         ];
         window.MVNodeFS.writeFile("data", "keyboardKeys.json", confKeys);
         keyboardKeys = confKeys;

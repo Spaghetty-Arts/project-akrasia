@@ -138,5 +138,22 @@ let shootID = -1;
             AudioManager.playSe({name: "shotTurret", pan: 0, pitch: 100, volume: 100});
         }
     }
+
+    flashLight = function () {
+        if (Input.isTriggered('light')) {
+            if (!$gameSwitches.value(94)) {
+                AudioManager.playSe({name: "flashlight", pan: 0, pitch: 100, volume: 100});
+                console.log("on");
+                return 1;
+            } else {
+                AudioManager.playSe({name: "flashlight", pan: 0, pitch: 100, volume: 100});
+                console.log("off");
+                return 0;
+            }
+        } else {
+            return  -1;
+        }
+
+    }
 })();
 
