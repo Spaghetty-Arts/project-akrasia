@@ -61,9 +61,8 @@ in parallel in the map where the events you want to animate are.
   Game_Interpreter.prototype.pluginCommand = function (command, args) {
     _Game_Interpreter_pluginCommand.call(this, command, args);
 
-    debugWindow("");
 
-    if (command.toUpperCase() === 'ANIMATESMART') {
+    if (command.toUpperCase() === 'ANIMATESMART' && mapIDs.contains($gameMap._mapId)) {
       subject = this.character(eval(args[0]));
       npc = $gameMap._events[eval(args[0])];
       subject.setTarget(this.character(eval(args[1])));
