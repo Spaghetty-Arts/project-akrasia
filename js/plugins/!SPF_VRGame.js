@@ -5,7 +5,7 @@
     let _Scene_Map_start = Scene_Map.prototype.start;
     Scene_Map.prototype.start = function() {
         _Scene_Map_start.call(this);
-        this._vrWindow = new Window_VRHud(0, 0, 350, 80);
+        this._vrWindow = new Window_VRHud(0, 0, 250, 80);
     };
 
     let _Scene_Map_update = Scene_Map.prototype.update;
@@ -39,12 +39,11 @@
     }
 
     Window_VRHud.prototype.drawA = function () {
-        this.contents.fontSize = 20;
-        this.drawPicture("dogtag", 0, -5, false);
+        this.drawPicture("dogtag", 0, 0, false);
 
-        this.changeTextColor("#000be5");
+        this.changeTextColor("#068bff");
 
-        this.drawText(100, 200, 5);
+        this.drawText($gameVariables.value(88), 100, 5);
 
     }
 

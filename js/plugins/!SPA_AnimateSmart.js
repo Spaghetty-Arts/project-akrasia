@@ -61,9 +61,8 @@ in parallel in the map where the events you want to animate are.
   Game_Interpreter.prototype.pluginCommand = function (command, args) {
     _Game_Interpreter_pluginCommand.call(this, command, args);
 
-    debugWindow("");
 
-    if (command.toUpperCase() === 'ANIMATESMART') {
+    if (command.toUpperCase() === 'ANIMATESMART' && mapIDs.contains($gameMap._mapId)) {
       subject = this.character(eval(args[0]));
       npc = $gameMap._events[eval(args[0])];
       subject.setTarget(this.character(eval(args[1])));
@@ -180,41 +179,6 @@ in parallel in the map where the events you want to animate are.
 
   }
 
-  function My_Window() {
-    this.initialize.apply(this, arguments);
-  }
 
-  function debugWindow(debugText) {
-    var lh = Window_Base.prototype.lineHeight() * 2;
-
-    My_Window.prototype = Object.create(Window_Base.prototype);
-    My_Window.prototype.constructor = My_Window;
-
-    My_Window.prototype.initialize = function () {
-      Window_Base.prototype.initialize.call(this, 0, 0, Graphics.boxWidth, lh);
-      this.refresh();
-    }
-
-    My_Window.prototype.refresh = function () {
-      this.contents.clear();
-      this.drawText(debugText, 0, 0);
-    }
-
-    var smstart = Scene_Map.prototype.start;
-    Scene_Map.prototype.start = function () {
-      smstart.apply(this, arguments);
-      this.my_window = new My_Window();
-      this.addChild(this.my_window);
-    }
-  }
-
-  function changeDebugText(newText) {
-    My_Window.prototype.update = function () {
-      this.contents.clear();
-      this.drawText(newText, 0, 0);
-      Window_Base.prototype.update.call(this);
-    }
-
-  }
 
 })();

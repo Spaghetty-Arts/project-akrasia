@@ -104,6 +104,8 @@ https://bit.ly/3vLVOHE (RPG Maker Foruns on Internet Archive)
     var tilesArr = [];
     var transferCompleted = false;
 
+
+
     var receivedPluginCommands = Game_Interpreter.prototype.pluginCommand;
     Game_Interpreter.prototype.pluginCommand = function (command, args) {
         receivedPluginCommands.call(this, command, args);
@@ -112,6 +114,7 @@ https://bit.ly/3vLVOHE (RPG Maker Foruns on Internet Archive)
             placeArrayTiles();
             getEventsOnAliveCells();
             transferPlayerRandom();
+
         }
     }
 

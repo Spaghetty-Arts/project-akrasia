@@ -24,7 +24,7 @@ var $plugins =
 {"name":"GALV_CamControl","status":true,"description":"Allows greater control over where the game camera is focused. View HELP for plugin commands.","parameters":{"Tile Size":"48"}},
 {"name":"GALV_MapProjectiles","status":true,"description":"(v.1.8) Create projectiles that can interact with the map and map characters","parameters":{"Tile Size":"48","Fade Speed":"40","Disable Mouse Move":"false","Premade 1":"","Premade 2":"0,-1,3,5,'bullet1',0,'c(5)',[5],[],3,666","Premade 3":"","Premade 4":"","Premade 5":"","Premade 6":"","Premade 7":"","Premade 8":"","Premade 9":"","Premade 10":"","Premade 11":"","Premade 12":"","Premade 13":"","Premade 14":"","Premade 15":"","Premade 16":"","Premade 17":"","Premade 18":"","Premade 19":"","Premade 20":""}},
 {"name":"----------------------------------","status":false,"description":"","parameters":{}},
-{"name":"!SPA_AnimateSmart","status":false,"description":"Allows events to be animated by a state \r\nmachine with pathfinding","parameters":{"Map IDs":"46"}},
+{"name":"!SPA_AnimateSmart","status":true,"description":"Allows events to be animated by a state \r\nmachine with pathfinding","parameters":{"Map IDs":"46"}},
 {"name":"!SPA_CAMapGenerator","status":true,"description":"A map generator based on Cellular Automata","parameters":{"Map IDs":"47","Alive Limit":"2","Dead Limit":"1","Number of Iterations":"5","Randomness":"35","Alive Cell Tile ID":"2960","Dead Cell Tile ID":"2096","Second Alive Cell Tile ID":"2864","Border Tile ID":"2096"}},
 {"name":"!SPA_SimpleAI","status":true,"description":"This plugin implements a simple AI in RPG Maker MV","parameters":{}},
 {"name":"!SPA_SimpleShootingAI","status":true,"description":"This plugin implements a simple shooting AI in RPG Maker MV","parameters":{}},
