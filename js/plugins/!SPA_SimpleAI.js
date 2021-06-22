@@ -59,13 +59,13 @@ and detect the player in a range of 8 tiles.
                 doAttack();
 
             } else if (totalDist < distance) {
-                npc.setMoveSpeed(4.5);
-                npc.setMoveFrequency(4.5);
+                npc.setMoveSpeed(4);
+                npc.setMoveFrequency(5);
                 npc._moveType = 2;
 
             }else{
-                npc.setMoveFrequency(4);
-                npc.setMoveSpeed(3.5);
+                npc.setMoveFrequency(5);
+                npc.setMoveSpeed(3);
                 npc._moveType = 1;
 
             }

@@ -1,4 +1,4 @@
-const wss = new WebSocket('ws://localhost:9990/chat');
+const wss = new WebSocket('ws://192.168.2.61:9990/chat');
 
 
 
@@ -51,6 +51,7 @@ if(data.usernamead==playerName){
 
       if(data.inid>playerID){
           $gamePlayer.reserveTransfer(30, 17,  8);
+          //mudar de estado
       }else{
 
           $gamePlayer.reserveTransfer(30, 8,  6);
@@ -112,12 +113,17 @@ if(data.resposta=="sim"){
   });
 ida=data.inid;
 id=playerID;
+
+//mudar de estado
+
   if(data.inid>playerID){
       $gamePlayer.reserveTransfer(30, 17,  8);
+
   }else{
 
       $gamePlayer.reserveTransfer(30, 8,  6);
   }
+
 
 }else{
 swal("Recusado", "Hora de voltar à Loby!");

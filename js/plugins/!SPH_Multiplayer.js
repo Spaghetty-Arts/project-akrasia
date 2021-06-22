@@ -1,4 +1,4 @@
-const ws = new WebSocket('ws://localhost:9990/chat');
+const ws = new WebSocket('ws://192.168.2.61:9990/chat');
 
 var xpos=2;
 var ypos=1;
@@ -86,6 +86,7 @@ var charEvent = $gameMap._events[1];
         armaAd=data.arma;
         if(data.lifead<=0){
           alert('Ganhaste!');
+          //ajax ganhou
         }
 if(data.x<100){
     // setpos(data.x, data.y);
