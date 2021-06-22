@@ -46,27 +46,21 @@ and detect the player in a range of 8 tiles, and start shooting at
 
     function actionNPC(npc){
 
-
         if ($gameSelfSwitches.value([$gameMap.mapId(), npc, 'A'])) {
             npc = $gameMap._events[npc];
 
             var totalDist = getDistance(npc);
+            var xDist = getxDistance(npc);
+            var yDist = getyDistance(npc);
 
-            changeDebugText("Player life: " + $gameParty.leader().hp);
-
-
-            if (totalDist <= shootingDistance) {
+            if ((xDist <= shootingDistance && yDist == 0) || (yDist <= shootingDistance && xDist == 0)) {
                 npc._moveType = 0;
                 npc.setDirection(npc.findDirectionTo($gamePlayer.x, $gamePlayer.y));
-
 
                 npc.requestAnimation(0);
                 debugCounter++;
 
                 if (debugCounter % hit_random_num === 0) {
-                    //hit_random_num = getRandomInt(25, 35);
-                    // console.log(npc._eventId);
-
                     let distY = npc.y - $gamePlayer.y;
                     let distX = npc.x - $gamePlayer.x;
 
@@ -153,45 +147,28 @@ and detect the player in a range of 8 tiles, and start shooting at
         return totalDist;
 
     }
-  
 
-    function My_Window() {
-        this.initialize.apply(this, arguments);
+    function getxDistance(npc){
+        var xDist = $gamePlayer.x - npc.x;
+
+        if (xDist < 0) {
+            xDist = -xDist;
+        }
+
+        return xDist;
+
     }
 
-    function debugWindow(debugText){
-        var lh = Window_Base.prototype.lineHeight()*2;
+    function getyDistance(npc){
+        var yDist = $gamePlayer.y - npc.y;
         
-        My_Window.prototype = Object.create(Window_Base.prototype);
-        My_Window.prototype.constructor = My_Window;
-
-        My_Window.prototype.initialize = function() {
-            Window_Base.prototype.initialize.call(this, 0, 0, Graphics.boxWidth, lh);
-            this.refresh();
+        if (yDist < 0) {
+            yDist = -yDist;
         }
-
-        My_Window.prototype.refresh = function() {
-            this.contents.clear();
-            this.drawText(debugText, 0, 0);
-        }
-
-        var smstart = Scene_Map.prototype.start;
-        Scene_Map.prototype.start = function() {
-            smstart.apply(this, arguments);
-            this.my_window = new My_Window();
-            this.addChild(this.my_window);
-        }
-    }
-
-    function changeDebugText(newText){
-        My_Window.prototype.update = function() {
-            this.contents.clear();
-            this.drawText(newText, 0, 0);
-            Window_Base.prototype.update.call(this);
-        }
+        
+        return yDist;
 
     }
-
-    
+   
           
 })(); 
