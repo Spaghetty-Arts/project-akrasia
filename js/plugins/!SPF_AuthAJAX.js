@@ -18,7 +18,7 @@
 
             };
 
-            xhttp.open("POST", "http://localhost:8080/auth/register", true);
+            xhttp.open("POST", "http://"+iprest+"/auth/register", true);
 
             xhttp.setRequestHeader("Content-Type", "application/json");
 
@@ -78,7 +78,7 @@
                 alert("Existem problemas com o servidor tenta mais tarde");
             };
 
-            xhttp.open("PUT", "http://localhost:8080/auth/login", true);
+            xhttp.open("PUT", "http://"+iprest+"/auth/login", true);
 
             xhttp.setRequestHeader("Content-Type", "application/json");
 
@@ -116,7 +116,7 @@
             };
 
 
-            let url = encodeURI("http://localhost:8080/auth/reset/"+mail);
+            let url = encodeURI("http://"+iprest+"/auth/reset/"+mail);
             xhttp.open("POST", url, true);
 
             xhttp.send();
@@ -150,7 +150,7 @@
 
             };
 
-            xhttp.open("PUT", "http://localhost:8080/user/changeName/", true);
+            xhttp.open("PUT", "http://"+iprest+"/user/changeName/", true);
 
             xhttp.setRequestHeader("Authorization", "Bearer " + playerToken);
             xhttp.setRequestHeader("Content-Type", "application/json");

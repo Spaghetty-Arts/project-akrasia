@@ -1,5 +1,5 @@
 (function () {
-    
+
     sendInvite = function (username) {
         try {
             // create a new Ajax request
@@ -8,6 +8,7 @@
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
                     let obj = this.response;
+
                     //console.log(playerName);
                     swal({
                         title: "Sucesso!",
@@ -17,6 +18,7 @@
                         timer: 5000,
                     }).then((value) => {
                         $gameSelfSwitches.setValue([31, 12, 'A'], true);
+                            enviaConvite(playerID, playerName, obj.username);
                         AudioManager.stopBgm();
                         SceneManager.pop();
                     });
@@ -42,7 +44,7 @@
                 alert("Existem problemas com o servidor tenta mais tarde");
             };
 
-            let url = encodeURI("http://localhost:8080/pvp/play/"+playerID);
+            let url = encodeURI("http://"+iprest+"/pvp/play/"+playerID);
             xhttp.open("PUT", url, true);
 
             xhttp.setRequestHeader("Authorization", "Bearer " + playerToken);
@@ -63,5 +65,5 @@
             }
         }
     }
-    
+
 })();
