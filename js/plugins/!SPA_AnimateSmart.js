@@ -14,8 +14,6 @@ machine with pathfinding
  * In order for this plugin to work, you need to create an event running
 in parallel in the map where the events you want to animate are.
  *
- *
- * 
  * Plugin Command:
  *  AnimateSmart eventId1 eventId2 detectionDistance shootingDistance     
  * - Makes event 1 animate for event 2, finding path when in detectionDistance
@@ -44,6 +42,7 @@ in parallel in the map where the events you want to animate are.
 
   var mapIDs = parameters['Map IDs'];
   mapIDs = mapIDs.split(':');
+  
   // Converter String em Numbers
   mapIDs = mapIDs.map(function (x) {
     return parseInt(x, 10);
@@ -62,7 +61,7 @@ in parallel in the map where the events you want to animate are.
   Game_Interpreter.prototype.pluginCommand = function (command, args) {
     _Game_Interpreter_pluginCommand.call(this, command, args);
 
-    debugWindow("welele");
+    debugWindow("");
 
     if (command.toUpperCase() === 'ANIMATESMART') {
       subject = this.character(eval(args[0]));
@@ -104,9 +103,7 @@ in parallel in the map where the events you want to animate are.
   Game_CharacterBase.prototype.updateStop = function () {
     _Game_CharacterBase_updateStop.call(this);
 
-    
-
-    if (mapIDs.contains($gameMap._mapId)) {
+    if (mapIDs.contains($gameMap._mapId) && npc._eventId === this._eventId) {
       var totalDist = getDistance(npc);
       
       if (totalDist <= shootingDistance) {
