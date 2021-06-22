@@ -13,12 +13,14 @@ machine with pathfinding
  *
  * In order for this plugin to work, you need to create an event running
 in parallel in the map where the events you want to animate are.
-
- * 
+ *
  * Plugin Command:
  *  AnimateSmart eventId1 eventId2 detectionDistance shootingDistance     
  * - Makes event 1 animate for event 2, finding path when in detectionDistance
  * and attacking when at shootingDistance
+ * 
+ * Example usage: AnimateSmart 3 -1 8 1
+ * Animates event id 3 for player when at range 8, attacking at range 1
  *
  * Event Options:
  *  event = number for specific event
@@ -28,9 +30,23 @@ in parallel in the map where the events you want to animate are.
  *
  *  x, y = coordinates or $gameVariables.value(#) to use a variable coordinate
  *
+ * 
+ * @param Map IDs
+ * @desc Map IDs to Animate Events separate by double collons e.g.: 1:23:4
+ * @default 46
+ * 
  */
 
 (function () {
+  var parameters = PluginManager.parameters('!SPA_AnimateSmart');
+
+  var mapIDs = parameters['Map IDs'];
+  mapIDs = mapIDs.split(':');
+  
+  // Converter String em Numbers
+  mapIDs = mapIDs.map(function (x) {
+    return parseInt(x, 10);
+  });
 
   var npc = 0;
   var distance = 8;
@@ -44,6 +60,8 @@ in parallel in the map where the events you want to animate are.
   var _Game_Interpreter_pluginCommand = Game_Interpreter.prototype.pluginCommand;
   Game_Interpreter.prototype.pluginCommand = function (command, args) {
     _Game_Interpreter_pluginCommand.call(this, command, args);
+
+    debugWindow("");
 
     if (command.toUpperCase() === 'ANIMATESMART') {
       subject = this.character(eval(args[0]));
@@ -85,37 +103,42 @@ in parallel in the map where the events you want to animate are.
   Game_CharacterBase.prototype.updateStop = function () {
     _Game_CharacterBase_updateStop.call(this);
 
-    var totalDist = getDistance(npc);
+    if (mapIDs.contains($gameMap._mapId) && npc._eventId === this._eventId) {
+      var totalDist = getDistance(npc);
+      
+      if (totalDist <= shootingDistance) {
+        this._moveType = 0;
+        npc.setDirection(npc.findDirectionTo($gamePlayer.x, $gamePlayer.y));
+        doAttack();
 
-    if (totalDist <= shootingDistance) {
-      this._moveType = 0;
-      npc.setDirection(npc.findDirectionTo($gamePlayer.x, $gamePlayer.y));
-      doAttack();
+      } else if (totalDist < distance) {
+        this.setMoveSpeed(4);
+        this.setMoveFrequency(4);
 
-    } else if (totalDist < distance) {
-      this.setMoveSpeed(4);
-      this.setMoveFrequency(4);
-
-      if (this._target) {
-        this._targetX = this._target.x;
-        this._targetY = this._target.y;
-      }
-
-      if (this._targetX != null) {
-        direction = this.findDirectionTo(this._targetX, this._targetY);
-        if (direction > 0) {
-          this.moveStraight(direction);
+        if (this._target) {
+          this._targetX = this._target.x;
+          this._targetY = this._target.y;
         }
+
+        if (this._targetX != null) {
+          direction = this.findDirectionTo(this._targetX, this._targetY);
+          if (direction > 0) {
+            this.moveStraight(direction);
+          }
+        }
+
+
+      } else {
+        this.setMoveSpeed(3.5);
+        this.moveFrequency(4);
+
+        this._moveType = 1;
+
       }
-
-
-    } else {
-      this.setMoveSpeed(3.5);
-      this.moveFrequency(4);
-
-      this._moveType = 1;
-
     }
+
+
+
 
 
   };
@@ -154,6 +177,43 @@ in parallel in the map where the events you want to animate are.
     totalDist = xDist + yDist;
 
     return totalDist;
+
+  }
+
+  function My_Window() {
+    this.initialize.apply(this, arguments);
+  }
+
+  function debugWindow(debugText) {
+    var lh = Window_Base.prototype.lineHeight() * 2;
+
+    My_Window.prototype = Object.create(Window_Base.prototype);
+    My_Window.prototype.constructor = My_Window;
+
+    My_Window.prototype.initialize = function () {
+      Window_Base.prototype.initialize.call(this, 0, 0, Graphics.boxWidth, lh);
+      this.refresh();
+    }
+
+    My_Window.prototype.refresh = function () {
+      this.contents.clear();
+      this.drawText(debugText, 0, 0);
+    }
+
+    var smstart = Scene_Map.prototype.start;
+    Scene_Map.prototype.start = function () {
+      smstart.apply(this, arguments);
+      this.my_window = new My_Window();
+      this.addChild(this.my_window);
+    }
+  }
+
+  function changeDebugText(newText) {
+    My_Window.prototype.update = function () {
+      this.contents.clear();
+      this.drawText(newText, 0, 0);
+      Window_Base.prototype.update.call(this);
+    }
 
   }
 
