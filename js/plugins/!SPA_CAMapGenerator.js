@@ -80,10 +80,6 @@ https://bit.ly/3vLVOHE (RPG Maker Foruns on Internet Archive)
 */
 
 
-//TODO: Fazer tipo um quinto das tiles de erva serem arbustos (Kind of Done)
-//TODO: Fazer placement aleatoria de ervas e items do genero (Kind of done)
-
-
 (function () {
     var parameters = PluginManager.parameters('!SPA_CAMapGenerator');
 
