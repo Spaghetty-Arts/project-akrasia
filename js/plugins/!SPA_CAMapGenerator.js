@@ -94,8 +94,6 @@ https://bit.ly/3vLVOHE (RPG Maker Foruns on Internet Archive)
     var borderWallTileID = Number(parameters['Border Tile ID']);
     mapIDs = mapIDs.split(':');
 
-    console.log(mapIDs);
-
     // Converter String em Numbers
     mapIDs = mapIDs.map(function (x) {
         return parseInt(x, 10);
@@ -380,11 +378,11 @@ https://bit.ly/3vLVOHE (RPG Maker Foruns on Internet Archive)
         $dataMap.data[calcIndex($dataMap, xCoordinate, yCoordinate, 0)] = tileID;
     }
 
-    function My_Window() {
+    //TODO: Debug Text Window remove after debugging
+    ~function My_Window() {
         this.initialize.apply(this, arguments);
     }
 
-    //TODO: Debug Text Window remove after debugging
     function debugWindow(debugText) {
         var lh = Window_Base.prototype.lineHeight() * 2;
 
