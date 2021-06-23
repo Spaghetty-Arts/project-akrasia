@@ -142,13 +142,31 @@ let shootID = -1;
     getAmmoLevel2 = function () {
         let ammo = $gameVariables.value(34);
         ammo += 5;
-        AudioManager.playSe({name: "pick", pan: 0, pitch: 100, volume: 100});
+        AudioManager.playSe({name: "pickammo", pan: 0, pitch: 100, volume: 100});
         $gameVariables.setValue(34, ammo);
         $gameVariables.setValue(40, ammo);
     }
 
-    getAmmo = function () {
-
+    getAmmoG = function () {
+        if ($gameSwitches.value(36)) {
+            let ammo = $gameVariables.value(34);
+            ammo += 5;
+            AudioManager.playSe({name: "pickammo", pan: 0, pitch: 100, volume: 100});
+            $gameVariables.setValue(36, ammo);
+            $gameVariables.setValue(40, ammo);
+        } else if ($gameSwitches.value(37)) {
+            let ammo = $gameVariables.value(34);
+            ammo += 30;
+            AudioManager.playSe({name: "pickammo", pan: 0, pitch: 100, volume: 100});
+            $gameVariables.setValue(38, ammo);
+            $gameVariables.setValue(40, ammo);
+        } else {
+            let ammo = $gameVariables.value(34);
+            ammo += 10;
+            AudioManager.playSe({name: "pickammo", pan: 0, pitch: 100, volume: 100});
+            $gameVariables.setValue(34, ammo);
+            $gameVariables.setValue(40, ammo);
+        }
     }
 
     turretDistance = function (id) {

@@ -623,10 +623,10 @@ Galv.PROJ.executeAction = function(action,target) {
 					attackE(target.eventId(), 10);
 					break;
 				case '3':
-					attackE(target.eventId(), 10);
+					attackE(target.eventId(), 5);
 					break;
 				case '4':
-					attackE(target.eventId(), 3);
+					attackE(target.eventId(), 8);
 					break;
 				case '5':
 					attackP(20);
