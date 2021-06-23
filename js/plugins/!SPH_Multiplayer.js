@@ -86,7 +86,9 @@ var charEvent = $gameMap._events[1];
         armaAd=data.arma;
         if(data.lifead<=0){
           alert('Ganhaste!');
-          //ajax ganhou
+          battleRecord(playerID, enemieID);
+          winLose(1);
+
         }
 if(data.x<100){
     // setpos(data.x, data.y);

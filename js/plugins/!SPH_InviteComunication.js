@@ -12,7 +12,7 @@ function enviaConvite(id, user, useradd){
             };
         console.log("__enviado__"+data);
 
-
+        changeState(2);
   // ws.onopen = function(response) {
         // Serializamos o objeto para json
         wss.send(JSON.stringify(data));
@@ -51,11 +51,12 @@ if(data.usernamead==playerName){
 
       if(data.inid>playerID){
           $gamePlayer.reserveTransfer(30, 17,  8);
-          //mudar de estado
       }else{
-
           $gamePlayer.reserveTransfer(30, 8,  6);
+          //changeState(3)
       }
+
+      changeState(3);
 
   } else {
     enviaResposta(playerID, playerName, data.username, "nao");
@@ -123,11 +124,12 @@ id=playerID;
 
       $gamePlayer.reserveTransfer(30, 8,  6);
   }
-
+  changeState(3);
 
 }else{
 swal("Recusado", "Hora de voltar à Loby!");
   $gamePlayer.reserveTransfer(31, 15,  8);
+  changeState(1);
 }
 
 }
