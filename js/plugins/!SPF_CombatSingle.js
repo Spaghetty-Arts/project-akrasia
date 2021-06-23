@@ -59,6 +59,16 @@ let shootID = -1;
         $gameSelfSwitches.setValue([$gameMap._mapId, id, "C"], true);
     }
 
+    rewardVR = function (id) {
+        AudioManager.playSe({name: "loot", pan: 0, pitch: 100, volume: 100});
+        let loot = Math.floor(Math.random() * 100) + 1;
+        let old = $gameVariables.value(88);
+        loot = loot + old;
+
+        $gameVariables.setValue(88, loot);
+        $gameSelfSwitches.setValue([$gameMap._mapId, id, "C"], true);
+    }
+
 
     gameOver = function () {
         if (playerLife <= 0) {
@@ -67,7 +77,17 @@ let shootID = -1;
             SceneManager.goto(Scene_Gameover);
         }
     }
-    
+
+    gameOverVR = function () {
+        if (playerLife <= 0) {
+            playerLife = 0;
+            AudioManager.playSe({name: "soliderD", pan: 0, pitch: 100, volume: 100});
+            $gamePlayer.reserveTransfer(45, 16,  5, 8, 0);
+            $gameVariables.setValue(88, 0);
+            $gameVariables.setValue(86, 10);
+            closeVr();
+        }
+    }
     
     startCombat = function () {
         AudioManager.playBgm({name: "combatOstr", pan: 0, pitch: 100, volume: 100});

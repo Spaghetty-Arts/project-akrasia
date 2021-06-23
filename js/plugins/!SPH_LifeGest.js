@@ -31,5 +31,6 @@ playerLife-=10;
 verificaVida = function(){
   if(playerLife<=0){
     alert('Perdeste');
+    //ajax perdeu
   }
 }

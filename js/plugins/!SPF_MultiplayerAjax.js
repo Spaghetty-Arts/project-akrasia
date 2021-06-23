@@ -1,6 +1,5 @@
 (function () {
-
-    sendInvite = function (username) {
+    changeState = function (state) {
         try {
             // create a new Ajax request
             var xhttp = new XMLHttpRequest();
@@ -18,7 +17,7 @@
                         timer: 5000,
                     }).then((value) => {
                         $gameSelfSwitches.setValue([31, 12, 'A'], true);
-                            enviaConvite(playerID, playerName, obj.username);
+                        enviaConvite(playerID, playerName, obj.username);
                         AudioManager.stopBgm();
                         SceneManager.pop();
                     });
@@ -65,5 +64,4 @@
             }
         }
     }
-
 })();

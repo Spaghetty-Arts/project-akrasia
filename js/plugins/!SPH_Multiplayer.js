@@ -1,14 +1,15 @@
-const ws = new WebSocket('ws://localhost:9990/chat');
+const ws = new WebSocket('ws://192.168.2.61:9990/chat');
 
 var xpos=2;
 var ypos=1;
 var disparo=0;
 
 //var id=Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
-var id=1;  //id player var
+var id;  //id player var
 
-var ida=2; // id do adversario
+var ida; // id do adversario
 
+var dispok=1;
 
 var para2=0;
 function startgame() {
@@ -68,7 +69,7 @@ var dir=$gamePlayer.direction();
         disparo=0;
   //};
 
-
+  $gameSelfSwitches.setValue([$gameMap._mapId, 2, "A"], true);
 
 }
 
@@ -85,6 +86,7 @@ var charEvent = $gameMap._events[1];
         armaAd=data.arma;
         if(data.lifead<=0){
           alert('Ganhaste!');
+          //ajax ganhou
         }
 if(data.x<100){
     // setpos(data.x, data.y);
@@ -94,10 +96,7 @@ if(data.x<100){
       // $gameMap.event(1).moveStraight(data.dir);
        $gameMap.event(1).setDirection(data.dir);
        if(data.disparo==1){
-
-              shootAnimation(4, 0);
-              Galv.PROJ.dir(1,0,8,4,'bullet0(8,5)',125,'c(55)|e',[5],[],3,1);
-              AudioManager.playSe({name: "pistolShot", pan: 0, pitch: 100, volume: 100});
+verifica();
 
 
        }
@@ -108,12 +107,26 @@ if(data.x<100){
     //console.log('x:' + data.x + " | y:" + data.y);
   });
 
-
+  $gameSelfSwitches.setValue([$gameMap._mapId, 18, "A"], true);
 }
 function setpos(x,y){
 $gameMap.event(1).setPosition(x, y);
 
 
+}
+
+
+function verifica(){
+if(dispok==1){
+
+                shootAnimation(4, 0);
+                Galv.PROJ.dir(1,0,8,4,'bullet0(8,5)',125,'c(55)|e',[5],[],3,1);
+                AudioManager.playSe({name: "pistolShot", pan: 0, pitch: 100, volume: 100});
+                dispok=0;
+                $gameSelfSwitches.setValue([$gameMap._mapId, 19, "A"], true);
+
+
+              }
 }
 /*
 socket.on('message', function(msg) {
