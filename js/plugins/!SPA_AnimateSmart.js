@@ -42,7 +42,7 @@ in parallel in the map where the events you want to animate are.
 
   var mapIDs = parameters['Map IDs'];
   mapIDs = mapIDs.split(':');
-  
+
   // Converter String em Numbers
   mapIDs = mapIDs.map(function (x) {
     return parseInt(x, 10);
@@ -53,6 +53,7 @@ in parallel in the map where the events you want to animate are.
   var shootingDistance = 1;
   var iterationCounter = 0;
 
+  var debugCounter = 0;
   var max_hit_value = 35; // Max value between hits
   var min_hit_value = 25; // Min value between hits
   var hit_random_num = getRandomInt(min_hit_value, max_hit_value);
@@ -102,13 +103,22 @@ in parallel in the map where the events you want to animate are.
   Game_CharacterBase.prototype.updateStop = function () {
     _Game_CharacterBase_updateStop.call(this);
 
-    if (mapIDs.contains($gameMap._mapId) && npc._eventId === this._eventId) {
+    if (mapIDs.contains($gameMap._mapId) && npc._eventId === this._eventId && $gameSelfSwitches.value([$gameMap.mapId(), npc._eventId, 'A'])) {
       var totalDist = getDistance(npc);
-      
-      if (totalDist <= shootingDistance) {
+      var xDist = getxDistance(npc);
+      var yDist = getyDistance(npc);
+
+      if ((xDist <= shootingDistance && yDist == 0) || (yDist <= shootingDistance && xDist == 0)) {
         this._moveType = 0;
         npc.setDirection(npc.findDirectionTo($gamePlayer.x, $gamePlayer.y));
-        doAttack();
+
+        if (shootingDistance == 1) {
+          meleeAtack();
+
+        } else {
+          rangedAttack(npc);
+
+        }
 
       } else if (totalDist < distance) {
         this.setMoveSpeed(4);
@@ -147,16 +157,71 @@ in parallel in the map where the events you want to animate are.
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
-  function doAttack() {
+  function meleeAtack() {
     $gamePlayer.requestAnimation(0);
     iterationCounter++;
 
     if (iterationCounter % hit_random_num === 0) {
       hit_random_num = getRandomInt(min_hit_value, max_hit_value);
-      $gamePlayer.requestAnimation(7);
+      $gamePlayer.requestAnimation(129);
+      AudioManager.playSe({ name: "Paralyze2", pan: 0, pitch: 100, volume: 100 });
 
-      $gameActors.actor(1)._hp -= getRandomInt(1, 20);
+      playerLife -= 10;
+      $gameVariables.setValue(86, playerLife);
+      $gameSelfSwitches.setValue([$gameMap._mapId, eventID, "B"], true);
+    }
+  }
 
+  function rangedAttack(npc) {
+    let distY = npc.y - $gamePlayer.y;
+    let distX = npc.x - $gamePlayer.x;
+    npc.setDirection(npc.findDirectionTo($gamePlayer.x, $gamePlayer.y));
+
+    npc.requestAnimation(0);
+    debugCounter++;
+
+    if (debugCounter % hit_random_num === 0) {
+
+      switch (npc.direction()) {
+
+        case 2:
+          distY = npc.y - $gamePlayer.y;
+          distX = npc.x - $gamePlayer.x;
+          if (distY <= 4 && distX == 0) {
+            Galv.PROJ.dir(npc._eventId, 0, 8, 4, 'bullet0(8,5)', 130, 'c(5)|', [5], [], 3, 1);
+            AudioManager.playSe({ name: "pistolShot", pan: 0, pitch: 100, volume: 100 });
+          } else {
+            npc.setMoveSpeed(4.5);
+            npc.setMoveFrequency(4.5);
+            npc._moveType = 2;
+          }
+          break;
+        case 4:
+          distY = npc.y - $gamePlayer.y;
+          distX = $gamePlayer.x - npc.x;
+          if (distX <= 4 && distY == 0) {
+            Galv.PROJ.dir(npc._eventId, 0, 8, 4, 'bullet0(8,5)', 130, 'c(5)|', [5], [], 3, 1);
+            AudioManager.playSe({ name: "pistolShot", pan: 0, pitch: 100, volume: 100 });
+          }
+          break;
+        case 6:
+          distY = npc.y - $gamePlayer.y;
+          distX = npc.x - $gamePlayer.x;
+          if (distX <= 4 && distY == 0) {
+            Galv.PROJ.dir(npc._eventId, 0, 8, 4, 'bullet0(8,5)', 130, 'c(5)|', [5], [], 3, 1);
+            AudioManager.playSe({ name: "pistolShot", pan: 0, pitch: 100, volume: 100 });
+          }
+          break;
+        case 8:
+          distY = $gamePlayer.y - npc.y;
+          distX = npc.x - $gamePlayer.x;
+          if (distY <= 4 && distX == 0) {
+            Galv.PROJ.dir(npc._eventId, 0, 8, 4, 'bullet0(8,5)', 130, 'c(5)|', [5], [], 3, 1);
+            AudioManager.playSe({ name: "pistolShot", pan: 0, pitch: 100, volume: 100 });
+          }
+          break;
+
+      }
     }
   }
 
@@ -176,6 +241,28 @@ in parallel in the map where the events you want to animate are.
     totalDist = xDist + yDist;
 
     return totalDist;
+
+  }
+
+  function getxDistance(npc) {
+    var xDist = $gamePlayer.x - npc.x;
+
+    if (xDist < 0) {
+      xDist = -xDist;
+    }
+
+    return xDist;
+
+  }
+
+  function getyDistance(npc) {
+    var yDist = $gamePlayer.y - npc.y;
+
+    if (yDist < 0) {
+      yDist = -yDist;
+    }
+
+    return yDist;
 
   }
 

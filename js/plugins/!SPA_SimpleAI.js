@@ -56,7 +56,7 @@ and detect the player in a range of 8 tiles.
                 npc._moveType = 0;
                 npc.setDirection(npc.findDirectionTo($gamePlayer.x, $gamePlayer.y));
 
-                doAttack();
+                meleeAtack();
 
             } else if (totalDist < distance) {
                 npc.setMoveSpeed(4);
@@ -96,7 +96,7 @@ and detect the player in a range of 8 tiles.
 
     }
   
-    function doAttack() {
+    function meleeAtack() {
         $gamePlayer.requestAnimation(0);
         iterationCounter++;
 
@@ -107,7 +107,6 @@ and detect the player in a range of 8 tiles.
                             
             playerLife -= 10;
             $gameVariables.setValue(86, playerLife);
-            changeDebugText("Player life: " + $gameActors.actor(1)._hp);
             $gameSelfSwitches.setValue([$gameMap._mapId, eventID, "B"], true);
         }
     }
