@@ -66,6 +66,7 @@ in parallel in the map where the events you want to animate are.
     if (command.toUpperCase() === 'ANIMATESMART' && mapIDs.contains($gameMap._mapId)) {
       subject = this.character(eval(args[0]));
       npc = $gameMap._events[eval(args[0])];
+      
       subject.setTarget(this.character(eval(args[1])));
 
       if (args[2] != null) {
