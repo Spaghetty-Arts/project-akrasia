@@ -104,9 +104,6 @@ and detect the player in a range of 8 tiles, and start shooting at
                     }
 
 
-                    // $gamePlayer.requestAnimation(7);
-
-                    //$gameActors.actor(1)._hp -= getRandomInt(1, 20);
                 }
 
 
