@@ -1,4 +1,4 @@
-const wss = new WebSocket('ws://192.168.2.61:9990/chat');
+const wss = new WebSocket('ws://localhost:9990/chat');
 
 
 
@@ -47,6 +47,8 @@ if(data.usernamead==playerName){
     });
     ida=data.inid;
     id=playerID;
+        changeState(3);
+
     enviaResposta(playerID, playerName, data.username, "sim");
 
       if(data.inid>playerID){
@@ -56,7 +58,7 @@ if(data.usernamead==playerName){
           //changeState(3)
       }
 
-      changeState(3);
+
 
   } else {
     enviaResposta(playerID, playerName, data.username, "nao");
@@ -114,7 +116,7 @@ if(data.resposta=="sim"){
   });
 ida=data.inid;
 id=playerID;
-
+  changeState(3);
 //mudar de estado
 
   if(data.inid>playerID){
@@ -124,7 +126,7 @@ id=playerID;
 
       $gamePlayer.reserveTransfer(30, 8,  6);
   }
-  changeState(3);
+
 
 }else{
 swal("Recusado", "Hora de voltar à Loby!");
@@ -136,7 +138,7 @@ swal("Recusado", "Hora de voltar à Loby!");
 }
 
 
-  });
+});
 
 
 }
