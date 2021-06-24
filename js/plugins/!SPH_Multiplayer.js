@@ -1,4 +1,4 @@
-const ws = new WebSocket('ws://192.168.2.61:9990/chat');
+const ws = new WebSocket('ws://localhost:9990/chat');
 
 var xpos=2;
 var ypos=1;
