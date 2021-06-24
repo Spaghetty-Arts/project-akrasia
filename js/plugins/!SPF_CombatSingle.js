@@ -86,6 +86,7 @@ let shootID = -1;
             $gameVariables.setValue(88, 0);
             $gameVariables.setValue(86, 10);
             closeVr();
+            clearNPC();
         }
     }
     
