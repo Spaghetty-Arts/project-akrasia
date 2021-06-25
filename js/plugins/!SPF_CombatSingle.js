@@ -150,13 +150,13 @@ let shootID = -1;
 
     getAmmoG = function () {
         if ($gameSwitches.value(36)) {
-            let ammo = $gameVariables.value(34);
+            let ammo = $gameVariables.value(36);
             ammo += 5;
             AudioManager.playSe({name: "pickammo", pan: 0, pitch: 100, volume: 100});
             $gameVariables.setValue(36, ammo);
             $gameVariables.setValue(40, ammo);
         } else if ($gameSwitches.value(37)) {
-            let ammo = $gameVariables.value(34);
+            let ammo = $gameVariables.value(38);
             ammo += 30;
             AudioManager.playSe({name: "pickammo", pan: 0, pitch: 100, volume: 100});
             $gameVariables.setValue(38, ammo);
