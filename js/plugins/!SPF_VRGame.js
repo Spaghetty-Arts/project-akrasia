@@ -31,7 +31,7 @@ let mapLevel;
     }
 
     setMap = function () {
-        mapLevel = $gameMap.mapId();
+        mapLevel = $gameMap._mapId();
     }
 
 

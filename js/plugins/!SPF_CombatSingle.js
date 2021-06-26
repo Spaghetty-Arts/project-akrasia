@@ -13,6 +13,7 @@ let shootID = -1;
         let npc = findByID(id);
         let damage = npc.health - damageW;
         npc.health = damage;
+        $gameVariables.setValue(89, npc.health);
         $gameMap.event(id).requestAnimation(130);
         if (damage <= 0) {
             $gameSelfSwitches.setValue([$gameMap._mapId, id, "B"], true);
@@ -90,7 +91,7 @@ let shootID = -1;
             $gameVariables.setValue(88, 0);
             $gameVariables.setValue(86, 10);
             closeVr();
-            clearNPC();
+
             closeBoss();
         }
     }
