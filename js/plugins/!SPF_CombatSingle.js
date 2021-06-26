@@ -31,6 +31,10 @@ let shootID = -1;
         }
     }
 
+    setBoss = function () {
+        $gameVariables.setValue(89, 200);
+    }
+
     attackP = function (damageW) {
         playerLife -= damageW;
         $gameSelfSwitches.setValue([$gameMap._mapId, shootID, "B"], true);
@@ -82,14 +86,23 @@ let shootID = -1;
         if (playerLife <= 0) {
             playerLife = 0;
             AudioManager.playSe({name: "soliderD", pan: 0, pitch: 100, volume: 100});
-            $gamePlayer.reserveTransfer(45, 16,  5, 8, 0);
+            teleportSave();
             $gameVariables.setValue(88, 0);
             $gameVariables.setValue(86, 10);
             closeVr();
             clearNPC();
+            closeBoss();
         }
     }
-    
+
+    teleportSave = function () {
+        if (mapLevel == 45) {
+            $gamePlayer.reserveTransfer(45, 16,  5, 8, 0);
+        } else {
+            $gamePlayer.reserveTransfer(51, 29,  25, 8, 0);
+        }
+    }
+
     startCombat = function () {
         AudioManager.playBgm({name: "combatOstr", pan: 0, pitch: 100, volume: 100});
     }

@@ -1,11 +1,14 @@
+let mapLevel;
+
 (function () {
 
     let open = false;
 
+
     let _Scene_Map_start = Scene_Map.prototype.start;
     Scene_Map.prototype.start = function() {
         _Scene_Map_start.call(this);
-        this._vrWindow = new Window_VRHud(0, 0, 250, 80);
+        this._vrWindow = new Window_VRHud(0, 0, 200, 80);
     };
 
     let _Scene_Map_update = Scene_Map.prototype.update;
@@ -26,6 +29,11 @@
     closeVr = function () {
         open = false;
     }
+
+    setMap = function () {
+        mapLevel = $gameMap.mapId();
+    }
+
 
     function Window_VRHud() {
         this.initialize.apply(this, arguments);

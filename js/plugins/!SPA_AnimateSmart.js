@@ -122,8 +122,8 @@ in parallel in the map where the events you want to animate are.
         }
 
       } else if (totalDist < distance) {
-        this.setMoveSpeed(4);
-        this.setMoveFrequency(4);
+        this.setMoveSpeed(5);
+        this.setMoveFrequency(5);
 
         if (this._target) {
           this._targetX = this._target.x;
@@ -140,7 +140,7 @@ in parallel in the map where the events you want to animate are.
 
       } else {
         this.setMoveSpeed(3.5);
-        this.moveFrequency(4);
+        this.moveFrequency(5);
 
         this._moveType = 1;
 
