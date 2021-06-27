@@ -209,5 +209,25 @@ let shootID = -1;
 
     }
 
+    changeTactic = function () {
+        if ($gameVariables.value(89) <= 100) {
+            if ($gameMap._mapId == 58) {
+                var character = $gameMap.event(10);
+                character.requestAnimation(51);
+
+                $gameSelfSwitches.setValue([$gameMap._mapId, 11, "A"], true);
+                $gameSelfSwitches.setValue([$gameMap._mapId, 17, "A"], true);
+                $gameSelfSwitches.setValue([$gameMap._mapId, 18, "A"], true);
+            }
+        }
+    }
+
+    healBoss = function (id) {
+        let npc = findByID(id);
+        npc.health += 50;
+        $gameVariables.setValue(89, npc.health);
+        $gameMap.event(id).requestAnimation(131);
+        AudioManager.playSe({name: "Heal8", pan: 0, pitch: 100, volume: 100});
+    }
 })();
 

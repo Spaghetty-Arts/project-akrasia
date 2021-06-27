@@ -96,7 +96,7 @@ and detect the player in a range of 8 tiles, and start shooting at
                     distY = npc.y - $gamePlayer.y;
                     distX = npc.x - $gamePlayer.x;
                     if (distY <= 4 && distX == 0) {
-                        if ($gameMap._mapId == 58) {
+                        if ($gameMap._mapId == 58 || $gameMap._mapId == 59) {
                             Galv.PROJ.dir(npc._eventId, 0, 8, 6, 'bullet2', 130, 'c(7)|', [5], [], 3, 1);
                         } else {
                             Galv.PROJ.dir(npc._eventId, 0, 8, 4, 'bullet0(8,5)', 130, 'c(5)|', [5], [], 3, 1);
@@ -113,7 +113,7 @@ and detect the player in a range of 8 tiles, and start shooting at
                     distY = npc.y - $gamePlayer.y;
                     distX = $gamePlayer.x - npc.x;
                     if (distX <= 4 && distY == 0) {
-                        if ($gameMap._mapId == 58) {
+                        if ($gameMap._mapId == 58 || $gameMap._mapId == 59) {
                             Galv.PROJ.dir(npc._eventId, 0, 8, 6, 'bullet2', 130, 'c(7)|', [5], [], 3, 1);
                         } else {
                             Galv.PROJ.dir(npc._eventId, 0, 8, 4, 'bullet0(8,5)', 130, 'c(5)|', [5], [], 3, 1);
@@ -125,7 +125,7 @@ and detect the player in a range of 8 tiles, and start shooting at
                     distY = npc.y - $gamePlayer.y;
                     distX = npc.x - $gamePlayer.x;
                     if (distX <= 4 && distY == 0) {
-                        if ($gameMap._mapId == 58) {
+                        if ($gameMap._mapId == 58 || $gameMap._mapId == 59) {
                             Galv.PROJ.dir(npc._eventId, 0, 8, 6, 'bullet2', 130, 'c(7)|', [5], [], 3, 1);
                         } else {
                             Galv.PROJ.dir(npc._eventId, 0, 8, 4, 'bullet0(8,5)', 130, 'c(5)|', [5], [], 3, 1);
@@ -137,7 +137,7 @@ and detect the player in a range of 8 tiles, and start shooting at
                     distY = $gamePlayer.y - npc.y;
                     distX = npc.x - $gamePlayer.x;
                     if (distY <= 4 && distX == 0) {
-                        if ($gameMap._mapId == 58) {
+                        if ($gameMap._mapId == 58 || $gameMap._mapId == 59) {
                             Galv.PROJ.dir(npc._eventId, 0, 8, 6, 'bullet2', 130, 'c(7)|', [5], [], 3, 1);
                         } else {
                             Galv.PROJ.dir(npc._eventId, 0, 8, 4, 'bullet0(8,5)', 130, 'c(5)|', [5], [], 3, 1);
