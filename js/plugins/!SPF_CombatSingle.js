@@ -97,7 +97,7 @@ let shootID = -1;
     }
 
     teleportSave = function () {
-        if (mapLevel == 45) {
+        if ($gameMap._mapId == 45) {
             $gamePlayer.reserveTransfer(45, 16,  5, 8, 0);
         } else {
             $gamePlayer.reserveTransfer(51, 29,  25, 8, 0);

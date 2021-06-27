@@ -1,4 +1,3 @@
-let mapLevel;
 
 (function () {
 
@@ -30,9 +29,6 @@ let mapLevel;
         open = false;
     }
 
-    setMap = function () {
-        mapLevel = $gameMap._mapId();
-    }
 
 
     function Window_VRHud() {
