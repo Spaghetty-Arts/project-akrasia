@@ -20,6 +20,9 @@ let shootID = -1;
             $gameSelfSwitches.setValue([$gameMap._mapId, id, "A"], false);
             AudioManager.playSe({name: "soliderD", pan: 0, pitch: 100, volume: 100});
 
+            npc.health = 0;
+            $gameVariables.setValue(89, 0);
+
             if (checkAllDead()) {
                 AudioManager.stopBgm();
                 $gameSwitches.setValue(93, true);
@@ -218,6 +221,15 @@ let shootID = -1;
                 $gameSelfSwitches.setValue([$gameMap._mapId, 11, "A"], true);
                 $gameSelfSwitches.setValue([$gameMap._mapId, 17, "A"], true);
                 $gameSelfSwitches.setValue([$gameMap._mapId, 18, "A"], true);
+            }
+
+            if ($gameMap._mapId == 59){
+                var character = $gameMap.event(31);
+                character.requestAnimation(51);
+
+                $gameSelfSwitches.setValue([$gameMap._mapId, 39, "A"], true);
+                $gameSelfSwitches.setValue([$gameMap._mapId, 38, "A"], true);
+                $gameSelfSwitches.setValue([$gameMap._mapId, 40, "A"], true);
             }
         }
     }
