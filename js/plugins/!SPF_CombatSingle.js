@@ -100,10 +100,11 @@ let shootID = -1;
     }
 
     teleportSave = function () {
-        if ($gameMap._mapId == 45) {
-            $gamePlayer.reserveTransfer(45, 16,  5, 8, 0);
-        } else {
+        if ($gameMap._mapId == 58) {
+
             $gamePlayer.reserveTransfer(51, 29,  25, 8, 0);
+        } else {
+            $gamePlayer.reserveTransfer(45, 16,  5, 8, 0);
         }
     }
 
