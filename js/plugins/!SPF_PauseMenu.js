@@ -85,7 +85,7 @@
                         volume: 100
                     };
                     if (!AudioManager.isCurrentBgm(bgm)) {
-
+                        AudioManager.stopBgs();
                         AudioManager.saveMenuBgm(key, AudioManager.saveBgm());
                         AudioManager.playBgm(bgm);
                     }
