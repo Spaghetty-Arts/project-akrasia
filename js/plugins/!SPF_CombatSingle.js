@@ -251,5 +251,40 @@ let shootID = -1;
             closeBoss();
         }
     }
+
+    restartNPC = function (level) {
+        let npc;
+        let npcH;
+        switch (level) {
+            case 1:
+                npc = [7, 8, 9, 10, 11, 12, 14, 15, 16, 17, 21];
+                for (let i = 0; i < npc.length; i++) {
+                    $gameSelfSwitches.setValue([47, npc[i], "A"], false);
+                    $gameSelfSwitches.setValue([47, npc[i], "B"], false);
+                    $gameSelfSwitches.setValue([47, npc[i], "C"], false);
+                }
+                break;
+            case 2:
+                npc = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17];
+                for (let i = 0; i < npc.length; i++) {
+                    $gameSelfSwitches.setValue([52, npc[i], "A"], false);
+                    $gameSelfSwitches.setValue([52, npc[i], "B"], false);
+                    $gameSelfSwitches.setValue([52, npc[i], "C"], false);
+
+                }
+                break;
+            case 3:
+                npc = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17];
+                for (let i = 0; i < npc.length; i++) {
+                    $gameSelfSwitches.setValue([53, npc[i], "A"], false);
+                    $gameSelfSwitches.setValue([53, npc[i], "B"], false);
+                    $gameSelfSwitches.setValue([53, npc[i], "C"], false);
+
+                }
+                break;
+            case 4:
+                break;
+        }
+    }
 })();
 
