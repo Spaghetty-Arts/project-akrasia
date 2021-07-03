@@ -242,5 +242,14 @@ let shootID = -1;
         $gameMap.event(id).requestAnimation(131);
         AudioManager.playSe({name: "Heal8", pan: 0, pitch: 100, volume: 100});
     }
+
+
+    stopVR = function () {
+        if (Input.isTriggered('escape')) {
+            teleportSave();
+            closeVr();
+            closeBoss();
+        }
+    }
 })();
 
