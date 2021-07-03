@@ -283,6 +283,9 @@ let shootID = -1;
                 }
                 break;
             case 4:
+                $gameSelfSwitches.setValue([58, 10, "A"], false);
+                $gameSelfSwitches.setValue([58, 10, "B"], false);
+                $gameSelfSwitches.setValue([58, 10, "C"], false);
                 break;
         }
     }
