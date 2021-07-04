@@ -110,8 +110,13 @@ https://bit.ly/3vLVOHE (RPG Maker Foruns on Internet Archive)
 
         if (command === 'mapGeneratorStart' && mapIDs.contains($gameMap._mapId)) {
             placeArrayTiles();
-            getEventsOnAliveCells();
-            transferPlayerRandom();
+
+            if ($gameSwitches.value(45)) {
+                getEventsOnAliveCells();
+                transferPlayerRandom();
+                $gameSwitches.setValue(45, false);
+
+            }
 
         }
     }
@@ -136,33 +141,9 @@ https://bit.ly/3vLVOHE (RPG Maker Foruns on Internet Archive)
     }
 
     var getEventsOnAliveCells = (function () {
-        var executed = false;
         return function () {
-            if (!executed) {
-                eventIterator = 1;
-                while($gameMap.event(eventIterator) != null){
-                    var randomX = getRandomInt(0, tilesArr.length);
-                    var randomY = getRandomInt(0, tilesArr[0].length);
-    
-                    while (tilesArr[randomX][randomY] == deadCellTileID) {
-                        randomX = getRandomInt(0, tilesArr.length);
-                        randomY = getRandomInt(0, tilesArr[0].length);
-                    }
-    
-                    $gameMap.event(eventIterator).setPosition(randomX, randomY);
-    
-                    eventIterator++;
-                }
-
-                executed = true;
-            }
-        };
-    })();
-
-    var transferPlayerRandom = (function () {
-        var executed = false;
-        return function () {
-            if (!executed) {
+            eventIterator = 1;
+            while ($gameMap.event(eventIterator) != null) {
                 var randomX = getRandomInt(0, tilesArr.length);
                 var randomY = getRandomInt(0, tilesArr[0].length);
 
@@ -171,10 +152,26 @@ https://bit.ly/3vLVOHE (RPG Maker Foruns on Internet Archive)
                     randomY = getRandomInt(0, tilesArr[0].length);
                 }
 
-                $gamePlayer.reserveTransfer($gameMap._mapId, randomX, randomY, 2, 2);
+                $gameMap.event(eventIterator).setPosition(randomX, randomY);
 
-                executed = true;
+                eventIterator++;
             }
+
+        };
+    })();
+
+    var transferPlayerRandom = (function () {
+        return function () {
+            var randomX = getRandomInt(0, tilesArr.length);
+            var randomY = getRandomInt(0, tilesArr[0].length);
+
+            while (tilesArr[randomX][randomY] == deadCellTileID) {
+                randomX = getRandomInt(0, tilesArr.length);
+                randomY = getRandomInt(0, tilesArr[0].length);
+            }
+
+            $gamePlayer.reserveTransfer($gameMap._mapId, randomX, randomY, 2, 2);
+
         };
     })();
 

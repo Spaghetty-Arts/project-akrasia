@@ -101,7 +101,7 @@ https://bit.ly/3vLVOHE (RPG Maker Foruns on Internet Archive)
 
     var tilesArr = [];
     var transferCompleted = false;
-
+    var hereWeGoAgain = false;
 
 
     var receivedPluginCommands = Game_Interpreter.prototype.pluginCommand;
@@ -110,8 +110,13 @@ https://bit.ly/3vLVOHE (RPG Maker Foruns on Internet Archive)
 
         if (command === 'mapGeneratorStart' && mapIDs.contains($gameMap._mapId)) {
             placeArrayTiles();
-            getEventsOnAliveCells();
-            transferPlayerRandom();
+
+            if ($gameSwitches.value(45)) {
+                getEventsOnAliveCells();
+                transferPlayerRandom();
+                $gameSwitches.setValue(45, false);
+
+            }
 
         }
     }
@@ -127,7 +132,7 @@ https://bit.ly/3vLVOHE (RPG Maker Foruns on Internet Archive)
         oldGamePlayer_performTransfer.call(this);
     };
 
-    function createMap(){
+    function createMap() {
         tilesArr = initializeTilesArray();
         RandomiseMap(tilesArr, randomness);
         tilesArr = runCellularAutomata(numberOfIterations, tilesArr, aliveLimit, deadLimit);
@@ -136,33 +141,9 @@ https://bit.ly/3vLVOHE (RPG Maker Foruns on Internet Archive)
     }
 
     var getEventsOnAliveCells = (function () {
-        var executed = false;
         return function () {
-            if (!executed) {
-                eventIterator = 1;
-                while($gameMap.event(eventIterator) != null){
-                    var randomX = getRandomInt(0, tilesArr.length);
-                    var randomY = getRandomInt(0, tilesArr[0].length);
-    
-                    while (tilesArr[randomX][randomY] == deadCellTileID) {
-                        randomX = getRandomInt(0, tilesArr.length);
-                        randomY = getRandomInt(0, tilesArr[0].length);
-                    }
-    
-                    $gameMap.event(eventIterator).setPosition(randomX, randomY);
-    
-                    eventIterator++;
-                }
-
-                executed = true;
-            }
-        };
-    })();
-
-    var transferPlayerRandom = (function () {
-        var executed = false;
-        return function () {
-            if (!executed) {
+            eventIterator = 1;
+            while ($gameMap.event(eventIterator) != null) {
                 var randomX = getRandomInt(0, tilesArr.length);
                 var randomY = getRandomInt(0, tilesArr[0].length);
 
@@ -171,10 +152,26 @@ https://bit.ly/3vLVOHE (RPG Maker Foruns on Internet Archive)
                     randomY = getRandomInt(0, tilesArr[0].length);
                 }
 
-                $gamePlayer.reserveTransfer($gameMap._mapId, randomX, randomY, 2, 2);
+                $gameMap.event(eventIterator).setPosition(randomX, randomY);
 
-                executed = true;
+                eventIterator++;
             }
+
+        };
+    })();
+
+    var transferPlayerRandom = (function () {
+        return function () {
+            var randomX = getRandomInt(0, tilesArr.length);
+            var randomY = getRandomInt(0, tilesArr[0].length);
+
+            while (tilesArr[randomX][randomY] == deadCellTileID) {
+                randomX = getRandomInt(0, tilesArr.length);
+                randomY = getRandomInt(0, tilesArr[0].length);
+            }
+
+            $gamePlayer.reserveTransfer($gameMap._mapId, randomX, randomY, 2, 2);
+
         };
     })();
 
@@ -184,7 +181,7 @@ https://bit.ly/3vLVOHE (RPG Maker Foruns on Internet Archive)
         var randomX = getRandomInt(0, map.length);
         var randomY = getRandomInt(0, map[0].length);
 
-        var numberOfTilesToPlace = Math.floor(numberOfLandTilesInMap/5);
+        var numberOfTilesToPlace = Math.floor(numberOfLandTilesInMap / 5);
 
         while (numberOfTilesToPlace > 0) {
             if (map[randomX][randomY] = mainTileID) {
@@ -378,42 +375,5 @@ https://bit.ly/3vLVOHE (RPG Maker Foruns on Internet Archive)
         $dataMap.data[calcIndex($dataMap, xCoordinate, yCoordinate, 0)] = tileID;
     }
 
-    //TODO: Debug Text Window remove after debugging
-    ~function My_Window() {
-        this.initialize.apply(this, arguments);
-    }
-
-    function debugWindow(debugText) {
-        var lh = Window_Base.prototype.lineHeight() * 2;
-
-        My_Window.prototype = Object.create(Window_Base.prototype);
-        My_Window.prototype.constructor = My_Window;
-
-        My_Window.prototype.initialize = function () {
-            Window_Base.prototype.initialize.call(this, 0, 0, Graphics.boxWidth, lh);
-            this.refresh();
-        }
-
-        My_Window.prototype.refresh = function () {
-            this.contents.clear();
-            this.drawText(debugText, 0, 0);
-        }
-
-        var smstart = Scene_Map.prototype.start;
-        Scene_Map.prototype.start = function () {
-            smstart.apply(this, arguments);
-            this.my_window = new My_Window();
-            this.addChild(this.my_window);
-        }
-    }
-
-    function changeDebugText(newText) {
-        My_Window.prototype.update = function () {
-            this.contents.clear();
-            this.drawText(newText, 0, 0);
-            Window_Base.prototype.update.call(this);
-        }
-
-    }
 
 })();
