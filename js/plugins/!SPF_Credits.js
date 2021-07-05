@@ -2,9 +2,9 @@
 
     enterCredits = function () {
         AudioManager.playBgm({name: "credits", pan: 0, pitch: 100, volume: 100});
-        Graphics.playVideo("movies/intro.webm");
+        Graphics.playVideo("movies/credits2.webm");
         setInterval(cancelVideo, 1);
-        setTimeout(endVideo, 5000);
+        setTimeout(endVideo, 31000);
     }
 
     function cancelVideo() {
