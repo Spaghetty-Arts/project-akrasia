@@ -28,7 +28,7 @@ Scene_Menu.prototype.commandLoad = function() {
 };
 
 Window_MenuCommand.prototype.addLoadCommand = function() {
-    this.addCommand('Load', 'load', true);
+    this.addCommand('Carregar', 'load', true);
 };
 
 Window_MenuCommand.prototype.makeCommandList = function() {
@@ -46,3 +46,12 @@ Scene_Load.prototype.createBackground = function () {
     this._backgroundSprite.bitmap = ImageManager.loadPicture("cpMenu");
     this.addChild(this._backgroundSprite);
 }
+
+Window_SavefileList.prototype.drawFileId = function(id, x, y) {
+    if (id == 1) {
+        this.drawText("AutoSave", x, y, 180);
+    } else {
+        this.drawText("Manual", x, y, 180);
+    }
+
+};

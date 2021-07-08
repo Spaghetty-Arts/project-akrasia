@@ -46,8 +46,7 @@
         var info = {};
         info.globalId   = this._globalId;
         info.title      = getChapter() + " : " + $dataMapInfos[$gameMap._mapId].name;
-        info.characters = $gameParty.charactersForSavefile();
-        info.faces      = $gameParty.facesForSavefile();
+
         info.playtime   = $gameSystem.playtimeText();
         info.timestamp  = Date.now();
         return info;
