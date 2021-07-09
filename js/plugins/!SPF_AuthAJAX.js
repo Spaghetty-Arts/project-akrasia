@@ -6,12 +6,33 @@
 
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                    alert("Conta criada com sucesso");
-                    Scene_InputDialog.prototype.afterResponse();
+                    swal({
+                        title: "Sucesso!",
+                        text: "Conta criada com sucesso!",
+                        icon: "info",
+                        button: "Ok",
+                        timer: 5000,
+                    }).then((value) => {
+                        Scene_InputDialog.prototype.afterResponse();
+                    });
                 } else if (this.readyState == 4 && this.status == 409) {
-                    alert("Já existe uma conta com esse username/email");
+                    swal({
+                        title: "Erro!",
+                        text: "Já existe um conta com esses dados!",
+                        icon: "error",
+                        button: "Ok",
+                        timer: 5000,
+                    });
                 } else if (this.readyState == 4 && this.status == 500) {
-                    alert("Ocorreu um erro no servidor");
+                    swal({
+                        title: "Erro!",
+                        text: "Ocorreu um erro no servidor!",
+                        icon: "error",
+                        button: "Ok",
+                        timer: 5000,
+                    }).then((value) => {
+                        Scene_InputDialog.prototype.afterResponse();
+                    });
                     Scene_InputDialog.prototype.afterResponse();
                 }
                 loadAjax(false);
@@ -27,9 +48,25 @@
             loadAjax(true);
         } catch (e) {
             if(e.name == 'NetworkError'){
-                alert("Existem problemas com o servidor tenta mais tarde");
+                swal({
+                    title: "Erro!",
+                    text: "Ocorreu um erro no servidor!",
+                    icon: "error",
+                    button: "Ok",
+                    timer: 5000,
+                }).then((value) => {
+                    Scene_InputDialog.prototype.afterResponse();
+                });
             } else {
-                alert("Existem problemas tenta mais tarde");
+                swal({
+                    title: "Erro!",
+                    text: "Existem problemas tenta mais tarde!",
+                    icon: "error",
+                    button: "Ok",
+                    timer: 5000,
+                }).then((value) => {
+                    Scene_InputDialog.prototype.afterResponse();
+                });
             }
         }
     }
@@ -59,16 +96,47 @@
 
 
                 } else if (this.readyState == 4 && this.status == 401) {
-                    alert("Autenticação sem sucesso");
+                    swal({
+                        title: "Erro!",
+                        text: "Autenticação sem sucesso!",
+                        icon: "error",
+                        button: "Ok",
+                        timer: 5000,
+                    });
                 } else if (this.readyState == 4 && this.status == 403) {
-                    alert("Dados Errados");
+                    swal({
+                        title: "Erro!",
+                        text: "Dados errados",
+                        icon: "error",
+                        button: "Ok",
+                        timer: 5000,
+                    });
                 }else if (this.readyState == 4 && this.status == 404) {
-                    alert("Utilizador não existe");
+                    swal({
+                        title: "Erro!",
+                        text: "Utilizador não existe!",
+                        icon: "error",
+                        button: "Ok",
+                        timer: 5000,
+                    });
                 } else if (this.readyState == 4 && this.status == 409) {
-                    alert("Utilizador está a jogar de momento");
+                    swal({
+                        title: "Erro!",
+                        text: "Já está aberta uma sessão!",
+                        icon: "error",
+                        button: "Ok",
+                        timer: 5000,
+                    });
                 }  else if (this.readyState == 4 && this.status == 500) {
-                    alert("Ocorreu um erro no servidor");
-                    Scene_InputDialog.prototype.afterResponse();
+                    swal({
+                        title: "Erro!",
+                        text: "Ocorreu um erro no servidor!",
+                        icon: "error",
+                        button: "Ok",
+                        timer: 5000,
+                    }).then((value) => {
+                        Scene_InputDialog.prototype.afterResponse();
+                    });
                 }
 
                 loadAjax(false);
@@ -89,10 +157,22 @@
             loadAjax(true);
         } catch (e) {
             if(e.name == 'NetworkError'){
-                alert("Existem problemas com o servidor tenta mais tarde");
+                swal({
+                    title: "Erro!",
+                    text: "Existem problemas com o servidor tenta mais tarde!",
+                    icon: "error",
+                    button: "Ok",
+                    timer: 5000,
+                });
             }
             else {
-                alert("Existem problemas tenta mais tarde");
+                swal({
+                    title: "Erro!",
+                    text: "Existem problemas com o servidor tenta mais tarde!",
+                    icon: "error",
+                    button: "Ok",
+                    timer: 5000,
+                });
             }
         }
     }
@@ -104,13 +184,35 @@
 
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                    alert("Reset enviado para o email " + mail);
-                    Scene_InputDialog.prototype.afterResponse();
+                    swal({
+                        title: "Sucesso!",
+                        text: "Reset enviado para o email " + mail,
+                        icon: "info",
+                        button: "Ok",
+                        timer: 5000,
+                    }).then((value) => {
+                        Scene_InputDialog.prototype.afterResponse();
+                    });
+
+
                 } else if (this.readyState == 4 && this.status == 409) {
-                    alert("Email não pertence a uma conta");
+                    swal({
+                        title: "Erro!",
+                        text: "Email não está associado a nenhuma conta",
+                        icon: "error",
+                        button: "Ok",
+                        timer: 5000,
+                    });
                 } else if (this.readyState == 4 && this.status == 500) {
-                    alert("Ocorreu um erro no servidor");
-                    Scene_InputDialog.prototype.afterResponse();
+                    swal({
+                        title: "Erro!",
+                        text: "Ocorreu um erro no servidor!",
+                        icon: "error",
+                        button: "Ok",
+                        timer: 5000,
+                    }).then((value) => {
+                        Scene_InputDialog.prototype.afterResponse();
+                    });
                 }
                 loadAjax(false);
             };
@@ -123,9 +225,25 @@
             loadAjax(true);
         } catch (e) {
             if(e.name == 'NetworkError'){
-                alert("Existem problemas com o servidor tenta mais tarde");
+                swal({
+                    title: "Erro!",
+                    text: "Ocorreu um erro no servidor!",
+                    icon: "error",
+                    button: "Ok",
+                    timer: 5000,
+                }).then((value) => {
+                    Scene_InputDialog.prototype.afterResponse();
+                });
             } else {
-                alert("Existem problemas tenta mais tarde");
+                swal({
+                    title: "Erro!",
+                    text: "Ocorreu um erro tenta mais tarde!",
+                    icon: "error",
+                    button: "Ok",
+                    timer: 5000,
+                }).then((value) => {
+                    Scene_InputDialog.prototype.afterResponse();
+                });
             }
         }
     }
@@ -136,16 +254,36 @@
 
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                    alert("Nome alterado com sucesso");
-                    let obj = this.response;
-                    saveData(obj);
-                    Scene_InputDialog.prototype.afterResponse();
+                    swal({
+                        title: "Sucesso!",
+                        text: "Nome alterado com sucesso",
+                        icon: "info",
+                        button: "Ok",
+                        timer: 5000,
+                    }).then((value) => {
+                        let obj = this.response;
+                        saveData(obj);
+                        Scene_InputDialog.prototype.afterResponse();
+                    });
+
                 } else if (this.readyState == 4 && this.status == 401) {
-                    alert("Erro");
+                    swal({
+                        title: "Erro!",
+                        text: "Username já existe!",
+                        icon: "error",
+                        button: "Ok",
+                        timer: 5000,
+                    });
                 } else if (this.readyState == 4 && this.status == 500) {
-                    alert("Ocorreu um erro no servidor");
-                    SceneManager.exit();
-                    window.close();
+                    swal({
+                        title: "Erro!",
+                        text: "Ocorreu um erro tenta mais tarde!",
+                        icon: "error",
+                        button: "Ok",
+                        timer: 5000,
+                    }).then((value) => {
+                        Scene_InputDialog.prototype.afterResponse();
+                    });
                 }
 
             };
