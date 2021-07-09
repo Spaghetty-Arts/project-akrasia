@@ -25,8 +25,19 @@
     };
 
     Window_MapName.prototype.drawBackground = function(x, y, width, height) {
-        var color1 = "#3f5efb";
-        var color2 = "#fc466b";
+        let color1;
+        let color2;
+        if ($gameVariables.value(91) == 1) {
+            color1 = "#3f5efb";
+            color2 = "#fc466b";
+        } else if ($gameVariables.value(91) == 2){
+            color2 = "#3f5efb";
+            color1 = "#fc466b";
+        } else {
+            color1 = "#3f5efb";
+            color2 = "#fc466b";
+        }
+
         this.contents.gradientFillRect(x, y, width / 2, height, color2, color1);
         this.contents.gradientFillRect(x + width / 2, y, width / 2, height, color1, color2);
     };
