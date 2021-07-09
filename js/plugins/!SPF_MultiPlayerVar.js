@@ -1,4 +1,4 @@
-var iprest="192.168.2.86:8080";
+var iprest="localhost:8080";
 /*
 Account Information
  */
