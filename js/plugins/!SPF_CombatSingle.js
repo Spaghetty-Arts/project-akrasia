@@ -89,7 +89,8 @@ let shootID = -1;
     gameOverVR = function () {
         if (playerLife <= 0) {
             playerLife = 0;
-            AudioManager.playSe({name: "soliderD", pan: 0, pitch: 100, volume: 100});
+            //AudioManager.playSe({name: "soliderD", pan: 0, pitch: 100, volume: 100});
+            AudioManager.playSe({name: "off", pan: 0, pitch: 100, volume: 100});
             teleportSave();
             $gameVariables.setValue(88, 0);
             $gameVariables.setValue(86, 10);
@@ -100,8 +101,7 @@ let shootID = -1;
     }
 
     teleportSave = function () {
-        if ($gameMap._mapId == 58) {
-
+        if ($gameVariables.value(92) == 3) {
             $gamePlayer.reserveTransfer(51, 29,  25, 8, 0);
         } else {
             $gamePlayer.reserveTransfer(45, 16,  5, 8, 0);
@@ -246,6 +246,7 @@ let shootID = -1;
 
     stopVR = function () {
         if (Input.isTriggered('escape')) {
+            AudioManager.playSe({name: "off", pan: 0, pitch: 100, volume: 100});
             teleportSave();
             closeVr();
             closeBoss();

@@ -102,7 +102,7 @@ function Scene_InputDialog() {
                 var divInnerHTML = `
                                     <link rel="stylesheet" type="text/css" href="css/form.css">
                                     <form autocomplete="off">
-                                     <table class="inputDialogContainer">
+                                     <table class="inputDialogContainer resL" style="margin-bottom: 1000px">
                                         <tr class="row">
                                             <td class="col">
                                                 <input class="inputDialog res" type="email" id="email" placeholder="Digite um email" title="O email têm de ser válido e único" autocomplete="off">
@@ -121,7 +121,7 @@ function Scene_InputDialog() {
                                             </td>
                                         </tr>
                                         <tr class="row" align="bottom">
-                                            <td class="col" align="right">
+                                            <td class="col" align="center">
                                                 <input class="lol" id="inputDialog-OkBtn" type="button" value="Confirmar" name="">
                                                 <input class="lol2" id="inputDialog-CancelBtn" type="button" value="Cancelar" name="">
                                             </td>
@@ -184,7 +184,7 @@ function Scene_InputDialog() {
                                             </td>
                                         </tr>
                                         <tr class="row" align="bottom">
-                                            <td class="col" align="right">
+                                            <td class="col" align="center">
                                                 <input class="lol" id="inputDialog-OkBtn" type="button" value="Confirmar" name="">
                                                 <input class="lol2" id="inputDialog-CancelBtn" type="button" value="Cancelar" name="">
                                             </td>
@@ -215,7 +215,7 @@ function Scene_InputDialog() {
                                             </td>
                                         </tr>
                                         <tr class="row" align="bottom">
-                                            <td class="col" align="right">
+                                            <td class="col" align="center">
                                                 <input class="lol" id="inputDialog-OkBtn" type="button" value="Confirmar" name="">
                                                 <input class="lol2" id="inputDialog-CancelBtn" type="button" value="Cancelar" name="">
                                             </td>
@@ -246,7 +246,7 @@ function Scene_InputDialog() {
                                             </td>
                                         </tr>
                                         <tr class="row" align="bottom">
-                                            <td class="col" align="right">
+                                            <td class="col" align="center">
                                                 <input class="lol" id="inputDialog-OkBtn" type="button" value="Confirmar" name="">
                                                 <input class="lol2" id="inputDialog-CancelBtn" type="button" value="Cancelar" name="">
                                             </td>
@@ -442,7 +442,12 @@ function Scene_InputDialog() {
                 y = Graphics.boxHeight - textBoxHeight;
             }
             mainContainer.style.left = Graphics._canvas.getBoundingClientRect().left + x + "px";
-            mainContainer.style.top = Graphics._canvas.getBoundingClientRect().top + y + "px";
+            if (loginRegister == 0) {
+                mainContainer.style.top = 255 + "px";
+            } else {
+                mainContainer.style.top = Graphics._canvas.getBoundingClientRect().top + y + "px";
+            }
+
         }
     };
 
