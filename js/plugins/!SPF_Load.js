@@ -47,11 +47,29 @@ Scene_Load.prototype.createBackground = function () {
     this.addChild(this._backgroundSprite);
 }
 
+Window_SavefileList.prototype.drawPlaytime = function(info, x, y, width) {
+    if (info.playtime) {
+        this.changeTextColor("#f8f800");
+        let str = info.playtime;
+        const myArr = str.split(":");
+        //console.log(info.playtime);
+        this.drawText("Tempo de jogo: " + myArr[0] + "H " + myArr[1] + "min", x, y, width, 'right');
+    }
+};
+
 Window_SavefileList.prototype.drawFileId = function(id, x, y) {
     if (id == 1) {
+        this.changeTextColor("#09e9f1");
         this.drawText("AutoSave", x, y, 180);
     } else {
+        this.changeTextColor("#f10909");
         this.drawText("Manual", x, y, 180);
     }
 
+    Window_SavefileList.prototype.drawGameTitle = function(info, x, y, width) {
+        if (info.title) {
+            this.changeTextColor("#cf06d5");
+            this.drawText(info.title, x, y, width);
+        }
+    }
 };

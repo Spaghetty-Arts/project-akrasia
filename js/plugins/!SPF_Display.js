@@ -25,8 +25,8 @@
     };
 
     Window_MapName.prototype.drawBackground = function(x, y, width, height) {
-        var color1 = this.dimColor1();
-        var color2 = this.dimColor2();
+        var color1 = "#3f5efb";
+        var color2 = "#fc466b";
         this.contents.gradientFillRect(x, y, width / 2, height, color2, color1);
         this.contents.gradientFillRect(x + width / 2, y, width / 2, height, color1, color2);
     };

@@ -11,6 +11,16 @@
             crashEffect();
         }
 
+        if (($gamePlayer.x == 31 && $gamePlayer.y == 11) && ($gameMap.event(6).x == 30 && $gameMap.event(6).y == 11)){
+            crashEffect();
+        } else if (($gamePlayer.x == 30 && $gamePlayer.y == 11) && ($gameMap.event(6).x == 29 && $gameMap.event(6).y == 11)){
+            crashEffect();
+        } else if (($gamePlayer.x == 23 && $gamePlayer.y == 11) && ($gameMap.event(6).x == 24 && $gameMap.event(6).y == 11)){
+            crashEffect();
+        } else if (($gamePlayer.x == 22 && $gamePlayer.y == 11) && ($gameMap.event(6).x == 23 && $gameMap.event(6).y == 11)){
+            crashEffect();
+        }
+
     }
 
     crashEffect = function () {

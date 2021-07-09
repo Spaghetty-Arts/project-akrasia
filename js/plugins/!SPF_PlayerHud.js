@@ -116,8 +116,8 @@
                     this.drawPicture("money", 0, 0, false);
                     this.drawTextEx("\\c[11]"+$gameParty._gold, 40, 0);
                     if ($gameSwitches.value(29)) {
-                        this.drawPicture("chips", 120, 0, false);
-                        this.drawTextEx("\\c[10]"+$gameVariables.value(26), 160, 0);
+                        this.drawPicture("chips", 220, 0, false);
+                        this.drawTextEx("\\c[10]"+$gameVariables.value(26), 260, 0);
                     }
                 }
 
