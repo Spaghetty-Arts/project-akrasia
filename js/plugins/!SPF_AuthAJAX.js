@@ -39,6 +39,18 @@
 
             };
 
+            xhttp.onerror = function(e){
+                swal({
+                    title: "Erro!",
+                    text: "Ocorreu um erro no servidor!",
+                    icon: "error",
+                    button: "Ok",
+                    timer: 5000,
+                }).then((value) => {
+                    Scene_InputDialog.prototype.afterResponse();
+                });
+            };
+
             xhttp.open("POST", "http://"+iprest+"/auth/register", true);
 
             xhttp.setRequestHeader("Content-Type", "application/json");
@@ -102,6 +114,8 @@
                         icon: "error",
                         button: "Ok",
                         timer: 5000,
+                    }).then((value) => {
+                        Scene_InputDialog.prototype.afterResponse();
                     });
                 } else if (this.readyState == 4 && this.status == 403) {
                     swal({
@@ -110,6 +124,8 @@
                         icon: "error",
                         button: "Ok",
                         timer: 5000,
+                    }).then((value) => {
+                        Scene_InputDialog.prototype.afterResponse();
                     });
                 }else if (this.readyState == 4 && this.status == 404) {
                     swal({
@@ -118,6 +134,8 @@
                         icon: "error",
                         button: "Ok",
                         timer: 5000,
+                    }).then((value) => {
+                        Scene_InputDialog.prototype.afterResponse();
                     });
                 } else if (this.readyState == 4 && this.status == 409) {
                     swal({
@@ -126,6 +144,8 @@
                         icon: "error",
                         button: "Ok",
                         timer: 5000,
+                    }).then((value) => {
+                        Scene_InputDialog.prototype.afterResponse();
                     });
                 }  else if (this.readyState == 4 && this.status == 500) {
                     swal({
@@ -143,7 +163,15 @@
             };
 
             xhttp.onerror = function(e){
-                alert("Existem problemas com o servidor tenta mais tarde");
+                swal({
+                    title: "Erro!",
+                    text: "Ocorreu um erro no servidor!",
+                    icon: "error",
+                    button: "Ok",
+                    timer: 5000,
+                }).then((value) => {
+                    Scene_InputDialog.prototype.afterResponse();
+                });
             };
 
             xhttp.open("PUT", "http://"+iprest+"/auth/login", true);
@@ -163,6 +191,8 @@
                     icon: "error",
                     button: "Ok",
                     timer: 5000,
+                }).then((value) => {
+                    Scene_InputDialog.prototype.afterResponse();
                 });
             }
             else {
@@ -172,6 +202,8 @@
                     icon: "error",
                     button: "Ok",
                     timer: 5000,
+                }).then((value) => {
+                    Scene_InputDialog.prototype.afterResponse();
                 });
             }
         }
@@ -217,6 +249,17 @@
                 loadAjax(false);
             };
 
+            xhttp.onerror = function(e){
+                swal({
+                    title: "Erro!",
+                    text: "Ocorreu um erro no servidor!",
+                    icon: "error",
+                    button: "Ok",
+                    timer: 5000,
+                }).then((value) => {
+                    Scene_InputDialog.prototype.afterResponse();
+                });
+            };
 
             let url = encodeURI("http://"+iprest+"/auth/reset/"+mail);
             xhttp.open("POST", url, true);
@@ -273,6 +316,8 @@
                         icon: "error",
                         button: "Ok",
                         timer: 5000,
+                    }).then((value) => {
+                        Scene_InputDialog.prototype.afterResponse();
                     });
                 } else if (this.readyState == 4 && this.status == 500) {
                     swal({
@@ -300,9 +345,25 @@
 
         } catch (e) {
             if(e.name == 'NetworkError'){
-                alert("Existem problemas com o servidor tenta mais tarde");
+                swal({
+                    title: "Erro!",
+                    text: "Ocorreu um erro tenta mais tarde!",
+                    icon: "error",
+                    button: "Ok",
+                    timer: 5000,
+                }).then((value) => {
+                    Scene_InputDialog.prototype.afterResponse();
+                });
             } else {
-                alert("Existem problemas tenta mais tarde");
+                swal({
+                    title: "Erro!",
+                    text: "Ocorreu um erro tenta mais tarde!",
+                    icon: "error",
+                    button: "Ok",
+                    timer: 5000,
+                }).then((value) => {
+                    Scene_InputDialog.prototype.afterResponse();
+                });
             }
         }
     }

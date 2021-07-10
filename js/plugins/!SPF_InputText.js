@@ -618,6 +618,8 @@ function Scene_InputDialog() {
                         icon: "error",
                         button: "Ok",
                         timer: 5000,
+                    }).then((value) => {
+                        this.loaText(false);
                     });
                 } else {
                     if (checkUsername(user)) {
@@ -632,6 +634,8 @@ function Scene_InputDialog() {
                             icon: "error",
                             button: "Ok",
                             timer: 5000,
+                        }).then((value) => {
+                            this.loaText(false);
                         });
                     }
                 }
@@ -647,7 +651,7 @@ function Scene_InputDialog() {
                         timer: 5000,
                     }).then((value) => {
                         this.loaText(false);
-                    });;
+                    });
                 } else {
                     ajaxLoginRequest(mail, pass);
                 }
@@ -660,6 +664,8 @@ function Scene_InputDialog() {
                         icon: "error",
                         button: "Ok",
                         timer: 5000,
+                    }).then((value) => {
+                        this.loaText(false);
                     });
                 } else {
                     ajaxResetRequest(mail);
@@ -673,6 +679,8 @@ function Scene_InputDialog() {
                         icon: "error",
                         button: "Ok",
                         timer: 5000,
+                    }).then((value) => {
+                        this.loaText(false);
                     });
                 } else {
                     if(checkUsername(user)) {
@@ -690,6 +698,8 @@ function Scene_InputDialog() {
                             icon: "error",
                             button: "Ok",
                             timer: 5000,
+                        }).then((value) => {
+                            this.loaText(false);
                         });
                     }
                 }
@@ -727,7 +737,7 @@ function Scene_InputDialog() {
         if (!passowrd.match(lowerCaseLetters)) {
             swal({
                 title: "Erro!",
-                text: "O username têm de ter pelo menos 8 caraters!",
+                text: "A password tem de ter 1 minuscula",
                 icon: "error",
                 button: "Ok",
                 timer: 5000,
@@ -738,7 +748,7 @@ function Scene_InputDialog() {
         if(!passowrd.match(upperCaseLetters)) {
             swal({
                 title: "Erro!",
-                text: "O username têm de ter pelo menos 8 caraters!",
+                text: "A password têm de ter 1 maiscula!",
                 icon: "error",
                 button: "Ok",
                 timer: 5000,
@@ -749,7 +759,7 @@ function Scene_InputDialog() {
         if(!passowrd.match(numbers)) {
             swal({
                 title: "Erro!",
-                text: "O username têm de ter pelo menos 8 caraters!",
+                text: "A password têm de ter pelo menos 8 caraters!",
                 icon: "error",
                 button: "Ok",
                 timer: 5000,
@@ -824,6 +834,7 @@ function Scene_InputDialog() {
     Window_Loading.prototype.initialize = function (x, y, w, h) {
         Window_Base.prototype.initialize.call(this, x, y, w, h);
         ImageManager.reservePicture("server");
+        this.refresh();
     }
 
 
@@ -837,5 +848,10 @@ function Scene_InputDialog() {
         }
     }
 
+    Window_Loading.prototype.refresh = function () {
+        if(loading) {
+            this.drawLoad();
+        }
+    }
 
 })();
