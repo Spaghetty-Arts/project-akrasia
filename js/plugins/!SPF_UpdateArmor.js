@@ -9,16 +9,11 @@
 
     checkCurr = function (val) {
         if(playerMoney >= val) {
-            playerMoney = playerMoney - val;
             return true;
         }
         return false;
     }
 
-    updateArmor = function () {
-        playerALevel++;
-        playerLife = playerALevel * 100;
-    }
 
     ajaxChangePlayerArmor = function () {
         try {
@@ -46,7 +41,7 @@
 
             xhttp.responseType = 'json';
 
-            var data = JSON.stringify({"id": playerID, "money": playerMoney, "life": playerALevel});
+            var data = JSON.stringify({"id": playerID});
             xhttp.send(data);
 
         } catch (e) {
