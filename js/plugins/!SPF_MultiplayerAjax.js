@@ -109,8 +109,8 @@
                     $gamePlayer.reserveTransfer(31, 5,  16);
                     playerLife = 100 + playerALevel * 10;
                     enemieHealth = 100;
-                    $gameSelfSwitches.setValue([30, 5, "A"], false);
-                    $gameSelfSwitches.setValue([30, 6, "A"], false);
+                    $gameSelfSwitches.setValue([28, 5, "A"], false);
+                    $gameSelfSwitches.setValue([28, 6, "A"], false);
 
                     let obj = this.response;
                     saveData(obj);
