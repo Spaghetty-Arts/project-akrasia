@@ -104,7 +104,7 @@
 
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-
+                    $gamePlayer.reserveTransfer(31, 5,  16);
                 } else if (this.readyState == 4 && this.status == 401) {
                     alert("Autenticação sem sucesso");
                 } else if (this.readyState == 4 && this.status == 403) {

@@ -25,8 +25,10 @@ function startgame() {
   }
   $gamePlayer.refresh();
 para2=1;
+openMU();
 }
 }
+
  function waitForSocketConnection(socket, callback){
          setTimeout(
              function(){
@@ -84,6 +86,7 @@ var charEvent = $gameMap._events[1];
       // Escrevemos no DOM
       if (data.ida==id){
         armaAd=data.arma;
+        enemieHealth = data.lifead;
         if(data.lifead<=0){
           alert('Ganhaste!');
           battleRecord(playerID, enemieID);
