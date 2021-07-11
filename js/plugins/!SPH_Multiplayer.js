@@ -142,7 +142,5 @@ socket.on('message', function(msg) {
 
 function wonMul() {
     alert('Ganhaste!');
-    $gameSwitches.setValue(4, false);
-    playerLife = 100 + playerALevel * 10;
     winLose(1);
 }

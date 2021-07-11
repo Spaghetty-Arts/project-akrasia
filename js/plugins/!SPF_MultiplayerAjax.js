@@ -104,7 +104,10 @@
 
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
+                    $gameSwitches.setValue(4, false);
+                    closeMU();
                     $gamePlayer.reserveTransfer(31, 5,  16);
+                    playerLife = 100 + playerALevel * 10;
                     battleRecord(playerID, enemieID);
                 } else if (this.readyState == 4 && this.status == 401) {
                     alert("Autenticação sem sucesso");

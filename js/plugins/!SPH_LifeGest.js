@@ -36,7 +36,5 @@ verificaVida = function(){
 
 looseMul = function () {
     alert('Perdeste');
-    $gameSwitches.setValue(4, false);
-    playerLife = 100 + playerALevel * 10;
     winLose(0);
 }
