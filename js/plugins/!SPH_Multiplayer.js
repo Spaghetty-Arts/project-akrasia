@@ -86,12 +86,10 @@ var charEvent = $gameMap._events[1];
       // Escrevemos no DOM
       if (data.ida==id){
         armaAd=data.arma;
+        enemieID = data.id;
         enemieHealth = data.lifead;
-        if(data.lifead<=0){
-          alert('Ganhaste!');
-          battleRecord(playerID, enemieID);
-          winLose(1);
-
+        if(enemieHealth<=0){
+            $gameSelfSwitches.setValue([$gameMap._mapId, 11, "A"], true);
         }
 if(data.x<100){
     // setpos(data.x, data.y);
@@ -140,3 +138,11 @@ socket.on('message', function(msg) {
   messages.appendChild(item);
   window.scrollTo(0, document.body.scrollHeight);
 });*/
+
+
+function wonMul() {
+    alert('Ganhaste!');
+    $gameSwitches.setValue(4, false);
+    playerLife = 100 + playerALevel * 10;
+    winLose(1);
+}

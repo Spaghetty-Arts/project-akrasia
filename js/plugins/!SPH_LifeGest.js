@@ -30,7 +30,13 @@ playerLife-=10;
 
 verificaVida = function(){
   if(playerLife<=0){
-    alert('Perdeste');
-    winLose(0);
+      $gameSelfSwitches.setValue([$gameMap._mapId, 12, "A"], true);
   }
+}
+
+looseMul = function () {
+    alert('Perdeste');
+    $gameSwitches.setValue(4, false);
+    playerLife = 100 + playerALevel * 10;
+    winLose(0);
 }
