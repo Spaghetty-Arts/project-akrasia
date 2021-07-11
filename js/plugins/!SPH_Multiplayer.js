@@ -141,6 +141,9 @@ socket.on('message', function(msg) {
 
 
 function wonMul() {
-    alert('Ganhaste!');
+    swal("Ganhaste!", {
+        icon: "info",
+        timer: 1000,
+    });
     winLose(1);
 }

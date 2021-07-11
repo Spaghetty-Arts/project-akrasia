@@ -42,8 +42,8 @@ if(data.usernamead==playerName){
 .then((willDelete) => {
   if (willDelete) {
     swal("A Iniciar a Partida!", {
-      icon: "success",
-        timer: 2000,
+      icon: "info",
+        timer: 1000,
     });
     ida=data.inid;
     id=playerID;
@@ -111,8 +111,8 @@ if(data.usernamead==playerName){
 
 if(data.resposta=="sim"){
   swal("Convite Aceites!", {
-    icon: "success",
-      timer: 2000,
+    icon: "info",
+      timer: 1000,
   });
 ida=data.inid;
 id=playerID;
