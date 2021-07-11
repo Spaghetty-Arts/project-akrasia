@@ -89,7 +89,7 @@ var charEvent = $gameMap._events[1];
         enemieID = data.id;
         enemieHealth = data.lifead;
         if(enemieHealth<=0){
-            $gameSelfSwitches.setValue([$gameMap._mapId, 8, "A"], true);
+            $gameSelfSwitches.setValue([$gameMap._mapId, 5, "A"], true);
         }
 if(data.x<100){
     // setpos(data.x, data.y);
