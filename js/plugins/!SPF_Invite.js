@@ -12,7 +12,7 @@
                     //console.log(playerName);
                     swal({
                         title: "Sucesso!",
-                        text: "Parabens! " + obj.username,
+                        text: "Pedido enviado!",
                         icon: "info",
                         button: "Ok",
                         timer: 5000,
