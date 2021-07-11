@@ -620,7 +620,9 @@ Galv.PROJ.executeAction = function(action,target) {
 					attackE(target.eventId(), 5);
 					break;
 				case '2':
-					attackE(target.eventId(), 10);
+					if ($gameMap._mapId != 28) {
+						attackE(target.eventId(), 10);
+					}
 					break;
 				case '3':
 					attackE(target.eventId(), 5);
