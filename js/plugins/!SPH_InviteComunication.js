@@ -120,11 +120,11 @@ id=playerID;
 //mudar de estado
 
   if(data.inid>playerID){
-      $gamePlayer.reserveTransfer(30, 17,  8);
+      $gamePlayer.reserveTransfer(28, 19,  19);
 
   }else{
 
-      $gamePlayer.reserveTransfer(30, 8,  6);
+      $gamePlayer.reserveTransfer(28, 21,  19);
   }
 
 
