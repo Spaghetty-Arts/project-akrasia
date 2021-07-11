@@ -1,4 +1,4 @@
-var iprest="localhost:8080";
+var iprest="project-akrasia-rest.herokuapp.com";
 /*
 Account Information
  */
