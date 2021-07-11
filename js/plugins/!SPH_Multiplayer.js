@@ -71,7 +71,7 @@ var dir=$gamePlayer.direction();
         disparo=0;
   //};
 
-  $gameSelfSwitches.setValue([$gameMap._mapId, 2, "A"], true);
+  $gameSelfSwitches.setValue([$gameMap._mapId, 7, "A"], true);
 
 }
 
@@ -89,7 +89,7 @@ var charEvent = $gameMap._events[1];
         enemieID = data.id;
         enemieHealth = data.lifead;
         if(enemieHealth<=0){
-            $gameSelfSwitches.setValue([$gameMap._mapId, 11, "A"], true);
+            $gameSelfSwitches.setValue([$gameMap._mapId, 8, "A"], true);
         }
 if(data.x<100){
     // setpos(data.x, data.y);
@@ -110,7 +110,7 @@ verifica();
     //console.log('x:' + data.x + " | y:" + data.y);
   });
 
-  $gameSelfSwitches.setValue([$gameMap._mapId, 18, "A"], true);
+  $gameSelfSwitches.setValue([$gameMap._mapId, 10, "A"], true);
 }
 function setpos(x,y){
 $gameMap.event(1).setPosition(x, y);

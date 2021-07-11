@@ -30,7 +30,7 @@ playerLife-=10;
 
 verificaVida = function(){
   if(playerLife<=0){
-      $gameSelfSwitches.setValue([$gameMap._mapId, 12, "A"], true);
+      $gameSelfSwitches.setValue([$gameMap._mapId, 6, "A"], true);
   }
 }
 
