@@ -14,16 +14,27 @@ var dispok=1;
 var para2=0;
 function startgame() {
  if (para2==0){
-  if(id==1){
+  if(id>=ida){
     console.log('----------------------------VERMELHO');
     $gameActors.actor(1).setCharacterImage("zeke_arma", 0);
+    $gamePlayer.refresh();
     $gameMap.event(1).setImage("zeke_arma2", 0);
+    $gameMap.event(1).x=27;
+    $gameMap.event(1).y=19;
+    $gameMap.event(-1).x=13;
+    $gameMap.event(-1).y=19;
+
   }else{
     console.log('----------------------------VERDE');
     $gameActors.actor(1).setCharacterImage("zeke_arma2", 0);
+    $gamePlayer.refresh();
     $gameMap.event(1).setImage("zeke_arma", 0);
+    $gameMap.event(1).x=13;
+    $gameMap.event(1).y=19;
+    $gameMap.event(-1).x=27;
+    $gameMap.event(-1).y=19;
   }
-  $gamePlayer.refresh();
+
 para2=1;
 openMU();
 }
@@ -143,7 +154,7 @@ socket.on('message', function(msg) {
 function wonMul() {
     swal("Ganhaste!", {
         icon: "info",
-        timer: 1000,
+        timer: 3000,
     });
     winLose(1);
 }

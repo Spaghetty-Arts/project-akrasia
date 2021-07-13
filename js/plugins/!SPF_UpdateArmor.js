@@ -35,7 +35,7 @@
 
             };
 
-            xhttp.open("PUT", "http://localhost:8080/user/updateArmor/", true);
+            xhttp.open("PUT", "http://"+iprest+"/user/updateArmor/", true);
             xhttp.setRequestHeader("Authorization", "Bearer " + playerToken);
             xhttp.setRequestHeader("Content-Type", "application/json");
 

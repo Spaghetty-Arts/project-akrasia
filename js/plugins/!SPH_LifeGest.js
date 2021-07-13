@@ -37,7 +37,7 @@ verificaVida = function(){
 looseMul = function () {
     swal("Perdeste!", {
         icon: "error",
-        timer: 1000,
+        timer: 3000,
     });
     winLose(0);
 }
