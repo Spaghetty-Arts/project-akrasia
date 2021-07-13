@@ -777,8 +777,8 @@ function Scene_InputDialog() {
     }
 
     loadAjax = function (value) {
-        document.getElementById("inputDialog-OkBtn").hidden = value;
-        document.getElementById("inputDialog-CancelBtn").hidden = value;
+        document.getElementById("inputDialog-OkBtn").disabled = value;
+        document.getElementById("inputDialog-CancelBtn").disabled = value;
         document.getElementById("email").disabled = value;
         document.getElementById("user").disabled = value;
         document.getElementById("pass").disabled = value;

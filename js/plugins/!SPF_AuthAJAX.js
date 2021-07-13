@@ -329,6 +329,15 @@
                     }).then((value) => {
                         Scene_InputDialog.prototype.afterResponse();
                     });
+
+                } else if (this.readyState == 4 && this.status == 409) {
+                    swal({
+                        title: "Erro!",
+                        text: "Username já existe",
+                        icon: "error",
+                        button: "Ok",
+                        timer: 5000,
+                    });
                 }
 
             };
