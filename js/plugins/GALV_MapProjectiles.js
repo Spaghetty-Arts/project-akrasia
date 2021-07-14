@@ -622,6 +622,8 @@ Galv.PROJ.executeAction = function(action,target) {
 				case '2':
 					if ($gameMap._mapId != 28) {
 						attackE(target.eventId(), 10);
+					} else {
+						AudioManager.playSe({name: "pain", pan: 0, pitch: 100, volume: 100});
 					}
 					break;
 				case '3':
@@ -640,8 +642,9 @@ Galv.PROJ.executeAction = function(action,target) {
 					attackP(30);
 					break;
 				case '55':
-			  	decrementaVida();
-					break;
+			  		decrementaVida();
+					AudioManager.playSe({name: "pain", pan: 0, pitch: 100, volume: 100});
+			  	break;
 			}
 			break;
 		case 's':  // self switch
