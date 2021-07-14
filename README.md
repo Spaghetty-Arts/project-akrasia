@@ -3,7 +3,7 @@
 
 ![Akrasia](https://i.ibb.co/6Rmp13J/Project.png)
 
-[![Made with RPG Maker](https://badgen.net/badge/RPG%20Maker/MV/green)](https://www.rpgmakerweb.com/products/rpg-maker-mv) [![License: CC BY-NC-ND 4.0](https://img.shields.io/badge/License-CC%20BY--NC--ND%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/) [![GitHub version](https://d25lcipzij17d.cloudfront.net/badge.svg?id=gh&type=6&v=0.2&x2=0)](https://github.com/Naereen/StrapDown.js) ![PT](https://img.shields.io/badge/Language-Portuguese-brightgreen)
+[![Made with RPG Maker](https://badgen.net/badge/RPG%20Maker/MV/green)](https://www.rpgmakerweb.com/products/rpg-maker-mv) [![License: CC BY-NC-ND 4.0](https://img.shields.io/badge/License-CC%20BY--NC--ND%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-nd/4.0/) [![GitHub version](https://d25lcipzij17d.cloudfront.net/badge.svg?id=gh&type=6&v=1.0&x2=0)](https://github.com/Naereen/StrapDown.js) ![PT](https://img.shields.io/badge/Language-Portuguese-brightgreen)
 
 ![JS](https://img.shields.io/badge/javascript-%23323330.svg?&style=for-the-badge&logo=javascript&logoColor=%23F7DF1E) ![Node](https://img.shields.io/badge/node.js-%2343853D.svg?&style=for-the-badge&logo=node.js&logoColor=white)
 
@@ -41,6 +41,8 @@ Version | What's new | Sprint
 ------------ | ------------- | -------------
 0.1 | Prologue Created | 1
 0.2 | Features Created | 2
+0.3 | Multiplayer and Rest API | 3
+1.0 | Game Completed | 4
 
 ## Sprint 1
 - Prologue Story
@@ -58,7 +60,27 @@ Version | What's new | Sprint
 - Begining of Multiplayer
 - Casino Minigames (reworked)
 - Various other feaures (keyconfig, auto save...)
-   
+
+## Sprint 3
+- Multiplayer in game (UI, login etc)
+- REST API
+- Websockets
+- Advanced AI shooting and meele
+- Map Generator Refinement
+
+## Sprint 4
+- Added Chapter 2 of the story
+- Completiton of Multiplayer
+- Various maps to explore
+- Refinement of ABS 
+- Shops and Upgrade System
+- Map Generation in game
+- Boss AI
+- Improvement of UI
+- QOL of Chapter 1
+- Added Credits sequence
+- And Much More!
+
 ## License
 
 Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)

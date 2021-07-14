@@ -12,6 +12,7 @@ function Scene_InputDialog() {
     //============================================================================
 
     let loginRegister;
+    let userN;
 
     let textBoxWidth = 488;
     let textBoxHeight = 36;
@@ -93,117 +94,36 @@ function Scene_InputDialog() {
 
         var field = document.getElementById(this._fieldId);
 
-        var style = `
-    .inputDialogContainer {
-      min-width : 10em;
-      max-width : 2.5em;
-      top : 0em;
-      left : 0em;
-      width : 10em;
-      height : 2.5em;
-      display : flex;
-      flex-flow : column wrap;
-      align-items : left;
-      justify-content : left;
-      padding : 0;
-      margin : 0;
-      box-sizing : border-box;
-      resize : both;
-      font-size: 16px!important;
-  }
-  
-  .inputDialog {
-      top : 0em;
-      left : 0em;
-      right : 0em;
-      bottom : 0em;
-      z-index : 1000;
-      opacity : 0.8;
-      position : relative;
-      background-color : #ffffff;
-      border : 2px solid #414141;
-      border-radius : 10px;
-      text-shadow : 0px 1px 3px #696969;
-      font-family : arial;
-      color : #1a1a1a;
-      outline : none;
-      font-size: 1rem!important;
-  }
-  
-  .defaultButton {
-      opacity : 0.8;
-      font-family : arial;
-      border : 1px solid rgb(73, 73, 73);
-      background-image: -webkit-linear-gradient(top, rgba(255,255,255,.2) 0%, rgba(255,255,255,0) 100%);
-      color : rgb(19, 19, 19);
-      text-shadow : rgba(105, 105, 105, 0.7) 0 1px 0;
-      cursor : pointer;
-      border-radius : 0.5em;
-      box-sizing : border-box;
-      box-shadow : 0 1px 4px rgba(78, 78, 78, 0.6);
-      font-size : 1rem!important;
-  }
-  
-  .row {
-      width : 70%;
-      height: 1rem;
-  }
-  
-  .col {
-      width : 70%;
-      height: 1rem;
-  }
-  
-    
-  @media screen and (min-width : 768px) and (max-width : 1000px) {
-      .defaultButton {
-          font-size : 1rem!important;
-      }
-      .row {
-          width : 100%;
-          height: 2rem;
-      }
-      .col {
-          width : 100%;
-          height: 2rem;
-      }
-      .inputDialog {
-          font-size : 1rem!important;
-      }
-      
-    
-	  `;
+
 
 
         switch (loginRegister) {
             case 0:
                 var divInnerHTML = `
-                                    <style>
-                                    ${style}
-                                    </style>
+                                    <link rel="stylesheet" type="text/css" href="css/form.css">
                                     <form autocomplete="off">
-                                     <table class="inputDialogContainer">
+                                     <table class="inputDialogContainer resL" style="margin-bottom: 1000px">
                                         <tr class="row">
                                             <td class="col">
-                                                <input class="inputDialog" type="email" id="email" placeholder="Digite um email" title="O email têm de ser válido e único" autocomplete="off">
+                                                <input class="inputDialog res" type="email" id="email" placeholder="Digite um email" title="O email têm de ser válido e único" autocomplete="off">
                                             
                                             </td>
                                         </tr>
                                         <tr class="row">
                                             <td class="col">
-                                                <input class="inputDialog" type="text" id="user" placeholder="Digite um username" title="O username têm de ter pelo menos 8 caraters e ser único" autocomplete="off">
+                                                <input class="inputDialog res" type="text" id="user" placeholder="Digite um username" title="O username têm de ter pelo menos 8 caraters e ser único" autocomplete="off">
                                                 <input class="inputDialog" type="text" id="user" placeholder="Digite um username" autocomplete="off" hidden>
                                             </td>
                                         </tr>
                                         <tr class="row">
                                             <td class="col">
-                                                <input class="inputDialog" type="password" id="pass" placeholder="Digite uma passowrd" title="A password têm de ter pelo menos 8 caraters, 1 letra mínuscula, 1 letra maiscula e 1 número" autocomplete="off">
+                                                <input class="inputDialog res" type="password" id="pass" placeholder="Digite uma passowrd" title="A password têm de ter pelo menos 8 caraters, 1 letra mínuscula, 1 letra maiscula e 1 número" autocomplete="off">
                                             </td>
                                         </tr>
-                                        <tr class="row" valign="bottom">
-                                            <td class="col" align="right">
-                                                <input class="defaultButton" id="inputDialog-OkBtn" type="button" value="Confirmar" name="">
-                                                <input class="defaultButton" id="inputDialog-CancelBtn" type="button" value="Cancelar" name="">
+                                        <tr class="row" align="bottom">
+                                            <td class="col" align="center">
+                                                <input class="lol" id="inputDialog-OkBtn" type="button" value="Confirmar" name="">
+                                                <input class="lol2" id="inputDialog-CancelBtn" type="button" value="Cancelar" name="">
                                             </td>
                                         </tr>
                                     <img src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7' onload='TextBox.onLoadAfterInnerHTML();this.parentNode.removeChild(this);'>
@@ -214,13 +134,12 @@ function Scene_InputDialog() {
                 break;
             case 1:
                 var divInnerHTML = `
-                                    <style>
-                                    ${style}
-                                    </style>
+                                  <link rel="stylesheet" type="text/css" href="css/form.css">
+                                   
                                     <table class="inputDialogContainer">
                                         <tr class="row">
                                             <td class="col">
-                                                <input class="inputDialog" type="email" id="email" placeholder="Digite um email" title="O email têm de estar registado" autocomplete="off">
+                                                <input class="inputDialog cyberpunk" type="email" id="email" placeholder="Digite um email" title="O email têm de estar registado" autocomplete="off">
                                                 <input class="inputDialog" type="email" id="email" placeholder="Digite um email" autocomplete="off" hidden>
                                             </td>
                                         </tr>
@@ -231,13 +150,13 @@ function Scene_InputDialog() {
                                         </tr>
                                         <tr class="row">
                                             <td class="col">
-                                                <input class="inputDialog" type="password" id="pass" placeholder="Digite uma passowrd" title="A password associada a conta"  autocomplete="off">
+                                                <input class="inputDialog cyberpunk" type="password" id="pass" placeholder="Digite uma passowrd" title="A password associada a conta"  autocomplete = 'new-password'>
                                             </td>
                                         </tr>
-                                        <tr class="row" valign="bottom">
-                                            <td class="col" align="right">
-                                                <input class="defaultButton" id="inputDialog-OkBtn" type="button" value="Confirmar" name="">
-                                                <input class="defaultButton" id="inputDialog-CancelBtn" type="button" value="Cancelar" name="">
+                                        <tr class="row" align="bottom">
+                                            <td class="col" align="center">
+                                                <input class="lol" id="inputDialog-OkBtn" type="button" value="Confirmar" name="">
+                                                <input class="lol2" id="inputDialog-CancelBtn" type="button" value="Cancelar" name="">
                                             </td>
                                         </tr>
                                     <img src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7' onload='TextBox.onLoadAfterInnerHTML();this.parentNode.removeChild(this);'>
@@ -246,9 +165,7 @@ function Scene_InputDialog() {
                 break;
             case 2:
                 var divInnerHTML = `
-                                    <style>
-                                    ${style}
-                                    </style>
+                                    <link rel="stylesheet" type="text/css" href="css/form.css">
                                     <table class="inputDialogContainer">
                                         <tr class="row">
                                             <td class="col">
@@ -266,10 +183,10 @@ function Scene_InputDialog() {
                                                 <input class="inputDialog" type="password" id="pass" placeholder="Digite uma passowrd" hidden>
                                             </td>
                                         </tr>
-                                        <tr class="row" valign="bottom">
-                                            <td class="col" align="right">
-                                                <input class="defaultButton" id="inputDialog-OkBtn" type="button" value="Confirmar" name="">
-                                                <input class="defaultButton" id="inputDialog-CancelBtn" type="button" value="Cancelar" name="">
+                                        <tr class="row" align="bottom">
+                                            <td class="col" align="center">
+                                                <input class="lol" id="inputDialog-OkBtn" type="button" value="Confirmar" name="">
+                                                <input class="lol2" id="inputDialog-CancelBtn" type="button" value="Cancelar" name="">
                                             </td>
                                         </tr>
                                     <img src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7' onload='TextBox.onLoadAfterInnerHTML();this.parentNode.removeChild(this);'>
@@ -278,9 +195,7 @@ function Scene_InputDialog() {
                 break;
             case 3:
                 var divInnerHTML = `
-                                    <style>
-                                    ${style}
-                                    </style>
+                                    <link rel="stylesheet" type="text/css" href="css/form.css">
                                     <table class="inputDialogContainer">
                                         <tr class="row">
                                             <td class="col">
@@ -299,10 +214,41 @@ function Scene_InputDialog() {
                                                 <input class="inputDialog" type="password" id="pass" placeholder="Digite uma passowrd" hidden>
                                             </td>
                                         </tr>
-                                        <tr class="row" valign="bottom">
-                                            <td class="col" align="right">
-                                                <input class="defaultButton" id="inputDialog-OkBtn" type="button" value="Confirmar" name="">
-                                                <input class="defaultButton" id="inputDialog-CancelBtn" type="button" value="Cancelar" name="">
+                                        <tr class="row" align="bottom">
+                                            <td class="col" align="center">
+                                                <input class="lol" id="inputDialog-OkBtn" type="button" value="Confirmar" name="">
+                                                <input class="lol2" id="inputDialog-CancelBtn" type="button" value="Cancelar" name="">
+                                            </td>
+                                        </tr>
+                                    <img src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7' onload='TextBox.onLoadAfterInnerHTML();this.parentNode.removeChild(this);'>
+                                    </table>
+                                    `;
+                break;
+            case 3:
+                var divInnerHTML = `
+                                    <link rel="stylesheet" type="text/css" href="css/form.css">
+                                    <table class="inputDialogContainer">
+                                        <tr class="row">
+                                            <td class="col">
+                                                <input class="inputDialog" type="email" id="email" placeholder="Digite um email" title="O email têm de estar registado" autocomplete="off" hidden>
+                                                <input class="inputDialog" type="text" id="user" placeholder="Digite um username">
+                                                <input class="inputDialog" type="text" id="user" placeholder="" hidden>
+                                            </td>
+                                        </tr>
+                                        <tr class="row">
+                                            <td class="col">
+                                                <input class="inputDialog" type="text" id="user" placeholder="Digite um username" hidden>
+                                            </td>
+                                        </tr>
+                                        <tr class="row">
+                                            <td class="col">
+                                                <input class="inputDialog" type="password" id="pass" placeholder="Digite uma passowrd" hidden>
+                                            </td>
+                                        </tr>
+                                        <tr class="row" align="bottom">
+                                            <td class="col" align="center">
+                                                <input class="lol" id="inputDialog-OkBtn" type="button" value="Confirmar" name="">
+                                                <input class="lol2" id="inputDialog-CancelBtn" type="button" value="Cancelar" name="">
                                             </td>
                                         </tr>
                                     <img src='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7' onload='TextBox.onLoadAfterInnerHTML();this.parentNode.removeChild(this);'>
@@ -392,17 +338,11 @@ function Scene_InputDialog() {
         if(CancelButton) CancelButton.style.fontSize = (1 * Graphics._realScale) + "em";
 
 
-        textBox.style.fontSize = (2 * Graphics._realScale) + "em";
         textBox.style.width = getScreenWidth(textBoxWidth * Graphics._realScale) + 'px';
-        textBox.style.height = getScreenHeight(textBoxHeight * Graphics._realScale) + 'px';
 
-        textBox2.style.fontSize = (2 * Graphics._realScale) + "em";
         textBox2.style.width = getScreenWidth(textBoxWidth * Graphics._realScale) + 'px';
-        textBox2.style.height = getScreenHeight(textBoxHeight * Graphics._realScale) + 'px';
 
-        textBox3.style.fontSize = (2 * Graphics._realScale) + "em";
         textBox3.style.width = getScreenWidth(textBoxWidth * Graphics._realScale) + 'px';
-        textBox3.style.height = getScreenHeight(textBoxHeight * Graphics._realScale) + 'px';
 
     };
 
@@ -502,7 +442,12 @@ function Scene_InputDialog() {
                 y = Graphics.boxHeight - textBoxHeight;
             }
             mainContainer.style.left = Graphics._canvas.getBoundingClientRect().left + x + "px";
-            mainContainer.style.top = Graphics._canvas.getBoundingClientRect().top + y + "px";
+            if (loginRegister == 0) {
+                mainContainer.style.top = 255 + "px";
+            } else {
+                mainContainer.style.top = Graphics._canvas.getBoundingClientRect().top + y + "px";
+            }
+
         }
     };
 
@@ -645,7 +590,12 @@ function Scene_InputDialog() {
         } else if (loginRegister == 2) {
             this._backgroundSprite.bitmap = ImageManager.loadPicture("computerReset");
         } else if (loginRegister == 3) {
-            this._backgroundSprite.bitmap = ImageManager.loadPicture("computerUser");
+            if (userN == 0) {
+                this._backgroundSprite.bitmap = ImageManager.loadPicture("computerUser");
+            } else {
+                this._backgroundSprite.bitmap = ImageManager.loadPicture("computerPVP");
+            }
+
         }
 
         this.addChild(this._backgroundSprite);
@@ -666,36 +616,96 @@ function Scene_InputDialog() {
         if(SceneManager._stack.length > 0) {
             if (loginRegister == 0) {
                 if (checkEmpty(user) || checkEmpty(mail) || checkEmpty(pass)) {
-                    alert("Deixou campos em branco");
+                    AudioManager.playSe({name: "error", pan: 0, pitch: 100, volume: 100});
+                    swal({
+                        title: "Erro!",
+                        text: "Deixou campos em branco!",
+                        icon: "error",
+                        button: "Ok",
+                        timer: 5000,
+                    }).then((value) => {
+                        this.loaText(false);
+                    });
                 } else {
                     if (checkUsername(user)) {
                         if(checkPassword(pass)) {
                             ajaxResisterRequest(user, pass, mail);
                         }
                     } else {
-                        alert("O username têm de ter pelo menos 8 caraters");
+                        AudioManager.playSe({name: "error", pan: 0, pitch: 100, volume: 100});
+                        swal({
+                            title: "Erro!",
+                            text: "O username têm de ter pelo menos 8 caraters!",
+                            icon: "error",
+                            button: "Ok",
+                            timer: 5000,
+                        }).then((value) => {
+                            this.loaText(false);
+                        });
                     }
                 }
             } else if (loginRegister == 1){
                 if (checkEmpty(mail) || checkEmpty(pass)) {
-                    alert("Deixou campos em branco");
+
+                    AudioManager.playSe({name: "error", pan: 0, pitch: 100, volume: 100});
+                    swal({
+                        title: "Erro!",
+                        text: "Deixou campos em branco!",
+                        icon: "error",
+                        button: "Ok",
+                        timer: 5000,
+                    }).then((value) => {
+                        this.loaText(false);
+                    });
                 } else {
                     ajaxLoginRequest(mail, pass);
                 }
             } else if (loginRegister == 2) {
                 if (checkEmpty(mail)) {
-                    alert("Deixou campos em branco");
+                    AudioManager.playSe({name: "error", pan: 0, pitch: 100, volume: 100});
+                    swal({
+                        title: "Erro!",
+                        text: "Deixou campos em branco!",
+                        icon: "error",
+                        button: "Ok",
+                        timer: 5000,
+                    }).then((value) => {
+                        this.loaText(false);
+                    });
                 } else {
                     ajaxResetRequest(mail);
                 }
             } else if (loginRegister == 3) {
                 if(checkEmpty(user)) {
-                    alert("Deixou o campo em branco")
+                    AudioManager.playSe({name: "error", pan: 0, pitch: 100, volume: 100});
+                    swal({
+                        title: "Erro!",
+                        text: "Deixou campos em branco!",
+                        icon: "error",
+                        button: "Ok",
+                        timer: 5000,
+                    }).then((value) => {
+                        this.loaText(false);
+                    });
                 } else {
                     if(checkUsername(user)) {
-                        ajaxChangeRequest(user);
+                        if (userN == 1) {
+                            sendInvite(user)
+                        } else {
+                            ajaxChangeRequest(user);
+                        }
+
                     } else {
-                        alert("O username têm de ter pelo menos 8 caraters");
+                        AudioManager.playSe({name: "error", pan: 0, pitch: 100, volume: 100});
+                        swal({
+                            title: "Erro!",
+                            text: "O username têm de ter pelo menos 8 caraters!",
+                            icon: "error",
+                            button: "Ok",
+                            timer: 5000,
+                        }).then((value) => {
+                            this.loaText(false);
+                        });
                     }
                 }
             }
@@ -719,22 +729,46 @@ function Scene_InputDialog() {
 
     checkPassword = function (passowrd) {
         if (passowrd.length < 8) {
-            alert("A password tem de ter pelo menos 8 caraters");
+            swal({
+                title: "Erro!",
+                text: "O username têm de ter pelo menos 8 caraters!",
+                icon: "error",
+                button: "Ok",
+                timer: 5000,
+            });
             return false;
         }
         var lowerCaseLetters = /[a-z]/g;
         if (!passowrd.match(lowerCaseLetters)) {
-            alert("A passowrd tem de ter pelo menos uma letra minuscula");
+            swal({
+                title: "Erro!",
+                text: "A password tem de ter 1 minuscula",
+                icon: "error",
+                button: "Ok",
+                timer: 5000,
+            });
             return false;
         }
         var upperCaseLetters = /[A-Z]/g;
         if(!passowrd.match(upperCaseLetters)) {
-            alert("A passowrd tem de ter pelo menos uma letra maiscula");
+            swal({
+                title: "Erro!",
+                text: "A password têm de ter 1 maiscula!",
+                icon: "error",
+                button: "Ok",
+                timer: 5000,
+            });
             return false;
         }
         var numbers = /[0-9]/g;
         if(!passowrd.match(numbers)) {
-            alert("A passowrd tem de ter pelo menos um numero");
+            swal({
+                title: "Erro!",
+                text: "A password têm de ter pelo menos 8 caraters!",
+                icon: "error",
+                button: "Ok",
+                timer: 5000,
+            });
             return false;
         }
         return true;
@@ -748,8 +782,8 @@ function Scene_InputDialog() {
     }
 
     loadAjax = function (value) {
-        document.getElementById("inputDialog-OkBtn").hidden = value;
-        document.getElementById("inputDialog-CancelBtn").hidden = value;
+        document.getElementById("inputDialog-OkBtn").disabled = value;
+        document.getElementById("inputDialog-CancelBtn").disabled = value;
         document.getElementById("email").disabled = value;
         document.getElementById("user").disabled = value;
         document.getElementById("pass").disabled = value;
@@ -778,9 +812,14 @@ function Scene_InputDialog() {
     };
 
 
-    openForm = function (value) {
+    openForm = function (value, user = 0) {
         SceneManager.push(Scene_InputDialog);
         loginRegister = value;
+        userN = user;
+
+        if (user == 1) {
+            AudioManager.playBgm({name: "multiBG", pan: 0, pitch: 100, volume: 100});
+        }
     }
 
     window.TextBox = TextBox;
@@ -800,6 +839,7 @@ function Scene_InputDialog() {
     Window_Loading.prototype.initialize = function (x, y, w, h) {
         Window_Base.prototype.initialize.call(this, x, y, w, h);
         ImageManager.reservePicture("server");
+        this.refresh();
     }
 
 
@@ -813,5 +853,10 @@ function Scene_InputDialog() {
         }
     }
 
+    Window_Loading.prototype.refresh = function () {
+        if(loading) {
+            this.drawLoad();
+        }
+    }
 
 })();

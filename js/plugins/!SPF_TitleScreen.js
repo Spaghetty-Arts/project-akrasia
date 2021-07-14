@@ -58,7 +58,7 @@ SAF.Title = SAF.Title || {};
   //commands good
 Scene_Title.prototype.createCommandWindow = function () {
     this._commandWindow = new Window_TitleCommand();
-    let list = ['new game','multiplayer', 'load', 'options', 'exit'];
+    let list = ['new game','multiplayer', 'load', 'options','Credits', 'exit'];
     for (let i = 0; i < list.length; i++) {
         let command = list[i];
         if (command.includes('new game')) {
@@ -68,6 +68,8 @@ Scene_Title.prototype.createCommandWindow = function () {
             this._commandWindow.setHandler('multiplayer', this.commandMulti.bind(this));
         } else if (command.includes('options')) {
             this._commandWindow.setHandler('options', this.commandOptions.bind(this));
+        } else if (command.includes('Credits')) {
+            this._commandWindow.setHandler('Credits', this.commandCredit.bind(this));
         } else if (command.includes('exit')) {
             this._commandWindow.setHandler('Exit', this.commandToQuit.bind(this));
         }
@@ -99,6 +101,11 @@ Scene_Title.prototype.commandMulti = function () {
     enterLobby();
 };
 
+Scene_Title.prototype.commandCredit = function () {
+    if (this._commandWindow) this._commandWindow.close();
+    this.fadeOutAll();
+    enterCredits();
+};
     //Done good
   Scene_Title.prototype.LoadSuccess = function() {
     if (this._commandWindow) this._commandWindow.close();
@@ -361,7 +368,7 @@ Window_TitleCommand.initCommandPosition = function() {
 
   //done
 Window_TitleCommand.prototype.makeCommandList = function () {
-    let list = ['Continue', 'New Game', 'Load', 'multiplayer', 'Options', 'Exit'];
+    let list = ['Continue', 'New Game', 'Load', 'multiplayer', 'Options', 'Credits','Exit'];
     for (let i = 0; i < list.length; i++) {
         let cmd = list[i].toLowerCase();
         if (cmd.includes('new game')) {
@@ -371,6 +378,7 @@ Window_TitleCommand.prototype.makeCommandList = function () {
             this.addCommand('Multiplayer', 'multiplayer');
         } else if (cmd.includes('options')) {
             this.addCommand("Options", 'options');
+            this.addCommand("Creditos", 'Credits');
         } else if (cmd.includes('exit')) {
             this.addCommand("Exit", 'Exit');
         }

@@ -5,8 +5,7 @@
     let _Scene_Map_start = Scene_Map.prototype.start;
     Scene_Map.prototype.start = function() {
         _Scene_Map_start.call(this);
-        this._muhWindow = new Window_MultiHud(0, 545, 350, 80);
-        this._muhEWindow = new Window_MultiHud(467, 545, 350, 80);
+        this._muhWindow = new Window_MultiHud(0, 0, 350, 80);
     };
 
     let _Scene_Map_update = Scene_Map.prototype.update;
@@ -15,10 +14,8 @@
         _Scene_Map_update.call(this);
         if(open) {
             this.addWindow(this._muhWindow);
-            this.addWindow(this._muhEWindow);
         }
         this._muhWindow.refresh(0);
-        this._muhEWindow.refresh(1);
     };
 
     openMU = function () {
@@ -44,19 +41,11 @@
         this.contents.fontSize = 20;
         this.changeTextColor("#08e500");
         this.drawPicture("heart", 0, -5, false);
-        if(user == 0) {
-            this.drawText("binogamer - ", 50, 5);
-        } else {
-            this.drawText("Inimigo - ", 50, 5);
-        }
+        this.drawText("Inimigo - ", 50, 5);
 
         this.changeTextColor("#e50000");
 
-        if(user == 0) {
-            this.drawText(100, 200, 5);
-        } else {
-            this.drawText(100, 200, 5);
-        }
+        this.drawText(enemieHealth, 200, 5);
     }
 
 

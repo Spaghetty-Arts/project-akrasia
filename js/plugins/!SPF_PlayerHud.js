@@ -80,8 +80,22 @@
             //this.drawActorHp($gameParty.leader(), 30, 0, 200);
             if (!$gameSwitches.value(30)) {
                 this.drawPicture("heart", 0, 0, false);
-                this.drawPicture("bar1", 25, -8, false);
-                this.drawActorHp($gameParty.leader(), 50, -9.5, 205, 16);
+
+
+                if(typeof playerLife !== 'undefined') {
+                    if (playerLife > 50) {
+                        this.drawTextEx("\\c[11]"+playerLife, 60, 5);
+                    } else if (playerLife <= 50 && playerLife > 15) {
+                        this.drawTextEx("\\c[17]"+playerLife, 60, 5)
+                    } else if (playerLife <= 15) {
+                        this.drawTextEx("\\c[10]"+playerLife, 60, 5)
+                    }
+
+                } else {
+                    this.drawPicture("bar1", 25, -8, false);
+                    this.drawActorHp($gameParty.leader(), 50, -9.5, 205, 16);
+                }
+
             }
 
             if ($gameSwitches.value(secondHud)) {
@@ -102,8 +116,8 @@
                     this.drawPicture("money", 0, 0, false);
                     this.drawTextEx("\\c[11]"+$gameParty._gold, 40, 0);
                     if ($gameSwitches.value(29)) {
-                        this.drawPicture("chips", 120, 0, false);
-                        this.drawTextEx("\\c[10]"+$gameVariables.value(26), 160, 0);
+                        this.drawPicture("chips", 220, 0, false);
+                        this.drawTextEx("\\c[10]"+$gameVariables.value(26), 260, 0);
                     }
                 }
 

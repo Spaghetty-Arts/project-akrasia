@@ -87,6 +87,37 @@
 
 	}
 
+	resetSP2 = function () {
+		let resetN = $gameVariables.value(5);
+
+		$gameVariables.setValue(2, 0);
+		$gameVariables.setValue(3, 0);
+		$gameVariables.setValue(4, 0);
+		$gameSwitches.setValue(17, true);
+		$gamePlayer.reserveTransfer(54, 7, 6, 8, 0);
+		resetN -=1;
+		$gameVariables.setValue(5, resetN);
+		$gameSwitches.setValue(2, false);
+
+	}
+
+	clearH = function () {
+		$gameVariables.setValue(2, 0);
+		$gameVariables.setValue(3, 0);
+		$gameVariables.setValue(4, 0);
+		$gameSwitches.setValue(17, true);
+	}
+
+	restoreH = function () {
+		$gameSwitches.setValue(17, false);
+		$gameSwitches.setValue(2, true);
+	}
+
+	damageHack = function () {
+		playerLife -= 10;
+		$gameVariables.setValue(86, playerLife);
+	}
+
 	hackFail = function () {
 		AudioManager.playSe({name: "error", pan: 0, pitch: 100, volume: 100});
 		$gameMessage.add("Failed");

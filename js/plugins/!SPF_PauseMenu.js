@@ -35,6 +35,14 @@
         this.windowskin = ImageManager.loadSystem('WindowMenu');
     }
 
+    Window_Help.prototype.loadWindowskin = function () {
+        this.windowskin = ImageManager.loadSystem('WindowMenu');
+    }
+
+    Window_ChoiceList.prototype.loadWindowskin = function () {
+        this.windowskin = ImageManager.loadSystem('Window');
+    }
+
     /*
     Background
      */
@@ -85,9 +93,10 @@
                         volume: 100
                     };
                     if (!AudioManager.isCurrentBgm(bgm)) {
-
+                        AudioManager.bgsVolume = 0;
                         AudioManager.saveMenuBgm(key, AudioManager.saveBgm());
                         AudioManager.playBgm(bgm);
+
                     }
                     break;
                 }
@@ -102,6 +111,7 @@
         {
             AudioManager.replayMenuBgmBgs(this._musicListKey);
         }
+        AudioManager.bgsVolume = 100;
         _Scene_Base_popScene.call(this);
     };
 
@@ -115,4 +125,5 @@
 
         else AudioManager.stopBgm();
     };
+
 })();

@@ -95,15 +95,16 @@
         this.drawText(playerMoney, 460, 120);
         this.drawText(playerWin, 260, 250);
         this.drawText(playerLose, 570, 250);
+
         switch (playerRank) {
             case 1:
-                this.drawPicture("bronze", 150, 325, false);
+                this.drawPicture("bronze", 150, 340, false);
                 break;
             case 2:
-                this.drawPicture("silver", 150, 325, false);
+                this.drawPicture("silver", 150, 340, false);
                 break;
             case 3:
-                this.drawPicture("gold", 150, 342, false);
+                this.drawPicture("gold", 150, 340, false);
                 break;
         }
     }

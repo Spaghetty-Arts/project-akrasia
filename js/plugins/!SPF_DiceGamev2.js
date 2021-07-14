@@ -305,6 +305,7 @@ function Dice_Picture() {
                 var throwing_val_4 = shuffle_val[0];
                 this._dice_throwings[dice_group][j] = true;
                 final_value += throwing_val_4;
+                //console.log(final_value);
                 for(var i=0; i<6; i++) {
                     var tmp = [];
                     var x = this._dice_picture_3d_array[dice_group][j][i].x();

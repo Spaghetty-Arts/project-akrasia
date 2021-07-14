@@ -6,19 +6,52 @@
 
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                    alert("Conta criada com sucesso");
-                    Scene_InputDialog.prototype.afterResponse();
+                    swal({
+                        title: "Sucesso!",
+                        text: "Conta criada com sucesso!",
+                        icon: "info",
+                        button: "Ok",
+                        timer: 5000,
+                    }).then((value) => {
+                        Scene_InputDialog.prototype.afterResponse();
+                    });
                 } else if (this.readyState == 4 && this.status == 409) {
-                    alert("Já existe uma conta com esse username/email");
+                    swal({
+                        title: "Erro!",
+                        text: "Já existe um conta com esses dados!",
+                        icon: "error",
+                        button: "Ok",
+                        timer: 5000,
+                    });
                 } else if (this.readyState == 4 && this.status == 500) {
-                    alert("Ocorreu um erro no servidor");
+                    swal({
+                        title: "Erro!",
+                        text: "Ocorreu um erro no servidor!",
+                        icon: "error",
+                        button: "Ok",
+                        timer: 5000,
+                    }).then((value) => {
+                        Scene_InputDialog.prototype.afterResponse();
+                    });
                     Scene_InputDialog.prototype.afterResponse();
                 }
                 loadAjax(false);
 
             };
 
-            xhttp.open("POST", "http://localhost:8080/auth/register", true);
+            xhttp.onerror = function(e){
+                swal({
+                    title: "Erro!",
+                    text: "Ocorreu um erro no servidor!",
+                    icon: "error",
+                    button: "Ok",
+                    timer: 5000,
+                }).then((value) => {
+                    Scene_InputDialog.prototype.afterResponse();
+                });
+            };
+
+            xhttp.open("POST", "http://"+iprest+"/auth/register", true);
 
             xhttp.setRequestHeader("Content-Type", "application/json");
 
@@ -27,9 +60,25 @@
             loadAjax(true);
         } catch (e) {
             if(e.name == 'NetworkError'){
-                alert("Existem problemas com o servidor tenta mais tarde");
+                swal({
+                    title: "Erro!",
+                    text: "Ocorreu um erro no servidor!",
+                    icon: "error",
+                    button: "Ok",
+                    timer: 5000,
+                }).then((value) => {
+                    Scene_InputDialog.prototype.afterResponse();
+                });
             } else {
-                alert("Existem problemas tenta mais tarde");
+                swal({
+                    title: "Erro!",
+                    text: "Existem problemas tenta mais tarde!",
+                    icon: "error",
+                    button: "Ok",
+                    timer: 5000,
+                }).then((value) => {
+                    Scene_InputDialog.prototype.afterResponse();
+                });
             }
         }
     }
@@ -46,31 +95,86 @@
                     let obj = this.response;
                     saveData(obj);
                     //console.log(playerName);
-                    alert("Login com sucesso");
-                    DataManager.setupMultiGame();
-                    SceneManager.goto(Scene_Map);
+                    swal({
+                        title: "Sucesso!",
+                        text: "O login ocorreu com sucesso!",
+                        icon: "info",
+                        button: "Ok",
+                        timer: 5000,
+                    }).then((value) => {
+                            DataManager.setupMultiGame();
+                            SceneManager.goto(Scene_Map);
+                    });
+
 
                 } else if (this.readyState == 4 && this.status == 401) {
-                    alert("Autenticação sem sucesso");
+                    swal({
+                        title: "Erro!",
+                        text: "Autenticação sem sucesso!",
+                        icon: "error",
+                        button: "Ok",
+                        timer: 5000,
+                    }).then((value) => {
+                        Scene_InputDialog.prototype.afterResponse();
+                    });
                 } else if (this.readyState == 4 && this.status == 403) {
-                    alert("Dados Errados");
+                    swal({
+                        title: "Erro!",
+                        text: "Dados errados",
+                        icon: "error",
+                        button: "Ok",
+                        timer: 5000,
+                    }).then((value) => {
+                        Scene_InputDialog.prototype.afterResponse();
+                    });
                 }else if (this.readyState == 4 && this.status == 404) {
-                    alert("Utilizador não existe");
+                    swal({
+                        title: "Erro!",
+                        text: "Utilizador não existe!",
+                        icon: "error",
+                        button: "Ok",
+                        timer: 5000,
+                    }).then((value) => {
+                        Scene_InputDialog.prototype.afterResponse();
+                    });
                 } else if (this.readyState == 4 && this.status == 409) {
-                    alert("Utilizador está a jogar de momento");
+                    swal({
+                        title: "Erro!",
+                        text: "Já está aberta uma sessão!",
+                        icon: "error",
+                        button: "Ok",
+                        timer: 5000,
+                    }).then((value) => {
+                        Scene_InputDialog.prototype.afterResponse();
+                    });
                 }  else if (this.readyState == 4 && this.status == 500) {
-                    alert("Ocorreu um erro no servidor");
-                    Scene_InputDialog.prototype.afterResponse();
+                    swal({
+                        title: "Erro!",
+                        text: "Ocorreu um erro no servidor!",
+                        icon: "error",
+                        button: "Ok",
+                        timer: 5000,
+                    }).then((value) => {
+                        Scene_InputDialog.prototype.afterResponse();
+                    });
                 }
 
                 loadAjax(false);
             };
 
             xhttp.onerror = function(e){
-                alert("Existem problemas com o servidor tenta mais tarde");
+                swal({
+                    title: "Erro!",
+                    text: "Ocorreu um erro no servidor!",
+                    icon: "error",
+                    button: "Ok",
+                    timer: 5000,
+                }).then((value) => {
+                    Scene_InputDialog.prototype.afterResponse();
+                });
             };
 
-            xhttp.open("PUT", "http://localhost:8080/auth/login", true);
+            xhttp.open("PUT", "http://"+iprest+"/auth/login", true);
 
             xhttp.setRequestHeader("Content-Type", "application/json");
 
@@ -81,10 +185,26 @@
             loadAjax(true);
         } catch (e) {
             if(e.name == 'NetworkError'){
-                alert("Existem problemas com o servidor tenta mais tarde");
+                swal({
+                    title: "Erro!",
+                    text: "Existem problemas com o servidor tenta mais tarde!",
+                    icon: "error",
+                    button: "Ok",
+                    timer: 5000,
+                }).then((value) => {
+                    Scene_InputDialog.prototype.afterResponse();
+                });
             }
             else {
-                alert("Existem problemas tenta mais tarde");
+                swal({
+                    title: "Erro!",
+                    text: "Existem problemas com o servidor tenta mais tarde!",
+                    icon: "error",
+                    button: "Ok",
+                    timer: 5000,
+                }).then((value) => {
+                    Scene_InputDialog.prototype.afterResponse();
+                });
             }
         }
     }
@@ -96,28 +216,77 @@
 
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                    alert("Reset enviado para o email " + mail);
-                    Scene_InputDialog.prototype.afterResponse();
+                    swal({
+                        title: "Sucesso!",
+                        text: "Reset enviado para o email " + mail,
+                        icon: "info",
+                        button: "Ok",
+                        timer: 5000,
+                    }).then((value) => {
+                        Scene_InputDialog.prototype.afterResponse();
+                    });
+
+
                 } else if (this.readyState == 4 && this.status == 409) {
-                    alert("Email não pertence a uma conta");
+                    swal({
+                        title: "Erro!",
+                        text: "Email não está associado a nenhuma conta",
+                        icon: "error",
+                        button: "Ok",
+                        timer: 5000,
+                    });
                 } else if (this.readyState == 4 && this.status == 500) {
-                    alert("Ocorreu um erro no servidor");
-                    Scene_InputDialog.prototype.afterResponse();
+                    swal({
+                        title: "Erro!",
+                        text: "Ocorreu um erro no servidor!",
+                        icon: "error",
+                        button: "Ok",
+                        timer: 5000,
+                    }).then((value) => {
+                        Scene_InputDialog.prototype.afterResponse();
+                    });
                 }
                 loadAjax(false);
             };
 
+            xhttp.onerror = function(e){
+                swal({
+                    title: "Erro!",
+                    text: "Ocorreu um erro no servidor!",
+                    icon: "error",
+                    button: "Ok",
+                    timer: 5000,
+                }).then((value) => {
+                    Scene_InputDialog.prototype.afterResponse();
+                });
+            };
 
-            let url = encodeURI("http://localhost:8080/auth/reset/"+mail);
+            let url = encodeURI("http://"+iprest+"/auth/reset/"+mail);
             xhttp.open("POST", url, true);
 
             xhttp.send();
             loadAjax(true);
         } catch (e) {
             if(e.name == 'NetworkError'){
-                alert("Existem problemas com o servidor tenta mais tarde");
+                swal({
+                    title: "Erro!",
+                    text: "Ocorreu um erro no servidor!",
+                    icon: "error",
+                    button: "Ok",
+                    timer: 5000,
+                }).then((value) => {
+                    Scene_InputDialog.prototype.afterResponse();
+                });
             } else {
-                alert("Existem problemas tenta mais tarde");
+                swal({
+                    title: "Erro!",
+                    text: "Ocorreu um erro tenta mais tarde!",
+                    icon: "error",
+                    button: "Ok",
+                    timer: 5000,
+                }).then((value) => {
+                    Scene_InputDialog.prototype.afterResponse();
+                });
             }
         }
     }
@@ -128,32 +297,82 @@
 
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                    alert("Nome alterado com sucesso");
-                    playerName = user;
-                    Scene_InputDialog.prototype.afterResponse();
+                    swal({
+                        title: "Sucesso!",
+                        text: "Nome alterado com sucesso",
+                        icon: "info",
+                        button: "Ok",
+                        timer: 5000,
+                    }).then((value) => {
+                        let obj = this.response;
+                        saveData(obj);
+                        Scene_InputDialog.prototype.afterResponse();
+                    });
+
                 } else if (this.readyState == 4 && this.status == 401) {
-                    alert("Erro");
+                    swal({
+                        title: "Erro!",
+                        text: "Username já existe!",
+                        icon: "error",
+                        button: "Ok",
+                        timer: 5000,
+                    }).then((value) => {
+                        Scene_InputDialog.prototype.afterResponse();
+                    });
                 } else if (this.readyState == 4 && this.status == 500) {
-                    alert("Ocorreu um erro no servidor");
-                    SceneManager.exit();
-                    window.close();
+                    swal({
+                        title: "Erro!",
+                        text: "Ocorreu um erro tenta mais tarde!",
+                        icon: "error",
+                        button: "Ok",
+                        timer: 5000,
+                    }).then((value) => {
+                        Scene_InputDialog.prototype.afterResponse();
+                    });
+
+                } else if (this.readyState == 4 && this.status == 409) {
+                    swal({
+                        title: "Erro!",
+                        text: "Username já existe",
+                        icon: "error",
+                        button: "Ok",
+                        timer: 5000,
+                    });
                 }
 
             };
 
-            xhttp.open("PUT", "http://localhost:8080/user/changeName/", true);
+            xhttp.open("PUT", "http://"+iprest+"/user/changeName/", true);
 
             xhttp.setRequestHeader("Authorization", "Bearer " + playerToken);
             xhttp.setRequestHeader("Content-Type", "application/json");
+
+            xhttp.responseType = 'json';
 
             var data = JSON.stringify({"id": playerID, "username": user});
             xhttp.send(data);
 
         } catch (e) {
             if(e.name == 'NetworkError'){
-                alert("Existem problemas com o servidor tenta mais tarde");
+                swal({
+                    title: "Erro!",
+                    text: "Ocorreu um erro tenta mais tarde!",
+                    icon: "error",
+                    button: "Ok",
+                    timer: 5000,
+                }).then((value) => {
+                    Scene_InputDialog.prototype.afterResponse();
+                });
             } else {
-                alert("Existem problemas tenta mais tarde");
+                swal({
+                    title: "Erro!",
+                    text: "Ocorreu um erro tenta mais tarde!",
+                    icon: "error",
+                    button: "Ok",
+                    timer: 5000,
+                }).then((value) => {
+                    Scene_InputDialog.prototype.afterResponse();
+                });
             }
         }
     }
@@ -167,19 +386,3 @@
         $gamePlayer.reserveTransfer(31, 5,  16);
         Graphics.frameCount = 0;
     };
-
-saveData = function (obj) {
-    playerID = obj.id;
-    playerName = obj.username;
-    playerToken = obj.user_token;
-    playerGotReward = obj.got_reward;
-    playerDaily = obj.login_reward;
-
-    playerMoney = obj.money;
-    playerALevel = obj.life;
-    playerLife = playerALevel * 100;
-
-    playerWin = obj.win;
-    playerLose = obj.lose;
-    playerRank = obj.rank;
-}

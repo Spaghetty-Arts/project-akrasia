@@ -9,16 +9,11 @@
 
     checkCurr = function (val) {
         if(playerMoney >= val) {
-            playerMoney = playerMoney - val;
             return true;
         }
         return false;
     }
 
-    updateArmor = function () {
-        playerALevel++;
-        playerLife = playerALevel * 100;
-    }
 
     ajaxChangePlayerArmor = function () {
         try {
@@ -26,7 +21,8 @@
 
             xhttp.onreadystatechange = function() {
                 if (this.readyState == 4 && this.status == 200) {
-                    //good
+                    let obj = this.response;
+                    saveData(obj);
                 } else if (this.readyState == 4 && this.status == 400) {
                     alert("Aconteceu algo");
                 }else if (this.readyState == 4 && this.status == 403) {
@@ -39,11 +35,13 @@
 
             };
 
-            xhttp.open("PUT", "http://localhost:8080/user/updateArmor/", true);
+            xhttp.open("PUT", "http://"+iprest+"/user/updateArmor/", true);
             xhttp.setRequestHeader("Authorization", "Bearer " + playerToken);
             xhttp.setRequestHeader("Content-Type", "application/json");
 
-            var data = JSON.stringify({"id": playerID, "money": playerMoney, "life": playerALevel});
+            xhttp.responseType = 'json';
+
+            var data = JSON.stringify({"id": playerID});
             xhttp.send(data);
 
         } catch (e) {

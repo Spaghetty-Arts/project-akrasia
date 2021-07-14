@@ -48,25 +48,27 @@ and detect the player in a range of 8 tiles.
 
     function actionNPC(npc){
 
-        npc = $gameMap._events[npc];
-        var totalDist = getDistance(npc);
+        if ($gameSelfSwitches.value([$gameMap.mapId(), npc, 'A'])) {
+            npc = $gameMap._events[npc];
+            var totalDist = getDistance(npc);
 
-        if(totalDist == 1){
-            npc._moveType = 0;
-            npc.setDirection(npc.findDirectionTo($gamePlayer.x, $gamePlayer.y));
+            if(totalDist == 1){
+                npc._moveType = 0;
+                npc.setDirection(npc.findDirectionTo($gamePlayer.x, $gamePlayer.y));
 
-            doAttack();
+                meleeAtack();
 
-        } else if (totalDist < distance) {
-            npc.setMoveSpeed(4.5);
-            npc.setMoveFrequency(4.5);
-            npc._moveType = 2;
+            } else if (totalDist < distance) {
+                npc.setMoveSpeed(4);
+                npc.setMoveFrequency(5);
+                npc._moveType = 2;
 
-        }else{
-            npc.setMoveFrequency(4);
-            npc.setMoveSpeed(3.5);
-            npc._moveType = 1;
+            }else{
+                npc.setMoveFrequency(5);
+                npc.setMoveSpeed(3);
+                npc._moveType = 1;
 
+            }
         }
             
     }
@@ -94,18 +96,18 @@ and detect the player in a range of 8 tiles.
 
     }
   
-    function doAttack() {
+    function meleeAtack() {
         $gamePlayer.requestAnimation(0);
         iterationCounter++;
 
         if (iterationCounter % hit_random_num === 0) {
             hit_random_num = getRandomInt(min_hit_value, max_hit_value);
-            $gamePlayer.requestAnimation(7);
+            $gamePlayer.requestAnimation(129);
+            AudioManager.playSe({name: "Paralyze2", pan: 0, pitch: 100, volume: 100});
                             
-            $gameActors.actor(1)._hp -= getRandomInt(1, 20);
-
-            changeDebugText("Player life: " + $gameActors.actor(1)._hp);
-
+            playerLife -= 10;
+            $gameVariables.setValue(86, playerLife);
+            $gameSelfSwitches.setValue([$gameMap._mapId, eventID, "B"], true);
         }
     }
 
@@ -146,6 +148,4 @@ and detect the player in a range of 8 tiles.
 
     }
 
-    
-          
 })(); 
