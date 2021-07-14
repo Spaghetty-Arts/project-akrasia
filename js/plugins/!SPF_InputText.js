@@ -590,7 +590,12 @@ function Scene_InputDialog() {
         } else if (loginRegister == 2) {
             this._backgroundSprite.bitmap = ImageManager.loadPicture("computerReset");
         } else if (loginRegister == 3) {
-            this._backgroundSprite.bitmap = ImageManager.loadPicture("computerUser");
+            if (userN == 0) {
+                this._backgroundSprite.bitmap = ImageManager.loadPicture("computerUser");
+            } else {
+                this._backgroundSprite.bitmap = ImageManager.loadPicture("computerPVP");
+            }
+
         }
 
         this.addChild(this._backgroundSprite);

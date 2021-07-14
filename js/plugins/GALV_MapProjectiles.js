@@ -645,6 +645,7 @@ Galv.PROJ.executeAction = function(action,target) {
 				case '55':
 			  		decrementaVida();
 					AudioManager.playSe({name: "pain", pan: 0, pitch: 100, volume: 100});
+					$gamePlayer.requestAnimation(130);
 			  	break;
 			}
 			break;
