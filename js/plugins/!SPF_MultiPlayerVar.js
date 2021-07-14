@@ -43,7 +43,7 @@ saveData = function (obj) {
 
     playerMoney = obj.money;
     playerALevel = obj.life;
-    playerLife = playerALevel * 100;
+    playerLife = (playerALevel * 10) + 100;
 
     playerWin = obj.win;
     playerLose = obj.lose;
