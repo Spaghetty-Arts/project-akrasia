@@ -130,6 +130,7 @@ if(dispok==1){
 
                 shootAnimation(4, 0);
                 Galv.PROJ.dir(1,0,8,4,'bullet0(8,5)',130,'c(55)|c(2)',[5],[],3,1);
+                $gamePlayer.requestAnimation(130);
                 AudioManager.playSe({name: "pistolShot", pan: 0, pitch: 100, volume: 100});
                 dispok=0;
                 $gameSelfSwitches.setValue([$gameMap._mapId, 19, "A"], true);

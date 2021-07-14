@@ -624,6 +624,7 @@ Galv.PROJ.executeAction = function(action,target) {
 						attackE(target.eventId(), 10);
 					} else {
 						AudioManager.playSe({name: "pain", pan: 0, pitch: 100, volume: 100});
+						$gameMap.event(1).requestAnimation(130);
 					}
 					break;
 				case '3':
