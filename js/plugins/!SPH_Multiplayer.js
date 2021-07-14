@@ -11,31 +11,26 @@ var ida; // id do adversario
 
 var dispok=1;
 
-var para2=0;
+var parastart=0;
 function startgame() {
- if (para2==0){
+ if (parastart==0){
   if(id>=ida){
     console.log('----------------------------VERMELHO');
-    $gameActors.actor(1).setCharacterImage("zeke_arma", 0);
-    $gamePlayer.refresh();
+  //  $gameActors.actor(1).setCharacterImage("zeke_arma", 0);
+  //  $gamePlayer.refresh();
     $gameMap.event(1).setImage("zeke_arma2", 0);
-    $gameMap.event(1).x=27;
-    $gameMap.event(1).y=19;
-    $gameMap.event(-1).x=13;
-    $gameMap.event(-1).y=19;
-
+    $gameMap.event(1).setPosition(13, 19);
+    $gamePlayer.locate(27, 19);
   }else{
     console.log('----------------------------VERDE');
-    $gameActors.actor(1).setCharacterImage("zeke_arma2", 0);
-    $gamePlayer.refresh();
-    $gameMap.event(1).setImage("zeke_arma", 0);
-    $gameMap.event(1).x=13;
-    $gameMap.event(1).y=19;
-    $gameMap.event(-1).x=27;
-    $gameMap.event(-1).y=19;
+  //  $gameActors.actor(1).setCharacterImage("zeke_arma", 0);
+  //  $gamePlayer.refresh();
+    $gameMap.event(1).setImage("zeke_arma2", 0);
+    $gameMap.event(1).setPosition(27, 19);
+    $gamePlayer.locate(13, 19);
   }
 
-para2=1;
+parastart=1;
 openMU();
 }
 }
@@ -71,7 +66,7 @@ var dir=$gamePlayer.direction();
             lifead:playerLife,
             arma:armaAtual,
         };
-        console.log(data);
+      //  console.log(data);
   /*      waitForSocketConnection(ws, function() {
       ws.send(JSON.stringify(data));
 });
@@ -134,7 +129,7 @@ function verifica(){
 if(dispok==1){
 
                 shootAnimation(4, 0);
-                Galv.PROJ.dir(1,0,8,4,'bullet0(8,5)',125,'c(55)|e',[5],[],3,1);
+                Galv.PROJ.dir(1,0,8,4,'bullet0(8,5)',130,'c(55)|c(2)',[5],[],3,1);
                 AudioManager.playSe({name: "pistolShot", pan: 0, pitch: 100, volume: 100});
                 dispok=0;
                 $gameSelfSwitches.setValue([$gameMap._mapId, 19, "A"], true);
