@@ -1,4 +1,4 @@
-const wss = new WebSocket('ws://84.90.189.228:70/chat');
+const wss = new WebSocket('ws://project-akrasia-websockets.herokuapp.com:70/chat');
 
 
 
@@ -129,9 +129,10 @@ id=playerID;
 
 
 }else{
+  changeState(1);
 swal("Recusado", "Hora de voltar à Loby!");
   $gamePlayer.reserveTransfer(31, 15,  8);
-  changeState(1);
+
 }
 
 }

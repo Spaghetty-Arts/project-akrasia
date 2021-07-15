@@ -140,7 +140,7 @@
                 } else if (this.readyState == 4 && this.status == 409) {
                     swal({
                         title: "Erro!",
-                        text: "Já está aberta uma sessão!",
+                        text: "Já está aberta uma sessão, iremos fecha-la! Inice sessão novamente!",
                         icon: "error",
                         button: "Ok",
                         timer: 5000,

@@ -25,18 +25,43 @@
 
 
                 } else if (this.readyState == 4 && this.status == 401) {
-                    alert("Autenticação sem sucesso");
-                } else if (this.readyState == 4 && this.status == 403) {
-                    alert("Dados Errados");
-                }else if (this.readyState == 4 && this.status == 404) {
-                    alert("Utilizador não existe");
-                } else if (this.readyState == 4 && this.status == 409) {
-                    alert("Utilizador está a jogar de momento");
-                }  else if (this.readyState == 4 && this.status == 500) {
+                  swal({
+                      title: "Erro!",
+                      text: "Token de Sessão Inválido!",
+                      icon: "error",
+                      button: "Ok",
+                      timer: 5000,
+                  });
+                } else if (this.readyState == 4 && this.status == 404) {
+
+                    swal({
+                        title: "Erro!",
+                        text: "Utilizador não existe!",
+                        icon: "error",
+                        button: "Ok",
+                        timer: 5000,
+                    });
+                } else if (this.readyState == 4 && this.status == 500) {
                     alert("Ocorreu um erro no servidor");
                     Scene_InputDialog.prototype.afterResponse();
+                }else if (this.readyState == 4 && this.status == 409) {
+                    swal({
+                        title: "Erro!",
+                        text: "O adversário não está disponível",
+                        icon: "error",
+                        button: "Ok",
+                        timer: 5000,
+                    });
                 }
-
+                else if (this.readyState == 4 && this.status == 400) {
+                    swal({
+                        title: "Erro!",
+                        text: "Este é o seu username tente combater com outro jogador!",
+                        icon: "error",
+                        button: "Ok",
+                        timer: 5000,
+                    });
+                }
             };
 
             xhttp.onerror = function(e){

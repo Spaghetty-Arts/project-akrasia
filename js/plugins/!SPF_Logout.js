@@ -1,5 +1,5 @@
 (function () {
-    
+
     logout = function () {
             try {
                 var xhttp = new XMLHttpRequest();
@@ -18,7 +18,7 @@
 
                 };
 
-                xhttp.open("PUT", "http://localhost:8080/user/logout/", true);
+                xhttp.open("PUT", "http://"+iprest+"/user/logout/", true);
                 xhttp.setRequestHeader("Authorization", "Bearer " + playerToken);
                 xhttp.setRequestHeader("Content-Type", "application/json");
 
