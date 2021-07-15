@@ -1,4 +1,4 @@
-const wss = new WebSocket('ws://project-akrasia-websockets.herokuapp.com/chat');
+const wss = new WebSocket('ws://84.90.189.228:70/chat');
 
 
 
