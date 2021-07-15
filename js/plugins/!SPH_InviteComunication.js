@@ -129,9 +129,10 @@ id=playerID;
 
 
 }else{
+  changeState(1);
 swal("Recusado", "Hora de voltar à Loby!");
   $gamePlayer.reserveTransfer(31, 15,  8);
-  changeState(1);
+
 }
 
 }
