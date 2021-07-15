@@ -1,4 +1,4 @@
-const ws = new WebSocket('ws://project-akrasia-websockets.herokuapp.com:70/chat');
+const ws = new WebSocket('ws://project-akrasia-websockets.herokuapp.com/chat');
 
 var xpos=2;
 var ypos=1;
