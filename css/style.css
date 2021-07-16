@@ -1059,8 +1059,8 @@
 
 
 .profile {
-    width: 315px;
-    height: 261px;
+    width: 300px;
+    height: 300px;
     border-radius: 25px;
     transition: .5s ease;
     backface-visibility: hidden;
